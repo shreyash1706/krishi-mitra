@@ -1,0 +1,37 @@
+# --- Python & Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# --- Large AI Models (CRITICAL) ---
+*.gguf
+*.bin
+models/
+# If you want to keep the folder structure but ignore files inside:
+# models/*
+# !models/.gitkeep
+
+# --- OS Junk ---
+.DS_Store
+Thumbs.db
+
+# --- Database & Local Data ---
+*.db
+*.sqlite3
+krishi.db
+# Keep the JSONs, but ignore the user chat logs
+# data/user_logs/
+
+# --- IDE Settings ---
+.vscode/
+.idea/
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# --- Temporary/Lock Files ---
+.~lock.*
+*.swp
