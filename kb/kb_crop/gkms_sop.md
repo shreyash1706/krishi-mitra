@@ -1,0 +1,1087 @@
+## 1. Introduction
+
+Weather is the major factor in crop growth and production. While all other physical factors, inputs and agronomic practices can be manipulated, vagaries of weather cannot be controlled. However, adverse effects on crops can often be mitigated. Thus risk in agricultural operations can be minimized by the provision of weather information properly interpreted for their agricultural significance, containing advisories for farm operation and disseminated well in advance of the impending weather. This is by far the most crucial of all services that can be rendered to the farming community efficiently.
+
+In view of above, Agrometeorological Advisory Service (AAS) are being rendered by India Meteorological Department (IMD), Ministry of Earth Sciences (MoES) under Gramin Krishi Mausam Sewa (GKMS) scheme as a step towards contribution to weather information-based crop/livestock management strategies and operations dedicated to enhancing crop production and food security.
+
+AAS provide a very special kind of inputs to the farmer as advisories that can make a tremendous difference to the agriculture production by taking the advantage of benevolent weather and minimize the adverse impact of malevolent weather. Under AAS, needs of farming community are defined through ascertaining information requirement of diverse groups of end-users. It emerged that prime need of the farmer is location specific weather forecast in quantitative terms. Hence, the same was developed and made operational in June, 2008. Accordingly, mechanism was developed to integrate weather forecast and climatic information along with agrometeorological information to prepare district level agro-advisories with the help of 130 Agromet Field Units (AMFUs), located at State Agricultural Universities, Indian Council of Agricultural Research (ICAR) institutes and Indian Institute of Technology across the country. A system has also been developed to communicate and disseminate the agromet advisories to strengthen the information outreach.
+
+Keeping the need for Agromet Advisory Services (AAS) to be more crop and location-specific to address wide variations in weather within the district into consideration, IMD is in the process of implementing block level AAS by establishing 530 District Agromet Units (DAMUs) phase wise in the premise of Krishi Vigyan Kendras (KVK) in collaboration with Indian Council of Agricultural Research (ICAR). Implementation of block level AAS will be beneficial to more no. of farmers due to high resolution forecast with appropriate agromet advisories for the farmers of specific blocks. Present and Proposed network of GKMS attached in **Annexure 1**
+
+Under GKMS scheme, IMD is generating and issuing quantitative District / Block level weather forecast up to 5 days exclusively for agriculture. The products comprise of quantitative forecasts for major weather parameters *viz.*, rainfall, maximum and minimum temperatures, wind speed and direction, relative humidity and cloudiness. These products are used by the AMFUs / DAMUs for the preparation of district / Block level agromet advisories
+
+twice a week, i.e. on every Tuesday and Friday and dissemination to the farming community to help them in taking appropriate decisions for day-to-day farm operations.
+
+### 1.1 Objective of Scheme
+
+* To continuously improve the existing District level Agromet Advisory Services (AAS) and extend them further to sub district/ block level.
+* To establish District Agromet Units (DAMUs), complimentarily with already operating 130 AMFUs/DAMUs, in collaboration with Indian Council of Agricultural Research (ICAR) at Krishi Vigyan Kendras (KVKs).
+* To expand the existing channels of communication of weather based Agromet Advisories to the farmers so as to expand the outreach to cover all farmer households.
+* Promote Research & Excellence in Agro-meteorology in support of targeted improvement to the operational services.
+
+### 1.2 Current Status
+
+Currently GKMS scheme is being carried out through 130 AMFUs in each Agro-climatic Zone who prepares District level AAB for all the districts under their jurisdiction and also Block level advisories for all the blocks of their respective district location.
+
+Phase wise DAMU establishment in the premises of KVK under GKMS is currently completed at 189 locations and it is targeted to achieve the objective of establishing DAMU by 2021-2022. All the established DAMUs have started to prepare block level AAB for all the blocks of their respective districts. 690 district level AAB in operational mode and ~ 2200 blocks on pilot basis are prepared on every Tuesday and Friday.
+
+### 1.3 Scope of SOP
+
+This document defines the Standard Operating Procedure (SOP) to be followed for Preparation of Agromet Advisory Service (AAS) bulletins in order to achieve the following objectives:
+
+> * To prepare and issue in time, crop specific, weather based District / Block level Agromet Advisory for next 5 days by AMFUs and DAMUs
+> * To collect and organize climate/weather, soil and crop information and to amalgamate them to prepare database for value addition of advisory
+> * Real time verification of the forecast and reporting of weather events
+> * To enhance the outreach and dissemination of services
+> * Collection of feedback and improve the services
+
+### 2. Data and products and their sources
+
+The main data required for preparation of Agromet bulletin are as follows. The format of data collection is provided in **Annexure-2**
+
+#### 2.1. Agronomic Data
+
+* **Cropping pattern of particular district or block.**
+* **Ruling varieties of particular District or block.**
+* **Area under irrigated and rainfed of particular district or block.**
+* **Acreage under different crop-over district/blocks**
+
+*   **Normal date of sowing of different crops and present season sowing dates of particular district or block.**
+*   **Stage & state of major crops over district /blocks**
+*   **Soil moisture data of particular district or block.**
+*   **Crop weather & crop pest relationship**
+
+These are given in detail:
+
+### 2.1.1. Cropping pattern of particular district or block
+
+The information on seasonal cropping pattern like Kharif, Rabi and Summer crops as well as horticultural crops should be collected from State Department of Agriculture or KVK’s or Extension Agronomist in the State Agricultural University (SAU) or can also be collected from website of state agricultural department for area, production and productivity data. This data is required to know which crops are cultivated in particular district or block which will helpful for preparation of Agro-meteorological Advisory Bulletins AAB.
+
+[Provided by AMFU/DAMU with regular updates]
+
+### 2.1.2. Ruling varieties of particular District or block
+
+The information on varieties is essential to know the physiology of particular variety while preparing the AAB so the varietal information for different seasons at district or block level acquired from State Department of Agriculture or KVK’s or Extension Agronomist of SAU with special information on short duration, medium duration or long duration varieties which will help for preparation of AAB.
+
+[Provided by AMFU/DAMU with regular updates]
+
+### 2.1.3. Area under irrigated and rain-fed of particular district or block
+
+While preparing AAB the area under rainfed and irrigated is helpful for creating content especially for rainfed and irrigated area separately. While preparing the AAB data on area under irrigated and rainfed of particular district or block should be collected from State Department of Agriculture or KVK’s or Extension Agronomist of University.
+
+[Provided by AMFU/DAMU]
+
+### 2.1.4. Acreage under different crop-over district/blocks
+
+AMFU/DAMU should keep a track of areas shown under different crops in the beginning of crops session for this purpose a class liaison should be maintain with extension specialist of the institute and the officials of state department of agriculture.
+
+[Provided by AMFU/DAMU]
+
+### 2.1.5. Normal date of sowing of different crops and present season sowing dates of particular district or block
+
+The information on normal dates of sowing of different crops as well as current season sowing dates of particular district or block should be collected from State Department of Agriculture or KVK’s or Extension Agronomist of SAU. This data will help to suggest the farmers for sowing operations and if initiation of monsoon will delay farmers are suggested to
+
+go for contingency crop planning for that particular region. The seed availability information will be shared from line department so that the Agrometeorologists will confidently put some varietal information in AAB. The contingency crop planning manual is available with Central Research Institute for Dryland Agriculture (CRIDA), Hyderabad or form SAU. The contingency crop planning information is available at district level which will be most helpful in semi-arid track while preparing AAB.
+
+[Provided by AMFU/DAMU]
+
+### 2.1.6. Stage & state of major crops over district /blocks
+
+DAMU/AMFU should keep records of stage and state of all the crops in their respective district & blocks any major deviation from normal condition should also be mansion.
+
+Crop condition is most essential for preparation of accurate AAB. According to the crop condition data, we are able to suggest the farmers regarding management of insect, pest, irrigation to the crop, intercultural operations, *etc*.
+
+[Provided by AMFU/DAMU]
+
+### 2.1.7. Soil moisture data of particular district or block
+
+Real time soil moisture data suggest the farmers when to sow the crops or provide protective irrigation in irrigated farming system if soil moisture deficiency occurs at critical growth stages of the crop.
+
+[Agro-AWS data]
+
+### 2.1.8. Crop weather & crop pest relationship
+
+Crop weather and crop pest relationship specific to the area season, crop & crop stage should be compiled from previous research carried out in the area of jurisdiction of respective DAMU/AMFU. This information should be prepared separately for different season and crops and should be referred to while formulating the Agromet advisory bulletin.
+
+[Compiled by AMFU/DAMU]
+
+### 2.2. Weather Data
+
+* Historical rainfall data for at least 30 years of particular district or block, to study climatology of particular district or block.
+* Information of different products on IMD website e.g. NDVI (Normalized Vegetation Difference Index) and SPI (Standard precipitation Index) maps, Satellite images *etc*.
+* Past weather over the crop season
+* Weather forecast and warnings in different time scale (Short, Medium, Extended and Long range weather forecast of particular district or block)
+
+These are given in detail:
+
+### 2.2.1. Historical rainfall data for at least 30 years of particular district or block, to study climatology of particular district or block
+
+Historical rainfall data for at least 30 years of particular district or block should be collected from IMD, State Department of Agriculture, and SAU. This data will helpful for computation of climatology of particular district or block. Once climatology is defined for particular district or block it is easy to prepare AAB. Available long term weather data is provided to the units for climatology study. Customized tools for weather event probability occurrence also prepared at IMD and will be disseminated to the units
+
+[Provided by IMD]
+
+### 2.2.2. Information of different products on IMD website e.g. NDVI (Normalized Vegetation Difference Index) and SPI (Standard precipitation Index) maps, Satellite images *etc.*
+
+The information regarding NDVI, SPI maps and ERFS (Extended Range Weather Forecast) were available on IMD Agrimet website: www.imdagrimet.gov.in and also communicated to all the AMFU’s regularly at spatial level this information is useful for preparation of AAB. Secondly the information regarding satellite images, Radar images, NWP (Numerical Weather Prediction) products, Sever weather warning *etc.* is available on www.mausam.imd.gov.in which will help to know exact weather information and to prepare accurate AAB.
+
+### 2.2.3. Past weather over the crop season
+
+The past weather during the crop session plays an important role in in growth and development of the crops in the area. AMFU’s/DAMU’s should keep systematic record of observed parameters (Tmax, Tmin, Rainfall, Wind Speed, Relative Humidity, Cloud Cover) records of extreme weather events (Heavy Rainfall, Snow Fall, High/Low temperate High winds, hail etc) during the crop session should also be maintain.
+
+[Record Maintained by AMFU/DAMU]
+
+### 2.2.4. Weather forecast and warnings in different time scale
+
+Official weather forecast for the district/block is available from IMD Agro-met DSS (Decision Support System), IMD website, Regional Met Centres/ Met Centres should be considered while formulating the Agromet advisory bulletin.
+
+Source of weather forecast: Agromet DSS (http://agromet.imd.gov.in)
+
+### 2.2.5. Short range weather forecast of particular district or block
+
+Short range weather forecast will give information about weather condition during next five days, which will useful to protect the crop from adverse weather condition *i.e* heat wave, cold wave, hail storm, excess rainfall, dry spell *etc.*
+
+Source: IMD website (www.mausam.imd.gov.in)
+
+# 3. Methodology
+
+*   Consider the stage & state of major crop in district/block including major biotic and abiotic stress (infestation of pest and pest disease deficiency of access rainfall, weather/nutrient stress)
+*   Whether the crop is irrigated or non-irrigated and source of irrigation
+*   Past weather information in the area including its adverse impacts on the different crop
+*   Probability of infestation of pest/disease based on crop-weather crop-pest relationship in the area
+*   Given the weather forecast and warning as provided by IMD, in case of any discrepancy/ doubt AMFU/DAMU should contact the respective Regional Meteorological Centre (RMC)/ Meteorological Centre (MC)
+*   Considering all above information, the panel of experts (including agrometeorology, agronomist, plant protection specialist and extension specialist) should prepare crop specific advisory of the respective district/ block. Advisory committee should be formulated consisting of Subject Matter Specialists from different disciplines at KVK and District Agriculture Officer.
+
+## District/Block Level Agromet Advisory Services System
+
+```mermaid
+graph TD
+    IMD[IMD]
+    DMO[Direct Model Output]
+    PrepForecast[Preparation of District/Block wise medium range weather forecast by State Met Center]
+    AMFU[AMFUs at SAUs, IITs, ICAR Centres, DAMUs at KVKs (ICAR)]
+    PrepAdvisory[Preparation of District/Block specific Agromet advisory Biweekly Tuesday & Friday]
+    Agencies[District/Block level agriculture agencies (DAO/KVK/ATMA/NGO)]
+    Dissemination[Dissemination of District/Block level Agromet Advisory]
+    Farmers[Farmers <br/> (Through mKisan, PPP mode, State Extension Mechanism, Websites, Print & Electronic media, Social Media, Personal Contact etc.)]
+    Feedback[Feedback from farmers]
+
+    IMD --> DMO
+    DMO --> PrepForecast
+    PrepForecast --> AMFU
+    AMFU -->|District/Block level Agromet Advisory, Agromet data & Feedback| IMD
+    AMFU --> PrepAdvisory
+    PrepAdvisory --> AMFU
+    AMFU -->|Agromet Data| Agencies
+    Agencies --> Farmers
+    Farmers -->|Feedback| Feedback
+    Feedback -.-> AMFU
+    Agencies --> Dissemination
+    Dissemination --> Farmers
+```
+
+**Fig 1: Process of Preparation of Agromet Bulletin**
+
+### 4. Timeline for Agromet bulletin preparation
+
+* Respective RMC/MC will provide the value added forecast to all AMFUs and DAMUs by 1200 HRS.
+* Meeting of Advisory Panel consisting of Subject Matter Specialists from different discipline at AMFU/DAMU including Expert from State Department of Agriculture by 1230 hrs.
+* Preparation of operational agromet advisory bulletin and SMS (Short Message Service) by 1500 hrs for different districts/ blocks taking into consideration various forecasts and crop status
+
+### 5. Forecast verification
+
+Verification will be carried out by AMFU/ DAMUs for both District and Block level weather forecast for Direct Model Output and Value added forecast provided by RMCs/Met centres of IMD. Besides, provision for monthly and seasonal verification of direct model output at district and block level will be enabled in Agromet DSS. State wise verification reports available on Agromet-DSS on following link: http://agromet.imd.gov.in/index.php/fss/var_report_all
+
+```mermaid
+graph TD
+    subgraph "Agromet-DSS"
+    A["<b>INPUT</b><br/>DMO Forecast: GFS-T1534 Model Output at 12 km<br/>WRF Model output at 3 Km<br/>Observed Wx Data: Synop Station of IMD<br/>Agromet Observatory data<br/>IMD AWS Data<br/>Available data from State Network"]
+    
+    B["<b>VERIFICATION</b><br/>Qualitative Forecast analysis for Rainfall and<br/>skill calculation (Ratio score, POD, HK, FAR)<br/>Correlation for temperature and other Wx parameter"]
+    
+    C["<b>OUTPUT</b><br/>Monthly/Seasonal Report Generation<br/>for District/Block level forecast at<br/>State level"]
+    
+    A --> B
+    B --> C
+    end
+```
+
+**Fig 2: Forecast Verification in Agromet DSS**
+
+Verification of the value-added forecast received by AMFU/DAMU will be carried out for different districts and blocks at end of every month/ season/ year. The methodology of forecast verification and different scores to be computed are detailed in **Annexure-3**.
+
+**Verification reported by officials at AMFU/DMAU should contain the following point**
+
+1. Need for value addition
+2. Improvement in forecast after value addition
+3. Verification results of value added forecast with Observed data
+    a. Qualitative verification of rainfall (For SW monsoon period) for all five days of the forecast issued (Tuesday and Friday)
+    i. Probability of detection (POD)
+    ii. Critical Success Index (CSI)
+    iii. True skill score (TSS)
+    iv. Heidke skill score (HSS) etc
+* This can be either in graphical or tabular form
+** One representative district of Agroclimatic Zone of the state where surface observatory is present.
+4. Quantitative verification of weather parameters for all five days of the forecast issued (Tuesday and Friday)
+    a. Rainfall during southwest monsoon
+    b. Cloud during southwest monsoon
+    c. Wind speed during southwest monsoon
+    e. Maximum Temperature during pre-monsoon season
+    f. Minimum Temperature during winter season
+* This can be either in graphical or tabular form
+** One representative district of Agroclimatic Zone of the state where surface observatory is present.
+5. Conclusions
+6. Case studies with Model forecast for some districts of the state with observed data particularly rainfall and temperature in hilly regions areas / districts where forecasts are better than average and those where these are poor than average so that the areas which need more focus can be identified.
+7. Suggestion for improvement
+8. Use of Agro-DSS for value addition
+9. Feedback collected from the user community if any.
+
+**Instructions for Forecast Verification**
+
+* Verification of forecast has to be done on day basis i.e first day, second day, third day, fourth day and fifth day during the season. Verification has to be done for value added forecast (for district level).
+
+<table>
+  <thead>
+    <tr>
+        <th>Day of Issue of Forecast</th>
+        <th></th>
+        <th>I<sup>st</sup> Day</th>
+        <th></th>
+        <th>2<sup>nd</sup> Day</th>
+        <th></th>
+        <th>3<sup>rd</sup> Day</th>
+        <th></th>
+        <th>4<sup>th</sup> Day</th>
+        <th></th>
+        <th>5<sup>th</sup> Day</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Tuesday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+        <td colspan="6"></td>
+    </tr>
+    <tr>
+        <td>Friday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td colspan="6"></td>
+    </tr>
+  </tbody>
+</table>
+
+* If the district has more than one observatory, observed weather parameters should be an average value of total number of observatories.
+* Block level forecast verification may be carried out with the available surface observatory data of IMD, block level observations if available from state observatory network and for other block, verification of rainfall forecast may be carried out with DRMS data.
+* RMCs / MCs should share the real time observed rainfall data with AMFUs / DAMUs from the stations other than DRMS for verification purpose.
+* Verification of forecast on weekly basis may be carried out by considering and including the forecasts issued on preceding Tuesday and Friday, i.e., weekly forecast verification report would comprise verification results of the forecast issued on preceding Tuesday and Friday. Verification would involve deviation from observed parameter and categorization of forecast in Correct, Usable, Not usable as per the critera.
+* Verification of forecast on seasonal basis may be carried out on day basis (Day1 to Day5) on cumulative basis by applying quantitative and qualitative verification procedure.
+* AMFUs and DAMUs should share the verification results with RMCs and MCs for improvement purpose.
+* Forecast and observed data may be archived at the station for all the periods.
+* Format of reporting may be followed for interpreting the results of various blocks, districts and state.
+
+### 6. Format of Agromet Advisory Bulletin and SMS advisory
+
+#### 6.1 Agromet Advisory Bulletin:
+District/Block level bulletin issued by AMFU/DAMU on every Tuesday and Friday will comprise of following component
+
+* Past Weather: Observed weather information of last five days in tabular format
+* Quantitative medium range weather forecast for next five days. Based on forecast values weather summary for next 5 days also be kept in the bulletin.
+* Based on weather forecast, abiotic weather related stress for crops livestock, poultry of the district/block need to be formulated. Crop specific advisory should take care of the phenological phases of the crop and their relation with the weather variables based on which weather forecast based agromet advisories are formulated.
+* Category rainfall forecast for the outlook of succeeding week (i.e. 6th to 12th days) to be included in bulletin. Categories are Above normal ($\ge$20%), Normal (-19% to +19%) and below normal ($\le$-20%) applicable at Met Sub-division scale.
+
+**Sample AAB attached in Annexure-4**
+
+#### 6.2 SMS advisory:
+The SMS Bulletin should include the highlights of the Agromet Bulletin issued by AMFU / DAMU to assist farmers in the decision-making process related to agronomic action in field. Message length should be restricted to 262 characters.
+
+Annexure-3
+
+### Verification of District and Block Level Weather Forecast
+
+Verification of forecast has to be done on day basis i.e first day, second day, third day, fourth day and fifth day. Verification has to be done for value added forecast.
+
+<table>
+  <thead>
+    <tr>
+        <th>Day of Issue of Forecast</th>
+        <th>I<sup>st</sup> Day</th>
+        <th>2<sup>nd</sup> Day</th>
+        <th>3<sup>rd</sup> Day</th>
+        <th>4<sup>th</sup> Day</th>
+        <th>5<sup>th</sup> Day</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Tuesday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+    </tr>
+    <tr>
+        <td>Friday</td>
+        <td>Friday</td>
+        <td>Saturday</td>
+        <td>Sunday</td>
+        <td>Monday</td>
+        <td>Tuesday</td>
+    </tr>
+  </tbody>
+</table>
+
+#### I. Weekly Forecast Verification
+**Name of Block / District / State:**
+**Date of Issue of Forecast: ---------- (Tuesday) ---------------------------------- (Friday)**
+
+**Observed and Forecast Weather Parameters:**
+
+<table>
+  <thead>
+    <tr>
+        <th rowspan="2">Weather Parameter</th>
+        <th rowspan="2">Obs / Forecast</th>
+        <th colspan="5">Forecast Issue Day - Tuesday</th>
+        <th colspan="5">Forecast Issue Day - Friday</th>
+    </tr>
+    <tr>
+        <th>Day 1</th>
+        <th>Day 2</th>
+        <th>Day 3</th>
+        <th>Day 4</th>
+        <th>Day 5</th>
+        <th>Day 1</th>
+        <th>Day 2</th>
+        <th>Day 3</th>
+        <th>Day 4</th>
+        <th>Day 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td rowspan="2">Rainfall (mm)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Max. Temp (deg C)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Min. Temp (deg C)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">RH1 (%)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">RH2 (%)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Wind Speed (kmph)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Wind Direction (Deg)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2">Cloud (Okta)</td>
+        <td>Forecast</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Observed</td>
+        <td colspan="10"></td>
+    </tr>
+  </tbody>
+</table>
+
+**Quantitative verification – Forecast Accuracy (C/U/NU):**
+
+<table>
+  <thead>
+    <tr>
+        <th rowspan="2">Forecast Parameter</th>
+        <th colspan="5">Forecast Issue Day - Tuesday</th>
+        <th colspan="5">Forecast Issue Day - Friday</th>
+    </tr>
+    <tr>
+        <th>Day 1</th>
+        <th>Day 2</th>
+        <th>Day 3</th>
+        <th>Day 4</th>
+        <th>Day 5</th>
+        <th>Day 1</th>
+        <th>Day 2</th>
+        <th>Day 3</th>
+        <th>Day 4</th>
+        <th>Day 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Rainfall</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Max. Temp</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Min. Temp</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RH1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RH2</td>
+        <td colspan="10"></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+        <td>Wind Speed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Wind Direction</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Cloud</td>
+        <td colspan="15"></td>
+    </tr>
+  </tbody>
+</table>
+**C - Correct, U - Usable and NU - Not usable**
+
+## II. Season: Pre-monsoon / Monsoon / Post-monsoon / Winter
+### Quantitative verification
+<table>
+  <thead>
+    <tr>
+        <th>Weather</th>
+        <th colspan="3">Day 1</th>
+        <th colspan="3">Day 2</th>
+        <th colspan="3">Day 3</th>
+        <th colspan="3">Day 4</th>
+        <th colspan="3">Day 5</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>C</th>
+        <th>U</th>
+        <th>NU</th>
+        <th>C</th>
+        <th>U</th>
+        <th>NU</th>
+        <th>C</th>
+        <th>U</th>
+        <th>NU</th>
+        <th>C</th>
+        <th>U</th>
+        <th>NU</th>
+        <th>C</th>
+        <th>U</th>
+        <th>NU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Rainfall</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Max. Temp</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Min. Temp</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RH1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>RH2</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Wind Speed</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Wind Direction</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Cloud</td>
+        <td colspan="15"></td>
+    </tr>
+  </tbody>
+</table>
+**C - Correct, U - Usable and NU - Not usable**
+
+### Rainfall Qualitative Verification
+
+<table>
+  <thead>
+    <tr>
+        <th>Skill Score</th>
+        <th>Day1</th>
+        <th>Day2</th>
+        <th>Day3</th>
+        <th>Day4</th>
+        <th>Day5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Probability of Detection (PoD)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>False Alarm Rate</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Missing rate</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Correct Non-occurrence (C-Non)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Critical Success Index (CSI)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bias for Occurrence (Bias)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Percentage correct (Pc)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>True skill score (Tss) or HK Score</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Heidke skill score (Hss)</td>
+        <td colspan="5"></td>
+    </tr>
+  </tbody>
+</table>
+
+### Formulae and Error structure for Forecast Verification
+#### I. Rainfall
+**a. Quantitative verification.**
+**i.** Error Structure for Quantitative verification of Precipitation
+
+Correct: Diff $\le$ 25% of obs
+Usable: 25% of obs < Diff $\le$ 50% of obs
+Unusable: Diff > 50% of obs
+
+where Diff stands for Absolute difference of observed and forecasted in mm and obs stands for observed rainfall (in mm)
+
+**ii.** Root mean square error between the sum of absolute difference between observed values and forecasted values.
+**iii.** Calculating the correlation between the observed and the forecasted value.
+range: -1 to +1 (ideal value)
+
+**b. Qualitative verification** is done with the help of following scores
+
+<table>
+  <thead>
+    <tr>
+        <th>Forecast / observation</th>
+        <th>Rain</th>
+        <th>No Rain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Rain</td>
+        <td>A (YY)</td>
+        <td>B (YN)</td>
+    </tr>
+    <tr>
+        <td>No Rain</td>
+        <td>C (NY)</td>
+        <td>D (NN)</td>
+    </tr>
+  </tbody>
+</table>
+
+A = No. of Hits (predicted and observed)
+B = No. of False Alarms (predicted but not observed)
+C = No. of misses (observed but not predicted)
+D = No. of correct predictions of no rain (neither predicted nor observed)
+
+1. **Forecast Accuracy (ACC) or Ratio Score or Hit Score** *It is the ratio of correct forecasts to the total number of forecasts.*
+$$ACC = \frac{Correct\ Forecast}{Total\ Forecast} = \frac{A + D}{N} = \frac{YY + NN}{(YY + NN + YN + NY)}$$
+
+2. **Hanssen and Kuipers Scores or True Skill Score (HK score):** It is the ratio of economic saving over climatology due to the forecast to that of a set of perfect forecasts
+$$HK = \frac{Correct\ Forecast - (Correct\ Forecast)_{random}}{N - (Correct\ Forecast)_{random, unbiased}}$$
+$$HK = (Acc)_{events} + (Acc)_{non-events} - 1 = \frac{AD - BC}{(A + C)(B + D)}$$
+range: -1 to +1
+perfect: 1
+advantage: equal emphasis to yes/no-events
+
+3. **Probability of detection (POD)** = $\frac{A}{A + C}$
+**Range: 0 to 1; Perfect Score 1**
+
+4. **Heidke Skill Score (HSS)** = $\frac{Correct\ Forecast - (Correct\ Forecasts)_{random}}{N - (Correct\ Forecasts)_{random}}$
+$$HSS = \frac{2(AD - BC)}{(A + C)(C + D) + (A + B)(B + D)}$$
+Range: -$\alpha$ to 1 Perfect: 1
+
+5. False alarm ratio = $\frac{False\ alarms}{Hits + False\ alarms}$
+
+FAR = \_\_\_\_
+
+6. Critical Success index (CSI) = \_\_\_\_\_\_\_\_\_\_\_\_
+   CSI = \_\_\_\_
+
+7. Missing Rate (MR) = \_\_\_\_\_\_\_\_\_\_\_\_
+   MR = \_\_\_\_
+
+8. BIAS score BIAS = \_\_\_\_\_\_\_\_\_\_\_\_
+   MR = \_\_\_\_
+
+## II. Temperature
+### a. Quantitative
+In the forecast the number of occurrences of the forecasted temperature lies between the following criteria has been determined
+* Correct: Diff $\le$ 1.0C
+* Usable: 1.0C < Diff $\le$ 2.0C
+* Unusable: Diff > 2.0C
+
+### b. In addition,
+1. Root mean square error between the sum of absolute difference between observed values and forecasted values.
+2. Calculating the correlation between the observed and the forecasted value.
+
+## III. Wind Direction
+### a. Quantitative
+In the forecast the number of occurrences of the forecasted Wind direction lies between the following criteria has been determined
+* Correct: Diff $\le$ 30 degrees
+* Usable: 30 degrees < Diff $\le$ 40 degrees
+* Unusable: Diff > 40 degrees
+
+### b. In addition,
+1. Root mean square error between the sum of absolute difference between observed values and forecasted values.
+2. Calculating the correlation between the observed and the forecasted value.
+
+## IV. Wind Speed
+### a. Quantitative
+In the forecast the number of occurrences of the forecasted wind speed lies between the following criteria has been determined
+* Correct: Diff $\le$ 2 m/s (7.2 kmph)
+* Usable: 2 m/s < Diff $\le$ 4 m/s (7.2 – 14.4 kmph)
+* Unusable: Diff > 4 m/s (14.4 kmph)
+
+### b. In addition,
+
+1. Root mean square error between the sum of absolute difference between observed values and forecasted values.
+2. Calculating the correlation between the observed and the forecasted value.
+
+### V. Cloud cover
+**a. Quantitative**
+In the forecast the number of occurrences of the forecasted cloud cover lies between the following criteria has been determined
+* Correct: Diff $\le$ 2 okta
+* Usable: 2 okta < Diff $\le$ 3 okta
+* Unusable: Diff > 3 okta
+
+**b. In addition,**
+1. Root mean square error between the sum of absolute difference between observed values and forecasted values.
+2. Calculating the correlation between the observed and the forecasted value.
+
+### VI. Relative Humidity
+**a. Quantitative**
+In the forecast the number of occurrences of the forecasted relative humidity lies between the following criteria has been determined
+* Correct: Diff $\le$ 10 %
+* Usable: 10% < Diff $\le$ 20%
+* Unusable: Diff > 20%
+
+**b. In addition,**
+a. Root mean square error between the sum of absolute difference between observed values and forecasted values.
+b. Calculating the correlation between the observed and the forecasted value.

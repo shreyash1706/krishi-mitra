@@ -1,0 +1,808 @@
+# Package of Practices-Soybean
+
+The image shows a close-up photograph of a soybean field with mature, yellow-brown soybean pods hanging from the stalks against a clear blue sky.
+
+<table>
+  <thead>
+    <tr>
+        <th>Contents</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td colspan="2">Preface</td>
+    </tr>
+    <tr>
+        <td>I.</td>
+        <td>Introduction</td>
+    </tr>
+    <tr>
+        <td>II.</td>
+        <td>Uses and Composition</td>
+    </tr>
+    <tr>
+        <td>III.</td>
+        <td>Climate</td>
+    </tr>
+    <tr>
+        <td>IV.</td>
+        <td>Soil</td>
+    </tr>
+    <tr>
+        <td>V.</td>
+        <td>Seedbed Preparation</td>
+    </tr>
+    <tr>
+        <td>VI.</td>
+        <td>Sowing</td>
+    </tr>
+    <tr>
+        <td>VII.</td>
+        <td>Manures and Fertilizers</td>
+    </tr>
+    <tr>
+        <td>VIII.</td>
+        <td>Irrigation</td>
+    </tr>
+    <tr>
+        <td>IX.</td>
+        <td>Weed Control</td>
+    </tr>
+    <tr>
+        <td>X.</td>
+        <td>Varieties</td>
+    </tr>
+    <tr>
+        <td>XI.</td>
+        <td>Mixed Cropping and Rotation</td>
+    </tr>
+    <tr>
+        <td>XII.</td>
+        <td>Diseases and Pests</td>
+    </tr>
+    <tr>
+        <td>XIII.</td>
+        <td>Harvesting, Threshing and Yield</td>
+    </tr>
+    <tr>
+        <td>XIV.</td>
+        <td>Storage</td>
+    </tr>
+    <tr>
+        <td>XV.</td>
+        <td>Economics of Cultivation</td>
+    </tr>
+  </tbody>
+</table>
+
+# Preface
+
+Soyabean is the richest source of protein (43 %) among the pulses or leguminous crops. Its proper con- sumption can help a lot to remove protein deficiency among the masses. This booklet contains up-to-date information about the cultivation of soyabean.
+
+A pile of fresh green soyabeans (edamame).
+
+# I. Introduction
+
+Soyabean (*Glycine max*) is an important oil crop all over the world. Although soyabean is not new to India, commercial cultivation of yellow seeded soyabean is comparatively of recent origin. Earlier, low yielding black seeded shattering type of soyabean varieties were grown under different names in hills and scattered pockets in plains. Initiation of efforts to popularise yellow soyabean in early sixties faced considerable controversies about its usefulness in India which undoubtedly retarded the progress of commercial exploitation of this miraculous gift of nature.
+
+There is some confusion regarding the origin of soyabean although North-eastern China is generally considered as the original home. In Chinese records it is considered to be the most important legume and also one of the five sacred grains-rice, soyabean, wheat, barley and millet essential for existence of Chinese civilization.
+
+The area under soyabean cultivation in India is about one Ten million hectares. Although, presently Madhya Pradesh and Maharashtra are the major soyabean producers in the country. Other states like Rajasthan, Andhra Pradesh and Karnataka also provide bright prospects for soyabean production.
+
+**Table.1: Area, Production and Yield of Soyabean during 2011-12 and 2012-13 in major Producing States**
+
+<table>
+  <thead>
+    <tr>
+        <th>State</th>
+        <th colspan="3">2012 to 2013</th>
+        <th colspan="3">2011 to 2012</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Area<br/>(Million Hectares)</th>
+        <th>Production<br/>(Million Tonnes)</th>
+        <th>Yield<br/>(Kg/Hectare)</th>
+        <th>Area<br/>(Million Hectares)</th>
+        <th>Production<br/>(Million Tonnes)</th>
+        <th>Yield<br/>(Kg/Hectare)</th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+        <td>Madhya Pradesh</td>
+        <td>6.03</td>
+        <td>7.8</td>
+        <td>1294</td>
+        <td>5.67</td>
+        <td>6.28</td>
+        <td>1108</td>
+    </tr>
+    <tr>
+        <td>Maharashtra</td>
+        <td>3.22</td>
+        <td>4.67</td>
+        <td>1450</td>
+        <td>3.01</td>
+        <td>3.97</td>
+        <td>1319</td>
+    </tr>
+    <tr>
+        <td>Rajasthan</td>
+        <td>1.04</td>
+        <td>1.47</td>
+        <td>1413</td>
+        <td>0.9</td>
+        <td>1.39</td>
+        <td>1544</td>
+    </tr>
+    <tr>
+        <td>Andhra Pradesh</td>
+        <td>0.16</td>
+        <td>0.29</td>
+        <td>1813</td>
+        <td>0.13</td>
+        <td>0.21</td>
+        <td>1615</td>
+    </tr>
+    <tr>
+        <td>Karnataka</td>
+        <td>0.17</td>
+        <td>0.18</td>
+        <td>1059</td>
+        <td>0.19</td>
+        <td>0.17</td>
+        <td>895</td>
+    </tr>
+    <tr>
+        <td>Others</td>
+        <td>0.22</td>
+        <td>0.27</td>
+        <td>@</td>
+        <td>0.21</td>
+        <td>0.19</td>
+        <td>@</td>
+    </tr>
+    <tr>
+        <td>All India</td>
+        <td>10.84</td>
+        <td>14.68</td>
+        <td>1354</td>
+        <td>10.11</td>
+        <td>12.21</td>
+        <td>1208</td>
+    </tr>
+  </tbody>
+</table>
+**Source:** Department of Agriculture and Cooperation
+
+## II. Uses and Composition
+
+Apart from high yield potential, soyabean possesses a very high nutritional value. It contains about 20 % good quality edible oil and 43 % high quality protein. Soyabean protein is rich in the high nutritional value. It contains about 20 % good quality edible oil and 34 % high quality protein. Soyabean protein is rich in the valuable amino acid lycine (5 %) in which most of the cereals are deficient. In addition, it contains good amount of minerals, salts and vitamins. Its sprouting grain contains a considerable amount of vitamin C. Vitamin A is present in the form of carotene.
+
+Proteins are vital to any living organisms. They are the important constituent of tissues and cells of the body. Most of the Indian vegetarian diets are not a good source of protein. Among foodgrains, soya bean contains the highest amount of protein. The only drawback with soyabean is that it contains trypsin inhibitors. Protein digestibility is reduced by trypsin inhibitor. Heating or autoclaving the soya bean helps to destroy this inhibitor and improves the protein quality. Nutritive value of soya bean is given in the table-2.
+
+**Table 2: Nutritive value of soya bean (per 100 g of edible portion)**
+
+<table>
+  <thead>
+    <tr>
+        <th>Sl.no.</th>
+        <th>Components</th>
+        <th>Amounts (g)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>1</td>
+        <td>Moisture</td>
+        <td>0.1 g</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Protein</td>
+        <td>43.2 g</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Fat</td>
+        <td>19.5 g</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Carbohydrates</td>
+        <td>20.9 g</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Energy</td>
+        <td>432 cal</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Minerals</td>
+        <td>4.6 g</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Fibre</td>
+        <td>3.7</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Calcium</td>
+        <td>240.0 mg</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Phosphorus</td>
+        <td>690 ng</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Thiamine</td>
+        <td>9.0 mg</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>Nicotinic acid</td>
+        <td>23.0 mg</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>Riboflavin</td>
+        <td>2.3 mg</td>
+    </tr>
+  </tbody>
+</table>
+
+Soyabean can be put to a number of uses. A large number of Indian and western dishes such as bread, chappati, milk, sweets, pastries, etc. can be prepared with soyabean. Soyabean flour makes good quality and more nutritious chappati. Soyabean oil is used for manufacturing vanaspati ghee and several other industrial products. Soyabean is used for making protein food for children. It is widely used for the industrial preparation of different antibiotics also. Soyabean products such as "Nutri-nugate" is used as vegetable with potato.
+
+Soyabean can also be used as fodder and forage which can be made into hay, silage, etc. Its forage and cake are excellent nutritive foods for livestock and poultry.
+
+Therefore, to sum it, soyabean being the richest, cheapest and easiest source of best quality proteins and fats and having a vast multiplicity of uses as food and industrial products is called a wonder crop.
+
+## III. Climate
+
+Soyabean is a kharif season crop. It grows well at 26 to 30°C temperature. Climate should be warm and moist. At the time of germination the temperature should be about 15°C. It is a short day plant. It is observed that the crop does not grow well if the temperature falls below 10°C or goes above 40°C. It is reported that the very low temperature lowers the oil content and the higher temperature during seed formation increases oil content in seeds.
+
+Soyabean requires about 60-65 cm annual rainfall. It needs irrigation if the rainfall is lower than 60 cm. However, higher rainfall is equally or more harmful than lower rainfall because higher moisture at germination causes rotting of seeds or seedlings. Water logging in soyabean field at later stages of growth causes anaerobic conditions, poor nodulation and poor yield of the crop.
+
+## IV. Soil
+
+Soyabean can grow on all types of soils except deep ) sands. The soil should be well drained and fertile. It grows best on sandy loams as well as clay loams. The soil pH ranging from 6.0 to 7.5 is the most suitable for its cultivation. The crop requires moist soil for germination. However, the field should have an efficient drainage during growing period.
+
+## V. Seedbed Preparation
+
+A well prepared seedbed will help the seeds to germinate quickly and uniformly. It requires leveled field free from clods, weeds, stones, stubbles, etc. The field should be ploughed 30 to 35 cm deep with a soil turning plough, 3-4 ploughings with desi plough and followed by planking. The farmyard manure or compost is applied at the time of last ploughing. Apply BHC 10% or Aldrin 5 % or Heptachlor @ 25 kg/ha before last ploughing in, furrows to avoid insects contact with the seed.
+
+## VI. Sowing
+
+Sowing seeds, many practices are involved which are explained in the following few lines.
+
+### 1. Seed rate
+Seed rate is governed by numerous factors such as seed size, seed weight, spacing, cropping season, germination and purity percentage of the seed. Soyabean grown for grain purpose needs about 20-30 kg seed per hectare but the fodder crop needs about 70-75 kg/hectare during kharif season and 100-120 kg/hectare during spring or \ summer season which is because of closer spacing.
+
+### 2. Spacing and sowing depth
+The row to row distance should be kept 30 to 45 cm and plant to plant 4 to 5 cm. Sow the seeds about 4-5 cm deep. Spacing is maintained by thinning or gap filling which is done 5 to 10 days after germination. There should be about 5 lakh plants per hectare.
+
+The image shows a hand holding soyabean seeds and placing them into a shallow furrow in the soil.
+**Fig : Soyabean seed sowing**
+
+### 3. Seed treatment
+Treat the seeds with Thiram 75 % or 1 : 1 mixture of Captan and Thiram @ 3 g/kg of seed. This will protect the seed and seedlings from different diseases like rotting, etc.
+
+Soyabean is a leguminous crop which has Rhizobium bacteria in its roots. For better nodulation and good growth of the crop, it is important to treat the seed before sowing. There are two ways to treat the seed. The first way is to bring some soil from the field where it was grown earlier and mix the soil with seed before sowing. The second way is to use the Rhizobium culture and treat the seed with it. Now-a-days, Rhizobium cultures are easily available at reasonable prices, therefore, it is good to use the culture.
+
+### 4. Time of sowing
+There are two cropping seasons of soyabean namely kharif and spring. In case of kharif season the most common time of sowing is onset of monsoon or last week of June to first week of July. But in case of irrigated conditions sowing of crop by mid of June results in a better crop growth and less weed problem. The spring sowing is done between 15th of February and 15th of March.
+
+### 5. Method of sowing
+The conventional method of soyabean sowing is still broadcasting. But this method has certain drawbacks i.e. plants are not properly spaced, and agricultural operations such as weeding, hoeing, etc. cannot be conveniently done. This method may be the most convenient for fodder crop or green manure crop of soyabean.
+
+Line sowing by seed drill or malabas will be most ideal because it requires less seed per hectare, weeding and hoeing may be done conveniently and plants are maintained at uniform spacing. Therefore, this method should be adopted. Sowing may be done in furrows behind the plough in case the seed drill is not available.
+
+The image shows a field with soyabean plants growing in a straight line with uniform spacing between the plants.
+
+**Fig : Spacing of Soyabean plants**
+
+### VII. Manures and Fertilizers
+Apply FYM or compost 25-30 cartloads per hectare at the time of last ploughing. Soyabean is a legume crop and as such, it can meet the major part of its nitrogen requirement through the nitrogen fixation. However, to ensure this source, the seed is inoculated with the bacteria. Table 3 shows the requirement of other nutrients of the crop.
+
+#### Table: 3 Requirement of other nutrients for soyabean
+
+<table>
+  <tbody>
+    <tr>
+        <td>Sl.No.</td>
+        <td>Name of nutrient</td>
+        <td>Amount (kg/ha)</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td rowspan="2">Nnitrogen<br/>a) Seed treated with Rhizobium<br/>b) Seed not treated</td>
+        <td>30</td>
+    </tr>
+    <tr>
+        <th></th>
+        <th>120</th>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Phosphorus</td>
+        <td>80</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Potash</td>
+        <td>60</td>
+    </tr>
+  </tbody>
+</table>
+
+The fertilizers should preferably be placed at sowing time, about 5-7 cm away from the seed at a depth of 5-7 cm from the seed level.
+
+# VIII. Irrigation
+
+Dry spell adversely affects the crop, hence irrigation, if available, should be used as per requirement. For quicker coverage, sprinkler system can be used for good results. One life saving irrigation at the critical crop growth stage has been found to increase the yield by 50 per cent.
+
+The water requirement for soyabean crop is about 62.5 to 75 cm. Since this crop is mostly grown in kharif season it does not need any irrigation in normal condition but one or two protective irrigations during the prolonged dry spell at the critical stages of plant growth i.e. flowering and pod formation stages will be beneficial.
+
+It is observed that maximum reduction in yield due to moisture stress occurs during the last week of pod development and filling stage. Further, water stress at the end of bean filling stage or at beginning of flowering has only small effects on soyabean yield but stress during flowering and pod development appears to be responsible for flower and pod abortion. Stress during bean filling reduces seed size.
+
+Therefore, it is essential to apply sufficient water to the field for better germination and then to irrigate the crop between pod development and pod filling stages for obtaining higher grain yield.
+
+The image shows a soyabean field being irrigated using a large white irrigation pipe with water flowing out onto the green crop.
+**Fig : Irrigation in Soyabean Field**
+
+# IX. Weed Control
+
+Because of more space between the rows, slow growth at early stage and warmer season, weeds grow profusely, competing with the crop for water, light and nutrients. This adversely affects the total yield. Inadequate weeding may reduce the yield by 50-60 per cent. During rainy season the infestation of weeds is high. The timely control of weeds is necessary. One or two weedings are generally needed by the crop. Sometimes due to rains or water in the field or non-availability of labour, manual weeding may not be possible. In such a case application of herbicides will be more beneficial.
+
+Two types of weeds are found in soya bean field; 1) broad leaved weeds e.g. sated murgi, nunia, rasbhari (2) narrow leaved weeds e.g. doob grass, banra, narku/ and makra.
+
+### Control
+1. Never allow the weeds to grow in the first for weeks after sowing.
+2. Spray Tok-E-25 or Lasso @ 4 litres in 600 litres of water per hectare on soil surface.
+3. Two weedings at 15 days and 35 days after sowing are necessary.
+4. At the time of hoeing and interculture remove the weeds and destroy them.
+5. Apply Basalin @ 1 kg per hectare in 800-1000 litres of water before the sowing of seeds after the final preparation of land.
+
+# X. Varieties
+
+Soyabean was grown in the low hills of Kumaon and Gharwal regions of the Himalayas, foot hills of this tract and some scattered pockets of Central India for ages. However, this crop failed to make its impact on Indian agriculture primarily because of poor acceptability of black seeded varieties, low yields, long duration of maturity and Shattering of grains from the pods. In search of a high yielding variety, several hundred introductions from all over the world have been tested at several locations in India. It has been observed that some of the U.S. bred varieties yield a good or even better in India. As a result of intensive efforts, new varieties have been bred and released to suit our different agro-climatic conditions. The description of some of the important and suitable variety is given below.
+
+### 1. Clark-63
+It is an introduction from the USA. The leaves and pods are covered with brown hairs, flowers are white, seeds are yellow, shiny and with black hilum. It matures in about 105 days and yields 25-30 quintals per hectare. The variety is resistant to the bacterial pustules but susceptible to yellow mosaic and rots. It is suitable for all soyabean growing areas of the country, especially rainfed areas.
+
+### 2. Lee
+It is an introduction from the USA. It is resistant to bacterial pustule and susceptible to yellow mosaic. It is good for all the soyabean growing states of the country. It matures in about 100 days and yields about 20 to 25 quintals per hectare. The plant has greenish stem and leaves. Pods are usually three-seeded, seeds are yellow in colour, 100 seeds weighing 17-18 grams.
+
+### 3. Bragg
+It has also been introduced from the USA. It is susceptible to rot and yellow mosaic but resistant to bacterial pustule. It is suitable for all the soya bean growing states of the country. It matures in about 120 days and yields 20-25 quintals pre hectare. The plant is green stemmed, leaves and pods covered with brown hairs, 2-3 seeds/pods; 100 seeds weigh 12-18 g, Flowers are white, seeds are yellow, shiny and with black hilum.
+
+### 4. Punjab-1
+It is suitable for growing in Punjab, Delhi, Haryana, Uttar Pradesh, Madhya Pradesh, Gujarat and Rajasthan. It matures in about 120-130 days and yields 20-25 quintals per hectare. It is resistant to root
+
+rot but susceptible to bacterial pustules and yellow mosaic. Pods are usually three-seeded, flowers are purple coloured, pods and leaves are covered with brownish hairs, stem green; 100 seeds weigh about 16-17 grams.
+
+### 5. Kali Tur
+It has an excellent germination capacity in adverse climatic conditions. It yields about 15-20 quintals per hectare and matures in 120-125 days. It is a late maturing variety. In this variety the plant is tall; stem thin; leaves pointed, green in colour and flowers are blue.
+
+### 6. Alankar
+This variety is moderately resistant to bacterial pustules, rust and yellow mosaic. It matures in about 120 days and yields about 25-30 quintals per hectare. The plant is medium in size; flowers are white; seeds are round, yellow with light black hilum.
+
+### 7. Ankur
+This variety is developed at Pantnagar Agriculture University and released in 1974 for general cultivation. The plants are tall (120-130) cm with white flowers. The seeds are small, a bit flat, and yellow in colour with light brown hilum. Due to smaller seed size, it has better germination. It is susceptible to yellow mosaic virus but resistant to rust and bacterial pustule. The crop matures in 125 days and yields about 20-25 quintals of grain per hectare.
+
+### 8. Shilajeet
+This variety was released in 1979 by Pantnagar Agricultural University. It is suitable for northen plains and hills. It matures in about 105 days and produces 20-25 quintal grains. It is suitable for mixed cropping system. It is moderately resistant to rust, bacterial pustules and yellow mosaic.
+
+### 9. PK-262
+This variety was released in 1982 for general cultivation in Tarai and Bhabar areas of Uttar Pradesh. It is resistant to lodging. It yields about 30 quintal grains per hectare.
+
+**Table 4 : Soyabean varieties for different agro-climatic zones of India.**
+
+<table>
+  <tbody>
+    <tr>
+        <td>Sl.No</td>
+        <td>Agro-climatic Zone</td>
+        <td>Variety</td>
+        <td>Days of maturity</td>
+        <td>Yield (q/ha)</td>
+    </tr>
+    <tr>
+        <th>1</th>
+        <th rowspan="4">Northern hill zone</th>
+        <th>Bragg</th>
+        <th>120</th>
+        <th>20-25</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Punjab-1</th>
+        <th>110</th>
+        <th>20-25</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Shilajeet</th>
+        <th>105</th>
+        <th>20-25</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>DS-74-20-2</th>
+        <th>110</th>
+        <th>25-30</th>
+    </tr>
+    <tr>
+        <th>2</th>
+        <th rowspan="8">Northern Plain Zone</th>
+        <th>Bragg</th>
+        <th>130</th>
+        <th>25-30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Ankur</th>
+        <th>120</th>
+        <th>25-30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>Shilajeet</th>
+        <th>105</th>
+        <th>20-25</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>PK-327</th>
+        <th>110</th>
+        <th>25-30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>PK-262</th>
+        <th>125</th>
+        <th>25-30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>PK-308</th>
+        <th>125</th>
+        <th>25-30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>DS-73-16</th>
+        <th>120</th>
+        <th>30-35</th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>DS-75-22-4</th>
+        <th>120</th>
+        <th>30-35</th>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+        <td>3</td>
+        <td rowspan="6">Central Zone</td>
+        <td>Bragg</td>
+        <td>115</td>
+        <td>20-25</td>
+    </tr>
+    <tr>
+        <td rowspan="5"></td>
+        <td>Ankur</td>
+        <td>120</td>
+        <td>25-30</td>
+    </tr>
+    <tr>
+        <td>JS-2</td>
+        <td>105</td>
+        <td>20-25</td>
+    </tr>
+    <tr>
+        <td>Gaury</td>
+        <td>110</td>
+        <td>25-30</td>
+    </tr>
+    <tr>
+        <td>MASC-13</td>
+        <td>110</td>
+        <td>25-30</td>
+    </tr>
+    <tr>
+        <td>Durga</td>
+        <td>110</td>
+        <td>25-30</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td rowspan="8">Southern Zone</td>
+        <td>Hardee</td>
+        <td>110</td>
+        <td>15-20</td>
+    </tr>
+    <tr>
+        <td rowspan="7"></td>
+        <td>KHSb -2</td>
+        <td>115</td>
+        <td>20-25</td>
+    </tr>
+    <tr>
+        <td>DS-74-40</td>
+        <td>110</td>
+        <td>20-25</td>
+    </tr>
+    <tr>
+        <td>Improved</td>
+        <td>110</td>
+        <td>20-25</td>
+    </tr>
+    <tr>
+        <td>Pelicon</td>
+        <td>110</td>
+        <td>15-20</td>
+    </tr>
+    <tr>
+        <td>DAVIS</td>
+        <td>110</td>
+        <td>15-20</td>
+    </tr>
+    <tr>
+        <td>Pk-74-292</td>
+        <td>110</td>
+        <td>20-25</td>
+    </tr>
+    <tr>
+        <td>Col -1</td>
+        <td>115</td>
+        <td>20-25</td>
+    </tr>
+  </tbody>
+</table>
+
+# XI. Mixed Cropping and Rotation
+
+Mixed cropping of soyabean with maize, mandua and sesamum has been found feasible and profitable. In mixed cropping of maize and soyabean, the yield of maize is not affected and, at the same time, 10-12 quintals of soyabean per hectare can be obtained. In mixed cropping of maize and soyabean, maize is planted at 100 cm row spacing, keeping plant to plant distance at 10 cm. Three rows of soyabean are kept in between two rows of maize. Some of the common crop rotations followed in North India are given below.
+
+1. Soyabean-wheat
+2. Soyabean-potato
+3. Soyabean-tobacco
+4. Soyabean-potato-wheat
+
+The image shows a field with rows of green soyabean plants growing between rows of harvested wheat stalks (stubble).
+
+**Fig : Mixed Cropping of Soyabean with wheat**
+
+# XII. Diseases and Pests
+
+Soyabean is mainly attacked by number of diseases and insects which are explained here.
+
+# A. Diseases
+In India soyabean is affected by many fungi and, bacteria resulting in heavy loss in yield. These are common in the early growth stage and at maturity stage. Important diseases are discussed here.
+
+## 1. Bacterial pustules
+Lesions appear on leaves as yellow and pustular outgrowth. Later on these spots turn reddish brown in colour with margins yellow. On the pods also small reddish brown spots appear.
+
+### Control
+1. Spray Carboxin (1,500 ppm) i.e. 1.5 g in 1 litre of water
+2. Grow disease resistant varieties such as Alankar, Shilajeet, Ankur, Bragg, etc.
+3. Seed treatment with Ceresan (0.2 %) effectively reduces the seed-borne inoculum of the pathogen.
+
+The image shows a soyabean leaf with numerous small, raised, yellowish to reddish-brown pustular spots scattered across the surface.
+**Fig : Bacterial pustules on Soyabean**
+
+## 2. Leaf spot
+The disease is caused by *Cercospora sozina*. In this disease gray spots with purplish brown margins appear on the leaves. The lesions are never observed on pods and rarely on stem. '
+
+### Control
+Seed treatment with fungicides like Thiram (3 g per kg seed) or Carbendazin (2 g per kg seed) fairly reduces the seedborne inoculum. Spraying with Mancozeb (0.3 %), Carbendazin (0.1 %) or Benomyl (0.1 %) minimises the disease severity.
+
+The image shows a soyabean leaf with distinct, circular to irregular gray spots that have dark purplish-brown borders.
+**Fig : Leaf spot on Soyabean**
+
+### 3. Pod blight
+It is caused by *Colletotrichum* spp. In this disease the pods at first become yellowish green and soon dry out. Consequently, the seed formation is severely affected. The seeds in diseased pods may be shrivelled and mouldy.
+
+#### Control
+1. Spray Zineb @ 2-5 kg/ha in 1000 litres of water.
+2. Grow disease resistant varieties like Bragg.
+
+The image shows soybean pods affected by pod blight, appearing dried, shrivelled, and covered with dark fungal spots on the stem and pods.
+**Fig : Pod blight on Soyabean**
+
+### 4. Mosaic
+It is a viral disease. In this disease mottling of leaves accompanied with a light crankling and reduction in size of pods occurs. Plants produce only a few pods and remain stunted in growth.
+
+#### Control
+Grow disease resistant varieties like Alankar, etc. Spray Metasystox 25 EC @ 1 kg per 1000 litres of water per hectare at 10 days interval till crop becomes 75 days old.
+
+The image shows soybean leaves with mosaic symptoms, characterized by irregular light and dark green patches (mottling) and a crinkled, distorted leaf surface.
+**Fig : Mosaic on Soyabean**
+
+### 5. Dry root rot
+The disease is caused by *Macrophomina phaseolina*. Small irregular or round black spots appear below the epidermis on the affected roots and stems.
+
+#### Control
+1. Adopt crop rotations.
+2. Sow disease resistant varieties like Punjab-I.
+3. Seed dressing with Thiram, Quintozene or Captan.
+
+The image shows a person's hands holding up several uprooted soybean plants. The roots and lower stems appear dark, withered, and diseased, characteristic of dry root rot.
+**Fig : Dry root rot on Soyabean**
+
+### 6. Late blight
+This disease is caused by *Phytophthora infestans* and is more common in Assam. Black, water-soaked irregular spots are formed on the leaves and rust brown patches, mottled like marble stone are seen on the fruits. The affected portion of the fruit shrinks. Low temperature (10-15 °C) with cloudy weather for 3-4 days favours the disease.
+
+#### Control
+1. Spray the crop with Bordeaux mixture 1.0 per cent.
+2. Spray zineb or Dithane Z- 78.
+3. Remove all the infested parts and burn them.
+
+## B. Pests
+The crop is attacked by a number of insect pests during the life cycle. The green soft succulent and nutritive foliage provides a source of food, nutrition, space and shelter to the insect pests.
+
+Of the 270 insect pests recorded in soyabean about 140 insect pests damage the foliage and 74 insect draw out the cell sap from the different parts of the soyabean plant. Some of the most important pests are as under.
+
+### 1. Blue beetle
+This pest, recorded in 1984, is now a very serious pest in Malwa plateau. The beetle is 4.5 to 6 mm long, metallic blue in colour, causes 30-55 % seedling damage. The infected plants remain stunted and produce less grains. The pest can cause upto 27 % reduction in yield.
+
+#### Control
+1. Spray Thiodan 35 EC 1.5 litre in 1000 litres of water.
+2. Adopt crop rotation.
+
+### 2. Bihar hairy caterpillar
+It is a serious pest of soyabean. A single female may lay 1000-1500 eggs on the leaf surface. These pale greenish eggs hatch in 3-7 days. Newly emerged caterpillars are gregarious feeders on the leaf epidermis and skeletonize the entire leaves.
+
+#### Control
+Young caterpillars can be killed by dusting 10% BHC @ 25-30 kg per hectare. For full grown caterpillars spray 1.5 litres Thiodan 35 EC in 1000 litres of water per hectare or Ekalux 25 EC at the rate of 1.0 litre in 1000 litres of water.
+
+### 3. Stem fly
+It is a very serious pest of soyabean in northern regions of the country. The fly attacks the crop in all stages of development and no soya bean variety is resistant to it. On opening the damaged steam, yellowish maggots or brown drum shaped pupae are found in the tunnelled stems. The infested plants dry up and leaves start to drop.
+
+#### Control
+Use Phosphamidon 100 -250 ml per hectare. Repeat the spray after 10 days.
+
+The image shows a close-up of a Stem fly resting on a green soybean leaf. The fly has a dark, metallic body and reddish eyes.
+
+**Fig : Stem fly on Soyabean**
+
+### 4. Thrips
+They suck the sap of the plant which results in the fall of the leaves. The dry weather favours in its production. The adults are tiny black insects and nymphs are yellowish in colour. They form very small spots on the leaves.
+
+#### Control
+Spray Matasystox 25 EC/Rogur 30EC @ 600-700 ml per ha.
+
+The image shows a close-up of a thrips insect on a green plant surface.
+**Fig : Thrips on Soyabean**
+
+### 5. White fly
+The adults of this fly transmit yellow mosaic virus. It is a very serious pest of Tarai region of U.P. and Delhi. The infected plants have reduced pod formation that results in low yield.
+
+#### Control
+Spray Metasystox @ 750 mg/ha at an interval of 10 days. Generally 3 to 4 sprays will be required.
+
+### 6. Jassids
+The small, greenish leaf hoppers, nymphs and adults are found on the underside of the leaves sucking the cell sap. The leaves of the infested plants turn yellow, and start curling. In severe cases the infested leaves turn brown red in colour and crumple. The growth of the plants remain stunted.
+
+#### Control
+Spray 0.03 % Phosphamidon or Malathion (0.1 %)
+
+### XIII. Harvesting, Threshing and Yield
+Harvest the crop when 95 % pods are brown and most of the leaves have dropped off. Then dry the plants in the sun for some days. When it is completely dry, thresh carefully with a mechanical soyabean thresher or by any other method adopted for other legumes. While threshing grains should
+
+not be beaten hard as it would result into breaking and spoilage of grains. Harvesting can be done either by cutting the plants with sickle or by breaking them from the base.
+
+The image shows a field of mature soybean plants ready for harvest. The plants are brown and dry, with numerous fuzzy seed pods hanging from the stems. The background shows a clear blue sky and some distant trees.
+
+**Fig : Harvesting stage of Soyabean**
+
+With proper crop management practices, improved varieties of soyabean yield about 30-35 quintals of grain per hectare.
+
+### XIV. Storage
+Dry the seeds in the sun and reduce the moisture content to about 10 per cent. Clean and keep the seeds in dry storage bins or in gunny bags, then place them in a cool dry place above ground, away from the reach of rats, insects and pests. Well dried seeds will remain viable for about one year.
+
+### Economics of Cultivation
+The economics of soya bean cultivation can be worked out with the help of the format given below.
+
+#### A. Fixed cost
+<table>
+  <tbody>
+    <tr>
+        <td>1. Cost of the land</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>2. Cost of farm building and storage structure, etc.</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>3. Cost of fencing the field</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>4. Cost of the clearing, leveling and bunding of the land</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>5. Cost of implements</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>6. Cost of irrigation system</td>
+        <td>Rs</td>
+    </tr>
+  </tbody>
+</table>
+
+#### B. Recurring cost
+<table>
+  <tbody>
+    <tr>
+        <td>1. Cost of seeds</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>2. Cost of manures and fertilizers</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>3. Cost of insecticides, fungicides Weedicides</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>4. Cost of farm power</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>5. Cost of transportation</td>
+        <td>Rs</td>
+    </tr>
+    <tr>
+        <td>6. Cost of farm labour (paid and unpaid)</td>
+        <td>Rs</td>
+    </tr>
+  </tbody>
+</table>
+
+a. Land preparation Rs
+b. Seed treatment Rs
+c. Sowing Rs
+d. Irrigation Rs
+e. Weeding Rs
+f. Application of fertilizers and manures Rs
+g. Application of insecticides and fungicides Rs
+h. Intercultural operations: thinning, mulching, weeding, etc. Rs
+i. Harvesting Rs
+j. Processing Rs
+k. Storing and marketing Rs
+l. Any other labour involvement Rs
+7. Interest on fixed cost i (@10%) Rs
+8. Rent or revenue paid for land Rs
+9. Depreciation Rs
+10. Repair and maintenance Rs
+
+**Total recurring cost Rs**
+
+**C. Income**
+1. Yield from intercrops Rs
+2. Yield from main crops Rs
+Total income Rs
+Not profit = Gross income - Total recurring cost
+
+$$Depreciation = \frac{\text{Purchase value - junk value}}{\text{life span}}$$
+
+Note: Junk value is calculated only on those articles which are saleable after their life span. The life span of build- ing and machinery is 15 years and 10 years, respectively.

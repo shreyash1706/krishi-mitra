@@ -1,0 +1,501 @@
+# Agricultural Production and Protection Technologies
+
+---
+
+## **Rice**
+### Transplanting Methods
+- **System of Rice Intensification (SRI):** Mean grain yield was 5.94 tonnes/ha, 15% higher than the standard method (5.17 tonnes/ha) at 21 out of 27 locations.
+- **Penoxsulam:** Effective as a pre-emergence herbicide up to 5 days after transplanting (DAT) at 0.025% at three locations and as a post-emergence herbicide at two locations. No toxicity to rice crops observed.
+
+### Agro-technology for Aerobic Rice
+- Suitable varieties for direct-seeded aerobic conditions in coastal Odisha: Annada, Naveen, IR 64, Rajalaxmi, and KRH 2 hybrids.
+- Optimal nitrogen application: Up to 120 kg/ha.
+- **Weed Control:** Butachlor at 1.25 kg a.i./ha at 3–5 days after sowing (DAS) with one hand weeding at 30–35 DAS.
+
+---
+
+## **Wheat and Barley**
+### Soil Organic Carbon Improvement
+- **Residue Management:** 0.1% increase in soil organic carbon after two years with full residue incorporation of rice and/or wheat.
+- **Biofertilizers:** *Azotobacter* and phosphate-solubilizing bacteria can compensate for 50% of recommended N and P.
+
+---
+
+## **Small Millets**
+- **Cropping Sequence:** Fingermillet followed by blackgram/cowpea is profitable in Odisha.
+- **Organic Production:** Vermi-compost and chullu (wild apricot) cake as N source, along with *Azotobacter* seed treatment, recommended for organic fingermillet production in Uttarakhand.
+
+---
+
+## **Forage Crops**
+- **Intercropping:** Guinea-grass + berseem with farmyard manure (50 tonnes/ha in guinea-grass + 30 tonnes/ha in berseem) recorded 12% higher green forage yield (171.55 tonnes/ha) over inorganic fertilizers.
+- **Net Returns:**
+  - **Eastern Zone:** NB hybrid (perennial) + berseem (Rs 42,981/ha/year).
+  - **Central Zone:** Sorghum (fodder)–berseem–maize (fodder) + cowpea (fodder) (94% higher net returns).
+  - **Gangetic Plains of West Bengal:** Rice–oat–sesame (Rs 87,561/ha/year).
+
+---
+
+## **Underutilized Crops**
+- **Grain-Amarnath:** Closer spacing (22.5 cm × 10 cm) resulted in higher yield than wider spacing (45 cm × 10 cm).
+- **Jatropha:** Height and number of branches increased with spacing, fertilizer dose, and age of planting.
+
+---
+
+## **Groundnut**
+- **Cropping System:** Maximum yield in groundnut-wheat-greengram system, followed by groundnut-wheat system.
+- **Soil Health:** Improved total soil nitrogen and organic carbon in groundnut-wheat-greengram system.
+
+---
+
+## **Sunflower**
+- **Biofertilizers:** *Azospirillum* and *Azotobacter* inoculation with 50% recommended N was profitable in *kharif* sunflower.
+
+---
+
+## **Castor**
+- **Seed Priming:** Sowing after seed priming with 1% NaCl for 3 hours improved returns.
+
+---
+
+## **Rapeseed-Mustard**
+- **Sowing:** *Toria* sowing at the dough stage of rice is remunerative in the central Brahmaputra Valley Zone of Assam.
+- **Sulphur Application:** 20 kg S/ha in *kharif* guar-mustard and 40 kg S/ha in *kharif* mungbean/pearl millet-mustard sequence recommended in North Gujarat.
+
+---
+
+## **Sesame**
+- **Fertilizer + Bioinoculants:** 100% recommended dose of fertilizers + oilcake (250 kg/ha) + *Azospirillum* (5 kg/ha) + phosphate-solubilizing bacteria (5 kg/ha) + *Trichoderma viride* (5 kg/ha) + *Pseudomonas fluorescens* (5 kg/ha) resulted in the highest mean seed yield.
+
+---
+
+## **Niger**
+- **Moisture Conservation:** In-situ moisture conservation, one hand weeding at 15 DAS + vegetative mulching at 4 tonnes/ha enhanced seed yield from 366 to 844 kg/ha.
+
+---
+
+## **Linseed**
+- **Zinc Application:** ZnSO₄ at 25 kg/ha in *kharif* or *rabi* and 5 tonnes/ha FYM during *kharif* in blackgram-linseed sequence proved remunerative.
+
+---
+
+## **Chickpea**
+- **Urea Application:** 20% higher grain yield with urea application at flower initiation and 10 days thereafter.
+- **Seed Priming:** Improved emergence and grain yield.
+
+---
+
+## **Pigeonpea**
+- **Delayed Planting Varieties:**
+  - **North Eastern Plains Zone:** Azad
+  - **Central Zone:** JKM 189
+  - **Southern Zone:** LRG 30, LRG 38
+- **Intercropping Varieties:**
+  - **North Eastern Plains Zone:** Pusa 992
+  - **Central Zone:** Asha, JKM 7, JKM 189
+  - **Southern Zone:** TTB 7, KM 186, LRG 41, Co 6
+
+---
+
+## **Mungbean**
+- **Disease Resistance:** Resistant donors identified for *Cercospora* leaf-spot disease, mungbean yellow mosaic virus, and root-knot nematodes.
+
+---
+
+## **Lentil**
+- **Rhizobium Strain:** DL 1 increased grain yield by 8.9%.
+- **Nematode Tolerance:** L 4685, LH 84-8, and NDL 6-1-5 genotypes showed tolerance to root-knot nematodes.
+
+---
+
+## **Rajmash**
+- **Urea Sprays:** 2% urea sprays at pre-flowering, 25% pod initiation, and pod development stages increased pod yield.
+
+---
+
+## **Cotton**
+- **Fertilizer Application:** 50% soil + 50% fertigation with 10 kg ZnSO₄/ha increased seed-cotton yield.
+- **Drought Tolerance:** CAT 3640, CAT 3874, CAT 1058, AC 7602, AC 7185 identified as drought-tolerant lines.
+
+---
+
+## **Sugarcane**
+- **Sprouting Issues:** Low acid invertase activity and reducing sugars, low ATPase and LAA oxidase activity, nitrite accumulation, and lesser water absorption identified as causes for poor sprouting.
+- **Planting System:** Paired-row system (30:120 cm) reduced gaps by 9.5% and increased millable canes (120.5 thousand/ha) and cane yield (92.9 tonnes/ha).
+
+---
+
+## **Jute**
+- **Weed Control:** S-Metolachlor at 0.50 kg a.i./ha provided 75.3% weed control efficiency at 28 DAS and 79% at 45 DAS.
+- **Fertilizer Substitution:** 25% substitution of recommended NPK with organic components (FYM, green manures, or composts) increased jute fiber yield.
+
+---
+
+## **Tobacco**
+- **Cropping Systems:** Maize-tobacco and soybean-chickpea systems are profitable alternatives to flue-cured Virginia tobacco in northern black soils of Andhra Pradesh.
+
+---
+
+## **Mango**
+- **Spacing and Yield:** Alphonso planted at 5 m × 5 m spacing on Vellaikolumban rootstock yielded 8.49 tonnes/ha during the seventh year.
+- **Drip Irrigation:** Daily drip irrigation at 75% evaporation replenishment increased fruit yield.
+
+---
+
+## **Guava**
+- **Spacing and Irrigation:** L 49 variety at 2.5 m × 1.25 m spacing yielded highest one year after planting. Drip irrigation increased yield by 40% and saved 52–60% water.
+- **Rejuvenation:** Heading back old trees to 1.0–1.5 m height during May-June or December-February produced new shoots.
+
+---
+
+## **Papaya**
+- **Fertigation:** 75% recommended doses of nitrogen and potash through drip irrigation were ideal under Coimbatore conditions.
+
+---
+
+## **Passion Fruit**
+- **Irrigation and Fertilizer:** 75% evaporation replenishment and 75% recommended fertilizer dose resulted in yields comparable to 100% recommended dose.
+
+---
+
+## **Strawberry**
+- **Greenhouse Cultivation:** Advanced fruit harvesting by 45 days with a yield potential of 14.24 tonnes/ha in Kashmir Valley.
+
+---
+
+## **Banana**
+- **Planting System:** Robusta banana under paired row planting (1.5 m × 1.5 m × 2.0 m spacing) recorded maximum yield (65.91 tonnes/ha).
+- **Fertigation:** Weekly fertigation with 75% recommended fertilizers recorded maximum yield (57.68 tonnes/ha).
+
+---
+
+## **Grape**
+- **Rootstocks:** Thompson Seedless grafted on 110R sprouted earlier and showed maximum water-use efficiency.
+- **Disease Control:** *Trichoderma harzianum* and *Pseudomonas fluorescens* effective against anthracnose and greenaria leaf spot.
+
+---
+
+## **Citrus**
+- **Site-Specific Nutrient Management:** Improved fruit yield (14.7 tonnes/ha) in ‘Mosambi’ sweet orange over conventional practices (10.6 tonnes/ha).
+
+---
+
+## **Sapota**
+- **Spacing and Fertigation:** 5.0 m × 5.0 m spacing for 10-year-old Kalipatti and 8 m × 4 m for 18-year-old PKM 1 recorded highest yield.
+
+---
+
+## **Jackfruit**
+- **Grafting:** Soft wood grafting using 4-month-old rootstocks under shade during October registered highest graft success.
+
+---
+
+## **Apple**
+- **High-Density Plantation:** Oregon Spur and Red Chief on semi-dwarfing rootstocks MM 106 at 2.5 m × 2.5 m spacing doubled global average productivity.
+
+---
+
+## **Almond**
+- **Medium High-Density Plantation:** 625 plants/ha at 4 m × 4 m spacing yielded 2.4 tonnes/ha.
+
+---
+
+## **Apricot**
+- **Medium-Density Plantation:** 400 plants/ha at 5 m × 5 m spacing produced quality fruits.
+
+---
+
+## **Arid Zone Fruits**
+- **Aonla-Based Systems:** Ground-storey crops like Seb ber performed well without affecting main crops.
+
+---
+
+## **Vegetable Crops**
+- **Onion and Garlic:** Drip and sprinkler irrigation saved 40–50% water and increased yield by 15–20%.
+- **Broccoli:** Poultry manure @ 5 tonnes/ha + half NPK (60:30:30 kg/ha) recorded maximum head yield (366.0 q/ha).
+
+---
+
+## **Potato**
+- **Cropping Sequences:** Rice-potato-okra and potato-French bean were most remunerative.
+- **Intercropping:** Potato + French bean (2:1 ratio) followed by potato + methi (2:1 ratio) were most profitable.
+
+---
+
+## **Coconut**
+- **Carbon Sequestration:** Annual carbon sequestration potential ranged from 8 to 32 CERs.
+
+---
+
+## **Cashew**
+- **High-Density Planting:** Yield was significantly higher (726 and 1,138 kg/ha) than normal density (457 kg/tree).
+
+---
+
+## **Gerbera**
+- **Organic Modules:** Developed for effective management of whitefly in protected cultivation.
+
+---
+
+## **Lilium**
+- **Bulb Production:** Standardized using sawdust of *Cryptomeria japonica* and N:P:K (10:25:25) @ 100 g/m².
+
+---
+
+## **Medicinal and Aromatic Plants**
+- **Patchouli Propagation:** Standardized using single leaf from top 2–5 nodes.
+- **Kalmegh:** FYM @ 7.5 tonnes/ha and harvesting 135 days after planting increased yield.
+
+---
+
+## **Betelvine**
+- **Integrated Crop Management:** Inorganic nitrogen @ 200 kg + 100 kg P₂O₅ + 100 kg K₂O + irrigation 100% replenishment of CPE + 4 applications of *Trichoderma* + sanitation improved yield.
+
+---
+
+## **Mushroom**
+- **Shiitake:** Supplementation of 20% wheat bran increased yield.
+- **Button, Oyster, and Paddy Straw Mushrooms:** Cultivation practices developed in low-cost bamboo huts.
+
+---
+
+## **Tuber Crops**
+- **Sweet Potato:** Vermicompost (15 kg N) + 45:40:60 kg NPK/ha recommended.
+- **Elephant-Foot Yam:** Straw mulching recommended for weed management and yield enhancement.
+
+---
+
+# **Protection Technologies**
+
+---
+
+## **Rice**
+### Biological Suppression of Crop Pests
+- **Biocontrol:** *Trichogramma chilonis*, *T. japonicum*, *Pseudomonas fluorescens*, and *Trichoderma* spp. controlled pests and diseases over 1,200 ha of deep-water lands.
+
+### Nematode Management
+- **Atlas:** Nematode distribution atlas compiled for economically important plant-parasitic nematodes.
+- **Hot Spots:** Identified in West Bengal, Himachal Pradesh, Tamil Nadu, Karnataka, and Assam.
+- **Management:** Soil solarization + Carbofuran 3 G at 1 kg a.i./ha or neem cake at 100 g/m².
+
+### Mite Control
+- **Fenazaquin, Diafenthiuron, Dicofol:** Effective against rice sheath mite *Steneotarsonemus spinki*.
+
+---
+
+## **Wheat and Barley**
+### Disease and Pest Resistance
+- **Wheat Genotypes:** TL 2934, HS 485, TL 2942, HS 459, HS 461, HPW 251, and others showed resistance to multiple diseases and pests.
+- **Barley Genotypes:** BHS 369, HBL 410, HBL 501, and others showed resistance to stripe rust and leaf blight.
+
+---
+
+## **Maize**
+### Disease Resistance
+- **Registered Lines:** BPPT 1 35, BPPT 1 37, BPPT 1 38, BPPT 1 44 showed resistance to PFSR.
+
+---
+
+## **Sorghum**
+### IPM
+- **Natural Enemies:** Wheat straw bundles with spiders and border crops (maize, sunnhemp, or *Sesbania*) increased natural enemy population.
+
+---
+
+## **Pearl Millet**
+### Disease Resistance
+- **Varieties:** MH 1248, MH 1291, MH 1294, and others exhibited resistance to downy mildew, smut, and rust.
+
+---
+
+## **Groundnut**
+### Disease Management
+- **Gypsum:** 500 kg/ha at pegging reduced aflatoxin contamination.
+- **Rotation:** Garlic and onion rotation reduced *Aspergillus flavus* population.
+
+---
+
+## **Sunflower**
+### Disease Control
+- **Seed Treatment:** Iprodione + Carbendazim 0.2% followed by Quintal 0.2% and Propiconazole 0.1% sprays reduced *Alternaria* leaf-spot incidence.
+
+---
+
+## **Castor**
+### Disease Management
+- **Botrytis Grey Mold:** Managed with Carbendazim (0.1%) + *Trichoderma viride* (0.3%).
+
+---
+
+## **Rapeseed-Mustard**
+### Disease Management
+- **Foliar Diseases:** Managed with *Allium sativum* bulb extract (2%) and *Eucalyptus globosus* leaf extract (5%).
+
+---
+
+## **Sesame**
+### Pest Management
+- **Intercropping:** 3:3 ratio with greengram, blackgram, and clusterbean reduced pest incidence.
+
+---
+
+## **Linseed**
+### Disease Control
+- **Companion 75WP:** Effective in reducing *Alternaria* blight infection.
+
+---
+
+## **Chickpea**
+### Disease Resistance
+- **Varieties:** GNG 1581, IPC 2004-52, JG 2000-14, and others resistant to *Fusarium* wilt.
+
+---
+
+## **Pigeonpea**
+### Pest Management
+- **Pod Borer Control:** E2Y45 20% SC 40 g a.i./ha followed by Spinosad (73 g a.i./ha).
+
+---
+
+## **Cotton**
+### Pest Management
+- **Pink Bollworm:** Mating-disruption technique using PB Rope L demonstrated in Dharwad and Sriganganagar.
+- **Biological Suppression:** *Trichoderma* seed treatment + *Cassia occidentalis* intercropping + *Chrysoperla carnea* release.
+
+---
+
+## **Sugarcane**
+### Pest Management
+- **Red Rot:** *Trichoderma* spore suspension and TMC in powder form effective.
+- **Woolly Aphid:** *Dipha aphidivora* release at 1,000 larvae/ha.
+
+---
+
+## **Jute**
+### Disease and Pest Incidence
+- **Stem Rot and Anthracnose:** Prevalent in all jute-growing areas.
+- **Pests:** Semilooper, stem weevil, yellow mite, and Bihar hairy caterpillar.
+
+---
+
+## **Tobacco**
+### Pest Management
+- **Aphid Control:** *Lantana camara*, *Thevetia nereifolia*, and *Nyctanthes* sp. extracts controlled aphids up to 90%.
+
+---
+
+## **Mango**
+### Disease Management
+- **Anthracnose and Blossom Blight:** Managed with Prochloraz (0.1%) and *Vitex negundo* extract (5%).
+
+---
+
+## **Guava**
+### Nematode Management
+- **Entomopathogenic Nematodes:** *Steinernema carpocapsae* prevalence higher in western direction and during July.
+
+---
+
+## **Papaya**
+### Nematode Management
+- **Neem Cake + Carbofuran + *Pseudomonas fluorescens*:** Reduced nematode population and increased fruit yield.
+
+---
+
+## **Banana**
+### Pest and Disease Management
+- **Fusarium-Nematode Complex:** Carbofuran 3 G (40 g/sucker) + Carbendazim (0.2%) drenching.
+- **Sigatoka Leaf Spot:** Propiconazole (0.1%) sprays at 30-day intervals.
+
+---
+
+## **Grape**
+### Pest Management
+- **Pink Mealybug:** *Cryptolaemus montrouzieri* release at 5,000 larvae/ha reduced infestation by 99%.
+
+---
+
+## **Citrus**
+### Pest Management
+- **Citrus Psylla:** *Tamarisia radiata* parasitism higher in spring (78.4%).
+
+---
+
+## **Sapota**
+### Pest Management
+- **Bud-Borer:** Lambdacyhalothrin (0.005%) or Polytrin C sprays at 15-day intervals.
+
+---
+
+## **Pomegranate**
+### Disease Management
+- **Bacterial Blight:** Managed with Streptocycline (500 ppm).
+
+---
+
+## **Vegetable Crops**
+### Pest Management
+- **Fruit Fly:** Molasses and neem showed high luring/repellent index.
+- **Brinjal:** *Trichogramma chilonis* release and Bt formulations reduced shoot-and fruit-borer damage.
+
+---
+
+## **Potato**
+### Disease Management
+- **Late Blight:** Mancozeb or Cymoxanil sprays controlled late blight.
+
+---
+
+## **Coconut**
+### Disease Management
+- **Stem Bleeding:** *Trichoderma viride*, *T. harzianum*, and *T. hamatum* inhibited *Thielaviopsis paradoxa*.
+
+---
+
+## **Spices**
+### Disease Management
+- **Black Pepper:** *Pseudomonas aeruginosa* and *Bacillus megaterium* effective against *Phytophthora capsici*.
+
+---
+
+## **Integrated Pest Management**
+- **Plant Health Clinics:** Established at four centers for IPM demonstration.
+- **Pest Forewarning:** Multiple regression model developed for *Helicoverpa armigera* population forecasting.
+
+---
+
+## **Biological Control**
+- **Natural Enemies:** *Cecidochares connexa* released for Siam weed control.
+- **Endophytic Bacteria:** *Bacillus megaterium* and *Bacillus* sp. showed high biocontrol potential.
+
+---
+
+## **Rodent Management**
+- **Botanicals:** *Vitex nigundi* and *Jatropha* seeds showed repellent properties.
+- **Burrow Fumigator:** Modified fumigator showed >90% rodent control success.
+
+---
+
+## **Agricultural Ornithology**
+- **Bird Damage:** Cattle egret dominated wheat-crop agro-ecosystem in Gujarat.
+- **Bird Management:** Reflective ribbons and artificial perches reduced bird damage.
+
+---
+
+## **Whitegrubs and Soil Arthropods**
+- **Whitegrub Control:** Chlorpyriphos 20 EC and Bifenthrin 10 EC effective in potato.
+- **Termite Control:** Chlorpyriphos 20 EC and Imidacloprid 70 WS effective in sugarcane and groundnut.
+
+---
+
+## **Pesticide Residues**
+- **Residue Analysis:** Manual on pesticide residue analysis published.
+- **Website:** [All-India Network Project on Pesticide Residues](http://www.ainppr.com)
+
+---
+
+## **Success Stories**
+### Checking Root Knot Nematode in Banana
+- **Location:** Jaagannathpur village, Pipli block, Odisha.
+- **Method:** Hot-water treatment at 55°C for 20 minutes + Furadan application.
+- **Result:** 30% higher average bunch weight and reduced nematode multiplication.
