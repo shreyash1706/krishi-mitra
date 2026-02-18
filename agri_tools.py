@@ -1,8 +1,35 @@
 import json
 import requests
 from datetime import datetime, timedelta
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
 
+#TODO:add a geocoding function params: location address returns: lat lon conversion api/service/library 
+def get_coords(addr ,district):
+    """
+    Attempts to find the exact location of a given address, append district,state and country
+    :param addr: Description
+    :param district: Description
+    """
 
+    geolocator = Nominatim(user_agent="krihsi_mitra")
+    
+    search_query = f"{addr},{district},Maharastra,India"
+    
+    try:
+        location = geolocator.geocode(search_query, timeout=5)
+        
+        if location:
+            return location.latitude , location.longitude
+        
+        else:
+            None
+    except GeocoderTimedOut:
+        print("Grocoding timed out")
+        return None
+    except Exception as e:
+        print(e)
+        return None 
 
 def get_agri_forecast(lat, lon):
     """
