@@ -4,7 +4,10 @@ from datetime import datetime, timedelta
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 
-#TODO:add a geocoding function params: location address returns: lat lon conversion api/service/library 
+#TODO: Create a Web Search func
+#TODO: Integrate the geocoding to auto fetch the user coords
+
+
 def get_coords(addr ,district):
     """
     Attempts to find the exact location of a given address, append district,state and country

@@ -9,13 +9,13 @@ import json
 
 app = FastAPI(title="Krishi Mitra API")
 
-model_path = "models/Qwen4-8B-Q6_K.gguf"
+model_path = "models/Qwen3-8B-Q6_K.gguf"
 
 print("Loading Owen..")
 SHARED_LLM = Llama(
     model_path=model_path,
     n_gpu_layers=0,
-    n_ctx=8193,
+    n_ctx=8192,
     verbose=False,
     n_batch = 1025,
     flash_attn=True
@@ -24,22 +24,40 @@ SHARED_LLM = Llama(
 
 router = IntentRouter(SHARED_LLM)
 
+# --- IMPROVED SYSTEM PROMPTS ---
+#TODO:Improve prompts further
 AGENTS = {
     "crop": BaseAgent(
         agent_mode="Crop Planner", 
-        system_prompt="You are an expert Agronomist. Focus on sowing dates, soil health, varieties, and irrigation.",
+        system_prompt=(
+            "You are Krishi Mitra, an expert Agronomist. Your goal is to help farmers maximize yield. "
+            "ALWAYS use the 'get_soil_details' tool before recommending crops or fertilizers. "
+            "Use the 'get_agri_forecast' tool before advising on sowing dates or irrigation."
+        ),
     ),
     "pest": BaseAgent(
         agent_mode="Pest & Disease", 
-        system_prompt="You are a Plant Pathologist. Diagnose issues from symptoms. Recommend safety precautions.",
+        system_prompt=(
+            "You are Krishi Mitra, a Plant Pathologist. Diagnose plant issues from symptoms. "
+            "Use the 'get_agri_forecast' tool to check humidity and temperature, as weather heavily impacts fungal diseases and pest outbreaks. "
+            "Provide safe chemical and organic solutions."
+        ),
     ),
     "market": BaseAgent(
         agent_mode="Market Expert", 
-        system_prompt="You are a Market Analyst. Focus on current APMC prices, future trends",
+        system_prompt=(
+            "You are Krishi Mitra, a Market Analyst for Maharashtra. "
+            "NEVER guess crop prices. ALWAYS use the 'get_market_price' tool to fetch real-time APMC data before answering. "
+            "Keep your answers short, focusing on Modal Price and Market Trends."
+        ),
     ),
     "finance": BaseAgent(
         agent_mode="Finance Advisor", 
-        system_prompt="You are a Banking Consultant for Farmers. Explain loans, subsidies (PM Kissan), and insurance schemes.",
+        system_prompt=(
+            "You are Krishi Mitra, a Banking Consultant for Farmers. "
+            "Explain loans, subsidies (like PM Kisan), and crop insurance schemes simply and step-by-step. "
+            "If a user asks about subsidies for a specific crop, ask them their land size."
+        ),
     )
 }
 
@@ -63,7 +81,7 @@ async def chat_endpoint(req: ChatRequest):
     # 4. SESSION MANAGEMENT
     if not req.session_id:
         # Brand new chat
-        conn = sqlite4.connect("krishi.db")
+        conn = sqlite3.connect("krishi.db")
         c = conn.cursor()
         c.execute("INSERT INTO sessions (user_id, agent_mode, title) VALUES (?, ?, ?)", 
                   (req.user_id, target, req.query[:31]))
