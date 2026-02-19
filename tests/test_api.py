@@ -51,11 +51,11 @@ def run_conversational_test():
 
     # --- TEST 1: Soil Tool & Crop Agent ---
     # We provide exact lat/lon so the LLM doesn't have to guess.
-    query_1 = "I am planning to farm at lat 18.52, lon 73.85. Can you check the soil details there and tell me what is good to grow?"
+    query_1 = "I am planning to farm at lat 19.08, lon 76.97. Can you check the soil details there and tell me what is good to grow?"
     session_id = send_message(query_1, session_id)
 
     # --- TEST 2: Weather Tool (Memory Check) ---
-    # Testing if it remembers the location from the previous turn OR uses the one provided.
+    """   # Testing if it remembers the location from the previous turn OR uses the one provided.
     query_2 = "What is the 7-day weather forecast looking like for my farm at lat 18.52, lon 73.85? Will it rain?"
     session_id = send_message(query_2, session_id)
 
@@ -74,7 +74,7 @@ def run_conversational_test():
     session_id = send_message(query_5, session_id)
 
     print("\n✅ API Testing Complete!")
-
+    """
 if __name__ == "__main__":
     # Make sure you have installed requests: pip install requests
     run_conversational_test()

@@ -5,6 +5,7 @@ import sqlite3
 from tool_schema import KRISHI_TOOLS
 from agri_tools import get_agri_forecast, get_historical_rainfall, get_soil_details
 from market_tools import get_market_price
+import re
 
 class BaseAgent:
     def __init__(self, agent_mode,system_prompt):
@@ -67,6 +68,7 @@ class BaseAgent:
         return "No profile available for this user."
 
     def run(self, user_query, session_id, user_id, should_think=True):
+        #TODO: get_faremr_profile not used to attach user details in the system prompt 
         # 1. Save the CLEAN message to the database for the user UI
         self.save_message(session_id, "user", user_query)
         history = self.get_history(session_id)
@@ -82,6 +84,8 @@ class BaseAgent:
 
         print(f"🤖 [{self.agent_mode}] Thinking Mode: {should_think}...")
         
+        print(messages)
+        
         # 2. FIRST PASS (Allow LLM to call tools)
         output = self.llm.create_chat_completion(
             messages=messages,
@@ -91,60 +95,72 @@ class BaseAgent:
         )
         
         response_message = output['choices'][0]['message']
+        print(response_message)
 
+        content = response_message.get('content', '')
         # 3. CHECK FOR NATIVE TOOL CALLS
-        if "tool_calls" in response_message and response_message["tool_calls"]:
-            tool_call = response_message["tool_calls"][0] # Grab the first requested tool
-            tool_name = tool_call["function"]["name"]
+        if "<tool_call>" in content:
+            json_str_match = re.search(r"<tool_call>(.*?)</tool_call>", content, re.DOTALL)
             
-            # Parse arguments securely
-            try:
-                tool_args = json.loads(tool_call["function"]["arguments"])
-            except json.JSONDecodeError:
-                tool_args = {}
-
-            print(f"🛠️ [TOOL CALLED] {tool_name} with {tool_args}")
-
-            # 4. EXECUTE THE PYTHON FUNCTION
-            func = self.tool_functions.get(tool_name)
-            if func:
+            if json_str_match:
+                json_str = json_str_match.group(1).strip()
+                
                 try:
-                    tool_result = str(func(**tool_args))
-                except Exception as e:
-                    tool_result = f"Error executing tool: {e}"
-            else:
-                tool_result = f"Tool {tool_name} not found."
+                    tool_call = json.loads(json_str)
+                    tool_name = tool_call.get("name")
+                    
+                    # Fix: arguments is already a dictionary, do NOT json.loads it again!
+                    tool_args = tool_call.get("arguments", {})
 
-            # 5. FEED RESULT BACK TO LLM
-            messages.append(response_message)
-            messages.append({
-                "role": "tool",
-                "name": tool_name,
-                "content": tool_result
-            })
+                    print(f"🛠️ [TOOL CALLED] {tool_name} with {tool_args}")
 
-            print(f"🧠 [{self.agent_mode}] Reading tool data and formulating final answer...")
-            
-            # 6. SECOND PASS (Final Answer based on data)
-            final_output = self.llm.create_chat_completion(
-                messages=messages,
-                temperature=0.7
-            )
-            final_reply = final_output['choices'][0]['message']['content']
-            
-            # Clean up <think> tags from the final reply if they exist
-            import re
-            clean_reply = re.sub(r'<think>.*?</think>', '', final_reply, flags=re.DOTALL).strip()
-            
-            self.save_message(session_id, "assistant", clean_reply)
-            return clean_reply
+                    # 4. EXECUTE THE PYTHON FUNCTION
+                    func = self.tool_functions.get(tool_name)
+                    if func:
+                        try:
+                            # We unpack the dictionary as arguments into the function
+                            tool_result = str(func(**tool_args))
+                        except Exception as e:
+                            tool_result = f"Error executing tool: {e}"
+                    else:
+                        tool_result = f"Tool {tool_name} not found."
+
+                    print(f"✅ [TOOL RESULT]: {tool_result}")
+
+                    # 5. FEED RESULT BACK TO LLM
+                    messages.append(response_message)
+                    
+                    # Since Qwen is using text-based XML tool calling, we feed the result back 
+                    # exactly how Qwen expects to read it
+                    messages.append({
+                        "role": "user",
+                        "content": f"<tool_response>\n{tool_result}\n</tool_response>"
+                    })
+
+                    print(f"🧠 [{self.agent_mode}] Reading tool data and formulating final answer...")
+                    
+                    # 6. SECOND PASS (Final Answer based on data)
+                    final_output = self.llm.create_chat_completion(
+                        messages=messages,
+                        temperature=0.7
+                    )
+                    final_reply = final_output['choices'][0]['message']['content']
+                    
+                    # Clean up <think> tags from the final reply
+                    clean_reply = re.sub(r'<think>.*?</think>', '', final_reply, flags=re.DOTALL).strip()
+                    
+                    self.save_message(session_id, "assistant", clean_reply)
+                    return clean_reply
+                    
+                except json.JSONDecodeError as e:
+                    print(f"❌ JSON Parse Error: {e}")
+                    return "Error parsing tool request."
 
         else:
             # LLM didn't need a tool, just replied normally
             reply = response_message.get('content', '')
             
             # Clean up <think> tags if they exist
-            import re
             clean_reply = re.sub(r'<think>.*?</think>', '', reply, flags=re.DOTALL).strip()
             
             self.save_message(session_id, "assistant", clean_reply)

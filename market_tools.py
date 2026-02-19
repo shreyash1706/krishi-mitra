@@ -182,6 +182,6 @@ def get_market_price(crop_name: str, location: str) -> str:
             f"(Arrivals: {int(major['Quantity'])} {major['Unit']})"
         )
 
-#TODO: create function are test other tools with UI 
+#TODO: create function after test other tools with UI 
 def get_trending_crops(Loc):
     pass

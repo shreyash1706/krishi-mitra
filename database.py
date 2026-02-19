@@ -50,6 +50,7 @@ def init_db():
     )''')
 
     #chat history of each tab 
+    #TODO:Create a column for tools used in a query as well 
     c.execute('''
     CREATE TABLE IF NOT EXISTS messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
