@@ -63,14 +63,12 @@ def _get_apmc_by_commodity(Comm):
         for opt in dropdown.options:
             if crop_name.upper() in opt.text.upper():
                 # Grab a reference to the CURRENT table before we click
-                old_table = driver.find_element(By.CSS_SELECTOR, "table.table.custom-table")
                 
                 dropdown.select_by_visible_text(opt.text)
                 found = True
-                
+                time.sleep(2)
                 # THE MAGIC WAIT: Wait until the old table disappears from the DOM 
                 # This guarantees the AJAX request finished and the new data is rendering
-                wait.until(EC.staleness_of(old_table))
                 break
 
         if not found:
@@ -86,6 +84,10 @@ def _get_apmc_by_commodity(Comm):
             return df
             
             # print(df.head())
+            
+    except Exception as e:
+        driver.save_screenshot("selenium_crash.png")
+        raise e
 
     finally:
         # Always close the browser, even if the code crashes, to prevent memory leaks
@@ -106,10 +108,7 @@ def __clean_market_data(df):
     
     # Drop header garbage and rename
     clean = df[date_series.isna() & df.iloc[:, 0].notna()].copy()
-    clean.rename(columns={
-        0: 'APMC', 1: 'Variety', 2: 'Unit', 3: 'Quantity',
-        4: 'Min_Price', 5: 'Max_Price', 6: 'Modal_Price'
-    }, inplace=True)
+    clean.columns = ['APMC', 'Variety', 'Unit', 'Quantity', 'Min_Price', 'Max_Price', 'Modal_Price', 'Date']
     
     # Typecast text to numbers
     for col in ['Quantity', 'Min_Price', 'Max_Price', 'Modal_Price']:
@@ -138,15 +137,20 @@ def get_market_price(crop_name: str, location: str) -> str:
     
     available_apmcs = df['APMC'].unique().tolist()
 
-    exact_matches = [apmc for apmc in available_apmcs if str(location).upper() in str(apmc).upper()]
+    best_match = None
+    location_upper = str(location).upper().strip()
+    
+    # 1. Substring Match
+    exact_matches = [apmc for apmc in available_apmcs if location_upper in str(apmc).upper()]
+    
     if exact_matches:
         best_match = exact_matches[0]
     else:
-        fuzzy = difflib.get_close_matches(str(location).upper(), available_apmcs, n=1, cutoff=0.6)
+        # 2. Strict Fuzzy Match (85% similarity required)
+        import difflib
+        fuzzy = difflib.get_close_matches(location_upper, available_apmcs, n=1, cutoff=0.85)
         if fuzzy:
-            best_match = fuzzy[0]
-            
-    # 2. RESULT GENERATION
+            best_match = fuzzy[0]   # 2. RESULT GENERATION
     if best_match:
         # Isolate all historical data for this specific market
         market_history = df[df['APMC'] == best_match]

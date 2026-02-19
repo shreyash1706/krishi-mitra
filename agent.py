@@ -6,7 +6,7 @@ from tool_schema import KRISHI_TOOLS
 from agri_tools import get_agri_forecast, get_historical_rainfall, get_soil_details
 from market_tools import get_market_price
 import re
-
+import traceback
 class BaseAgent:
     def __init__(self, agent_mode,system_prompt):
         self.agent_mode = agent_mode
@@ -121,7 +121,9 @@ class BaseAgent:
                             # We unpack the dictionary as arguments into the function
                             tool_result = str(func(**tool_args))
                         except Exception as e:
-                            tool_result = f"Error executing tool: {e}"
+                            err_details = traceback.format_exc()
+                            print(f"Crash dump:\n{err_details}")
+                            tool_result = f"Error executing tool. Please try again"
                     else:
                         tool_result = f"Tool {tool_name} not found."
 

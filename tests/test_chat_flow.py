@@ -31,7 +31,7 @@ def run_chat_flow():
     session_id = chat("Is that a good price compared to the state benchmark?", session_id)
     
     # Turn 3: Forces the LLM to use the Weather Tool
-    session_id = chat("Okay. I want to spray pesticides on my cotton today. My farm is at lat 21.0, lon 75.5. Check the weather.", session_id)
+    session_id = chat("s", session_id)
     
     # Turn 4: Tests ROUTER and MEMORY together. 
     # It should switch to the Pest Agent, but remember the weather data from Turn 3 to give advice.
