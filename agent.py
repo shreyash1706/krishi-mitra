@@ -98,12 +98,16 @@ class BaseAgent:
         print(response_message)
 
         content = response_message.get('content', '')
+        
+        tool_call_matches = re.findall(r"<tool_call>(.*?)</tool_call>", content, re.DOTALL)
         # 3. CHECK FOR NATIVE TOOL CALLS
-        if "<tool_call>" in content:
-            json_str_match = re.search(r"<tool_call>(.*?)</tool_call>", content, re.DOTALL)
+        if tool_call_matches:
+
+            messages.append(response_message)
+            json_str_match = re.search(r"<tool_call>(.*?)<tool_call>", content, re.DOTALL)
             
-            if json_str_match:
-                json_str = json_str_match.group(1).strip()
+            for json_str in tool_call_matches:
+                json_str = json_str.strip()
                 
                 try:
                     tool_call = json.loads(json_str)
@@ -130,7 +134,6 @@ class BaseAgent:
                     print(f"✅ [TOOL RESULT]: {tool_result}")
 
                     # 5. FEED RESULT BACK TO LLM
-                    messages.append(response_message)
                     
                     # Since Qwen is using text-based XML tool calling, we feed the result back 
                     # exactly how Qwen expects to read it
@@ -139,24 +142,27 @@ class BaseAgent:
                         "content": f"<tool_response>\n{tool_result}\n</tool_response>"
                     })
 
-                    print(f"🧠 [{self.agent_mode}] Reading tool data and formulating final answer...")
                     
-                    # 6. SECOND PASS (Final Answer based on data)
-                    final_output = self.llm.create_chat_completion(
-                        messages=messages,
-                        temperature=0.7
-                    )
-                    final_reply = final_output['choices'][0]['message']['content']
-                    
-                    # Clean up <think> tags from the final reply
-                    clean_reply = re.sub(r'<think>.*?</think>', '', final_reply, flags=re.DOTALL).strip()
-                    
-                    self.save_message(session_id, "assistant", clean_reply)
-                    return clean_reply
                     
                 except json.JSONDecodeError as e:
                     print(f"❌ JSON Parse Error: {e}")
                     return "Error parsing tool request."
+            
+            print(f"🧠 [{self.agent_mode}] Reading tool data and formulating final answer...")
+                    
+                # 6. SECOND PASS (Final Answer based on data)
+            final_output = self.llm.create_chat_completion(
+                messages=messages,
+                temperature=0.7
+            )
+            final_reply = final_output['choices'][0]['message']['content']
+            print(f"💬 [FINAL REPLY]: {final_reply}")
+            
+            # Clean up <think> tags from the final reply
+            clean_reply = re.sub(r'<think>.*?</think>', '', final_reply, flags=re.DOTALL).strip()
+            
+            self.save_message(session_id, "assistant", clean_reply)
+            return clean_reply
 
         else:
             # LLM didn't need a tool, just replied normally

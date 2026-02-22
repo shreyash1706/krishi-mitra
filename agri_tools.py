@@ -189,7 +189,7 @@ def get_soil_details(lat, lon):
 
         # --- CHECK IF DATA IS EMPTY ---
         if not props:
-            return "⚠️ Soil data is NULL for this location (Likely Coastal/Water)."
+            return "⚠️ Soil data is NULL for this location (Either it's a densely populated region like Mumbai/Nagpur/Pune or this specific location might be coastal or waterlogged)."
 
         # --- DERIVED INTELLIGENCE ---
         clay = props.get('Clay', 0)

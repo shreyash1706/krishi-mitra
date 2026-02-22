@@ -14,6 +14,7 @@ def init_db():
     (
     user_id TEXT PRIMARY KEY,
     name TEXT,
+    village TEXT,
     district TEXT,
     lat_long TEXT,
     soil_details TEXT,
