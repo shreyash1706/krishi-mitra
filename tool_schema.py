@@ -62,5 +62,26 @@ KRISHI_TOOLS = [
                 "required": ["crop_name", "location"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "web_search",
+            "description": "Search the live internet. Use this ONLY when you need real-time news, recent events, or information not available in your knowledge base (e.g., 'latest government farming subsidies 2026', 'recent pest outbreaks in Maharashtra').",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string", 
+                        "description": "The exact search query to type into the search engine. Make it specific."
+                    },
+                    "max_results": {
+                        "type": "integer",
+                        "description": "Number of results to fetch. Default is 3. Max is 5."
+                    }
+                },
+                "required": ["query"]
+            }
+        }
     }
 ]
