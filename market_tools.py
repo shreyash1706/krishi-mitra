@@ -12,9 +12,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 from io import StringIO
 
-#
-def _get_apmc_by_commodity(Comm):
-    MSAMB_URL = "https://www.msamb.com/ApmcDetail/APMCPriceInformation" # Replace with actual URL
+def __fetch_table(selector, type):
+    MSAMB_URL = "https://www.msamb.com/ApmcDetail/APMCPriceInformation" 
     brave_path = '/opt/brave.com/brave/brave'
 
     # 1. OPTIMIZE BROWSER OPTIONS FOR SPEED
@@ -25,7 +24,8 @@ def _get_apmc_by_commodity(Comm):
     options.add_argument('--no-sandbox')             # Bypass OS security model (required for headless on Linux)
     options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
     options.add_argument('--blink-settings=imagesEnabled=false') # Do not load images (Huge speed boost)
-    options.page_load_strategy = 'eager'             # Don't wait for CSS/Images to fully load
+    options.page_load_strategy = 'eager'   
+              # Don't wait for CSS/Images to fully load
 
     # Initialize WebDriver
     service = Service()
@@ -51,47 +51,75 @@ def _get_apmc_by_commodity(Comm):
             
             # Wait for the new dropdown to be clickable
             wait.until(EC.element_to_be_clickable((By.ID, "drpCommodities")))
+            
+        title_element = wait.until(EC.element_to_be_clickable((By.ID, "APMCTitle")))
+        title_element.click()
+        time.sleep(1)
+        option_element = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, type)))
+        option_element.click()
+        time.sleep(1)
 
         # 3. SELECT COMMODITY & WAIT FOR AJAX REFRESH
-        print("🌾 Selecting commodity...")
-        drp_element = wait.until(EC.presence_of_element_located((By.ID, "drpCommodities")))
+        print("🌾 Selecting value")
+        if type == "Commodity- District Wise":
+            drp_element = wait.until(EC.presence_of_element_located((By.ID, "drpCommodityDistrict")))
+        else:
+            drp_element = wait.until(EC.presence_of_element_located((By.ID, "drpDistrictCommodity")))
+            
         dropdown = Select(drp_element)
-        
-        crop_name = Comm
+            
+        selector_name = selector
         found = False
         
         for opt in dropdown.options:
-            if crop_name.upper() in opt.text.upper():
+            if selector_name.upper() in opt.text.upper():
                 # Grab a reference to the CURRENT table before we click
                 
                 dropdown.select_by_visible_text(opt.text)
                 found = True
-                time.sleep(2)
+                time.sleep(1)
                 # THE MAGIC WAIT: Wait until the old table disappears from the DOM 
                 # This guarantees the AJAX request finished and the new data is rendering
                 break
 
         if not found:
-            print(f"❌ Crop '{crop_name}' not found in dropdown.")
+            print(f"❌ Selector '{selector_name}' not found in dropdown.")
         else:
             # 4. EXTRACT DATA
             print("📊 Extracting table...")
             # Wait for the NEW table to be present
-            table_element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "table.table.custom-table")))
+            if type == "Commodity- District Wise":
+                target_div_id = "CommodityDistrictGird"
+            else:
+                target_div_id = "DistrictCommodityGird"
+                
+            # 2. Build a CSS Selector that looks INSIDE that specific Div
+            table_selector = f"div#{target_div_id} table.custom-table"
+            
+            # 3. Wait for and grab that exact table
+            table_element = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, table_selector)))
             table_html = table_element.get_attribute('outerHTML')
             
+            # 4. Convert to Pandas
+            from io import StringIO
             df = pd.read_html(StringIO(table_html))[0]
+            
             return df
             
             # print(df.head())
             
     except Exception as e:
-        driver.save_screenshot("selenium_crash.png")
         raise e
 
-    finally:
+    # finally:
         # Always close the browser, even if the code crashes, to prevent memory leaks
         driver.quit()
+
+#
+def _get_districts_by_commodity(Comm):
+    
+    pass
+    
         
         
 #TODO: add this for the trending data 
