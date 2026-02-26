@@ -57,9 +57,23 @@ KRISHI_TOOLS = [
                 "type": "object",
                 "properties": {
                     "crop_name": {"type": "string", "description": "Name of the crop (e.g., 'onion', 'cotton')"},
-                    "location": {"type": "string", "description": "Village, APMC name, or District of the user"}
+                    "district": {"type": "string", "description": " District of the user"}
                 },
-                "required": ["crop_name", "location"]
+                "required": ["crop_name", "district"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function" : {
+            "name": "get_trending_crops",
+            "description": "Finds trending crops based on Price Growth (Momentum) AND Volume (Arrivals) in Maharastra by district.",
+            "parameters": {
+                "type": "object",
+                "properties":{
+                    "district":{"type": "string", "description": "District of the user"} 
+                },
+                "required": ["district"]
             }
         }
     },

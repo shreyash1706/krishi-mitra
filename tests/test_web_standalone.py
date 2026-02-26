@@ -1,35 +1,35 @@
-## tests/test_web_llm.py
-import requests
-import time
+# tests/test_trending_standalone.py
+import sys
+import os
 
-BASE_URL = "http://127.0.0.1:8000"
-USER_ID = "farmer_web_tester"
+# Add the parent directory to the path so we can import your tools
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def chat(query: str):
-    print(f"\n🧑‍🌾 User: {query}")
-    payload = {"user_id": USER_ID, "query": query}
+# Assuming you saved the function in market_tools.py
+from market_tools import get_trending_crops 
 
-    start_time = time.time()
-    try:
-        response = requests.post(f"{BASE_URL}/chat", json=payload)
-        response.raise_for_status()
-        data = response.json()
-        
-        print(f"⏱️  Time: {time.time() - start_time:.1f}s | 🧭 Agent: {data['agent'].upper()}")
-        print(f"🤖 Krishi Mitra:\n{data['reply']}")
-        print("-" * 60)
-    except Exception as e:
-        print(f"❌ API Error: {e}")
-
-def run_llm_test():
-    print("🚀 Starting LLM Web Search Integration Test...\n")
+def run_trending_test():
+    print("🚀 Starting Standalone Trending Crops Test...\n")
     
-    # This should trigger the Finance Agent to use the Web Search tool
-    # chat("Are there any new announcements for the PM Kisan Samman Nidhi scheme in the news recently?")
+    # Test 1: A massive market hub (Should have plenty of data)
+    district_1 = "PUNE"
+    print(f"🔍 Fetching trends for: {district_1}")
+    result_1 = get_trending_crops(district_1)
+    print(result_1)
+    print("="*60 + "\n")
+
+    # Test 2: Another district we saw in your HTML dump earlier
+    district_2 = "JALGAON"
+    print(f"🔍 Fetching trends for: {district_2}")
+    result_2 = get_trending_crops(district_2)
+    print(result_2)
+    print("="*60 + "\n")
     
-    # This should trigger the Pest/Crop Agent to check recent events
-    chat("Has there been any news about pink bollworm attacks in Maharashtra this month?")
+    # Test 3: Error handling test (A district that doesn't exist)
+    district_3 = "FAKE_CITY"
+    print(f"🔍 Fetching trends for: {district_3}")
+    result_3 = get_trending_crops(district_3)
+    print(result_3)
 
 if __name__ == "__main__":
-    # Make sure your FastAPI server (uvicorn main:app) is running in another terminal!
-    run_llm_test()
+    run_trending_test()
