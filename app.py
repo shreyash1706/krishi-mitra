@@ -1,88 +1,201 @@
 import streamlit as st
 import requests
+import json
 
-# --- CONFIGURATION ---
+# --------------------------------------------------
+# CONFIG
+# --------------------------------------------------
+st.set_page_config(page_title="Krishi Mitra", page_icon="🚜", layout="wide")
+
 API_URL = "http://127.0.0.1:8000/chat"
-USER_ID = "farmer_demo_123" # Hardcoded for testing
 
-st.set_page_config(page_title="Krishi Mitra", page_icon="🚜", layout="centered")
+# --------------------------------------------------
+# SESSION STATE INIT (MUST BE AT TOP)
+# --------------------------------------------------
 
-# --- INITIALIZE SESSION STATE ---
-# We use session state to remember the chat history and the database session ID
+if "user_details" not in st.session_state:
+    st.session_state.user_details = None
+
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "Namaskar! I am Krishi Mitra. How can I help you with your farm today?", "agent": "system"}]
+    st.session_state.messages = []
+
 if "session_id" not in st.session_state:
     st.session_state.session_id = None
 
-# --- SIDEBAR (For Debugging) ---
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+
+# --------------------------------------------------
+# LOAD DISTRICT DATA
+# --------------------------------------------------
+
+with open("maharashtra_district_coords.json", "r") as f:
+    district_data = json.load(f)
+
+district_list = sorted(list(district_data.keys()))
+
+
+# --------------------------------------------------
+# PAGE 1 → FARMER DETAILS
+# --------------------------------------------------
+if st.session_state.user_details is None:
+
+    st.title("🚜 Krishi Mitra")
+    st.subheader("Farmer Details")
+
+    with st.form("user_form"):
+        user_id = st.text_input("User ID")
+        name = st.text_input("Name")
+
+        # ✅ District Dropdown
+        district = st.selectbox(
+            "Select District",
+            district_list
+        )
+
+        # ✅ Village Text Input
+        village = st.text_input("Village / Taluka")
+
+        submitted = st.form_submit_button("Enter Chat")
+
+    if submitted:
+        if not user_id or not name:
+            st.error("User ID and Name required")
+        else:
+            st.session_state.user_details = {
+                "user_id": user_id,
+                "name": name,
+                "village": village,
+                "district": district
+            }
+
+            st.session_state.messages = [
+                {
+                    "role": "assistant",
+                    "content": f"Namaskar {name}! How can I help you?",
+                    "agent": "system"
+                }
+            ]
+
+            st.rerun()
+
+    st.stop()
+
+
+# --------------------------------------------------
+# SIDEBAR → CHATGPT STYLE
+# --------------------------------------------------
 with st.sidebar:
-    st.header("⚙️ Developer Debug")
-    st.info(f"**Current Session ID:** {st.session_state.session_id}")
-    st.caption("Watch the terminal running FastAPI to see the live tool calls and thinking process.")
-    
-    if st.button("🗑️ Clear Chat & Reset Session", use_container_width=True):
-        st.session_state.messages = [{"role": "assistant", "content": "Namaskar! I am Krishi Mitra. How can I help you with your farm today?", "agent": "system"}]
+
+    st.title("🚜 Krishi Mitra")
+
+    # NEW CHAT BUTTON
+    if st.button("➕ New Chat", use_container_width=True):
+
+        if st.session_state.messages:
+            st.session_state.chat_history.append(
+                st.session_state.messages.copy()
+            )
+
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "content": "New chat started. How can I help?",
+                "agent": "system"
+            }
+        ]
+
         st.session_state.session_id = None
         st.rerun()
 
-# --- MAIN UI ---
+    st.divider()
+    st.subheader("💬 Your Chats")
+
+    for i, chat in enumerate(reversed(st.session_state.chat_history)):
+
+        title = "Chat"
+        for msg in chat:
+            if msg["role"] == "user":
+                title = msg["content"][:25]
+                break
+
+        if st.button(title, key=f"history_{i}"):
+            st.session_state.messages = chat.copy()
+            st.rerun()
+
+    st.divider()
+
+    st.subheader("👨‍🌾 Farmer Info")
+    st.write(f"Name: {st.session_state.user_details['name']}")
+    st.write(f"Village: {st.session_state.user_details['village']}")
+    st.write(f"District: {st.session_state.user_details['district']}")
+
+
+# --------------------------------------------------
+# MAIN CHAT UI
+# --------------------------------------------------
 st.title("🚜 Krishi Mitra")
-st.caption("Your AI Farming Assistant - Ask about crops, pests, markets, and schemes!")
+st.caption("Your AI Farming Assistant")
 st.divider()
 
-# 1. Render existing chat history
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
-        # Show a small debug badge so you know which agent handled the response
-        if msg["role"] == "assistant" and msg.get("agent") != "system":
-            st.caption(f"🧭 Handled by: **{msg['agent'].upper()}** Agent")
+
+        agent = msg.get("agent")
+
+        if msg["role"] == "assistant" and agent and agent != "system":
+            st.caption(f"🧭 Agent: {agent.upper()}")
+
         st.markdown(msg["content"])
 
-# 2. Chat Input Trigger
-if prompt := st.chat_input("E.g., What's the price of onion in Pune?"):
-    
-    # Append user message to UI
+
+# --------------------------------------------------
+# CHAT INPUT
+# --------------------------------------------------
+if prompt := st.chat_input("Ask about crops, markets, pests..."):
+
+    USER_ID = st.session_state.user_details["user_id"]
+
     st.session_state.messages.append({"role": "user", "content": prompt})
+
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # 3. Call FastAPI Backend
     with st.chat_message("assistant"):
-        with st.spinner("Krishi Mitra is analyzing your request..."):
+        with st.spinner("Thinking..."):
+
             try:
-                # Prepare payload
                 payload = {
                     "user_id": USER_ID,
-                    "query": prompt
+                    "query": prompt,
+                    "name": st.session_state.user_details["name"],
+                    "village": st.session_state.user_details["village"],
+                    "district": st.session_state.user_details["district"]
                 }
-                # Attach session_id if it's an ongoing chat
+
                 if st.session_state.session_id:
                     payload["session_id"] = st.session_state.session_id
 
-                # Send Request
                 response = requests.post(API_URL, json=payload)
-                response.raise_for_status() 
-                
                 data = response.json()
-                reply = data.get("reply", "Error: No reply generated.")
-                agent_used = data.get("agent", "unknown")
-                
-                # Capture the new session ID if this was the first message
-                if not st.session_state.session_id and data.get("session_id"):
+
+                reply = data.get("reply", "No reply")
+                agent = data.get("agent")
+
+                if not st.session_state.session_id:
                     st.session_state.session_id = data.get("session_id")
 
-                # Render Response
-                st.caption(f"🧭 Handled by: **{agent_used.upper()}** Agent")
+                if agent:
+                    st.caption(f"🧭 Agent: {agent.upper()}")
+
                 st.markdown(reply)
 
-                # Save to UI state
                 st.session_state.messages.append({
-                    "role": "assistant", 
+                    "role": "assistant",
                     "content": reply,
-                    "agent": agent_used
+                    "agent": agent
                 })
 
-            except requests.exceptions.ConnectionError:
-                st.error("❌ Cannot connect to backend. Is your FastAPI server running on port 8000?")
-            except Exception as e:
-                st.error(f"❌ An error occurred: {e}")
+            except Exception:   
+                st.error("Backend not running")
