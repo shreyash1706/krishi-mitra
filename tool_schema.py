@@ -57,9 +57,44 @@ KRISHI_TOOLS = [
                 "type": "object",
                 "properties": {
                     "crop_name": {"type": "string", "description": "Name of the crop (e.g., 'onion', 'cotton')"},
-                    "location": {"type": "string", "description": "Village, APMC name, or District of the user"}
+                    "district": {"type": "string", "description": " District of the user"}
                 },
-                "required": ["crop_name", "location"]
+                "required": ["crop_name", "district"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function" : {
+            "name": "get_trending_crops",
+            "description": "Finds trending crops based on Price Growth (Momentum) AND Volume (Arrivals) in Maharastra by district.",
+            "parameters": {
+                "type": "object",
+                "properties":{
+                    "district":{"type": "string", "description": "District of the user"} 
+                },
+                "required": ["district"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "web_search",
+            "description": "Search the live internet. Use this ONLY when you need real-time news, recent events, or information not available in your knowledge base (e.g., 'latest government farming subsidies 2026', 'recent pest outbreaks in Maharashtra').",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string", 
+                        "description": "The exact search query to type into the search engine. Make it specific."
+                    },
+                    "max_results": {
+                        "type": "integer",
+                        "description": "Number of results to fetch. Default is 3. Max is 5."
+                    }
+                },
+                "required": ["query"]
             }
         }
     }

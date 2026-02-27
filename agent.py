@@ -4,7 +4,8 @@ from llama_cpp import Llama
 import sqlite3
 from tool_schema import KRISHI_TOOLS
 from agri_tools import get_agri_forecast, get_historical_rainfall, get_soil_details
-from market_tools import get_market_price
+from web_tools import web_search
+from market_tools import get_market_price, get_trending_crops
 import re
 import traceback
 class BaseAgent:
@@ -18,7 +19,9 @@ class BaseAgent:
             "get_agri_forecast": get_agri_forecast,
             "get_historical_rainfall": get_historical_rainfall,
             "get_soil_details": get_soil_details,
-            "get_market_price": get_market_price
+            "get_market_price": get_market_price,
+            "get_trending_crops": get_trending_crops,
+            "web_search": web_search
             #more to come
         }
     def set_llm(self, instance):
