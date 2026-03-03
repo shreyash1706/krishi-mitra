@@ -35,3 +35,6 @@ krishi.db
 # --- Temporary/Lock Files ---
 .~lock.*
 *.swp
+# .gitignore
+.env
+
