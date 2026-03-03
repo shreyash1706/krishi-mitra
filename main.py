@@ -84,7 +84,7 @@ class UserRequest(BaseModel):
 @app.post("/register")
 async def register_endpoint(req: UserRequest):
     
-    if req.village:
+    if req.village=="":
         lat, lon = get_coords(req.village, req.district)
     else:
         try:

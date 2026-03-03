@@ -12,11 +12,13 @@ from qdrant_client import QdrantClient
 # ========================
 # CONFIG
 # ========================
-COLLECTION_NAME = "crop_kb"
+CROP_COLLECTION_NAME = "crop_kb"
+FINANCE_COLLECTION_NAME = "finance_kb"
+PEST_COLLECTION_NAME = "pest_kb"
 MODEL_NAME = "all-MiniLM-L6-v2"
 QDRANT_PATH = "qdrant_storage"
 TOP_K = 5
-SIM_THRESHOLD = 0.35   # minimum cosine similarity to include a result
+SIM_THRESHOLD = 0.5  # minimum cosine similarity to include a result
 
 # ========================
 # LOAD (once)
@@ -30,11 +32,11 @@ print("Ready.\n")
 # ========================
 # RETRIEVAL
 # ========================
-def search(query: str, top_k: int = TOP_K, threshold: float = SIM_THRESHOLD):
+def search(query: str, top_k: int = TOP_K, threshold: float = SIM_THRESHOLD, collection_name: str = CROP_COLLECTION_NAME):
     """Return top-k chunks from crop_kb above the similarity threshold."""
     vec = embed_model.encode(query).tolist()
     results = client.query_points(
-        collection_name=COLLECTION_NAME,
+        collection_name=collection_name,
         query=vec,
         limit=top_k,
     )
