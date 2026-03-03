@@ -1,11 +1,11 @@
-from fastapi import FastAPI 
-from pydantic import BaseModel 
+from fastapi import FastAPI
+from pydantic import BaseModel
 from agent import BaseAgent
-from llama_cpp import Llama 
+from llama_cpp import Llama
 from router import IntentRouter
 from typing import Optional
 import sqlite3
-import json
+from agri_tools import get_coords
 
 app = FastAPI(title="Krishi Mitra API")
 
@@ -13,67 +13,116 @@ app = FastAPI(title="Krishi Mitra API")
 # LOAD MODEL
 # --------------------------------------------------
 
+# model_path = r"C:\Users\anjal\Desktop\krishi-mitra\models\qwen2-0_5b-instruct-q4_k_m.gguf"
 model_path = "models/Qwen3-14B-Q4_K_M.gguf"
 
-print("Loading Owen..")
 SHARED_LLM = Llama(
     model_path=model_path,
     n_gpu_layers=0,
-    n_ctx=8192,
-    verbose=False,
-    n_batch = 1025,
-    flash_attn=True
-
+    n_ctx=2048,
+    n_threads=6,
+    verbose=False
 )
 
 router = IntentRouter(SHARED_LLM)
 
-# --- IMPROVED SYSTEM PROMPTS ---
-#TODO:Improve prompts further
+# --------------------------------------------------
+# AGENTS
+# --------------------------------------------------
+
 AGENTS = {
     "crop": BaseAgent(
-        agent_mode="Crop Planner", 
+        agent_mode="Crop Planner",
         system_prompt=(
-            "You are Krishi Mitra, an expert Agronomist. Your goal is to help farmers maximize yield. "
-            "ALWAYS use the 'get_soil_details' tool before recommending crops or fertilizers. "
-            "Use the 'get_agri_forecast' tool before advising on sowing dates or irrigation."
+            "You are Krishi Mitra, an expert Agronomist. "
+            "ALWAYS use the 'get_soil_details' tool before recommending crops. "
+            "Use 'get_agri_forecast' before advising on irrigation."
         ),
     ),
     "pest": BaseAgent(
-        agent_mode="Pest & Disease", 
+        agent_mode="Pest & Disease",
         system_prompt=(
-            "You are Krishi Mitra, a Plant Pathologist. Diagnose plant issues from symptoms. "
-            "Use the 'get_agri_forecast' tool to check humidity and temperature, as weather heavily impacts fungal diseases and pest outbreaks. "
-            "Provide safe chemical and organic solutions."
+            "You are Krishi Mitra, a Plant Pathologist. "
+            "Use 'get_agri_forecast' before diagnosing fungal issues."
         ),
     ),
     "market": BaseAgent(
-        agent_mode="Market Expert", 
+        agent_mode="Market Expert",
         system_prompt=(
-            "You are Krishi Mitra, a Market Analyst for Maharashtra. "
-            "NEVER guess crop prices. ALWAYS use the 'get_market_price' tool to fetch real-time APMC data before answering. "
-            "Keep your answers short, focusing on Modal Price and Market Trends."
+            "You are Krishi Mitra, a Market Analyst. "
+            "ALWAYS use 'get_market_price' before answering."
         ),
     ),
     "finance": BaseAgent(
-        agent_mode="Finance Advisor", 
+        agent_mode="Finance Advisor",
         system_prompt=(
-            "You are Krishi Mitra, a Banking Consultant for Farmers. "
-            "Explain loans, subsidies (like PM Kisan), and crop insurance schemes simply and step-by-step. "
-            "If a user asks about subsidies for a specific crop, ask them their land size."
+            "You are Krishi Mitra, a Banking Consultant for Farmers."
         ),
     )
 }
 
 for agent in AGENTS.values():
     agent.set_llm(SHARED_LLM)
-    
+
+# --------------------------------------------------
+# REQUEST MODEL (UPDATED)
+# --------------------------------------------------
+
 class ChatRequest(BaseModel):
-    user_id:str
-    query:str
+    user_id: str
+    query: str
     session_id: Optional[int] = None
 
-#defining route 
+class UserRequest(BaseModel):
+    user_id: str
+    name: str
+    district: Optional[str] = None
+    village: Optional[str]
+# --------------------------------------------------
+# CHAT ENDPOINT
+# --------------------------------------------------
+@app.post("/register")
+async def register_endpoint(req: UserRequest):
+    
+    if req.village:
+        lat, lon = get_coords(req.village, req.district)
+    else:
+        try:
+            with open("maharashtra_districts_coords.json", "r") as f:
+                district_coords = json.load(f)
+            
+            # The JSON stores a list: [latitude, longitude]
+            coords_list = district_coords.get(req.district)   
+            
+            lat = coords_list[0]
+            lon = coords_list[1]
+                
+        except Exception as e:
+            print(f"Error loading district coords: {e}")
+    conn = sqlite3.connect("krishi.db")
+    c = conn.cursor()
+
+    c.execute("SELECT user_id FROM farmers WHERE user_id = ?", (req.user_id,))
+    farmer = c.fetchone()
+
+    if not farmer:
+        # Insert new farmer
+        c.execute("""
+            INSERT INTO farmers (user_id, name, village, district,lat,lon)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (req.user_id, req.name, req.village, req.district,lat,lon))
+    else:
+        # Update farmer details if they changed
+        c.execute("""
+            UPDATE farmers
+            SET name = ?, village = ?, district = ?, lat = ?, lon = ?
+            WHERE user_id = ?
+        """, (req.name, req.village, req.district, req.user_id))
+
+    conn.commit()
+    conn.close()
+    return {"status": "success", "message": "User registered/updated"} 
+
 @app.post("/chat")
 async def chat_endpoint(req: ChatRequest):
     
@@ -108,9 +157,4 @@ async def chat_endpoint(req: ChatRequest):
         "session_id": req.session_id,
         "agent": target
     }  
-        
-    
-
-
-
 

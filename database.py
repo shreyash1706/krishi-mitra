@@ -16,7 +16,8 @@ def init_db():
     name TEXT,
     village TEXT,
     district TEXT,
-    lat_long TEXT,
+    lat REAL,
+    lon REAL,
     soil_details TEXT,
     attributes_json TEXT
     )'''
