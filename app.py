@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import json
+import copy
 
 # --------------------------------------------------
 # CONFIG
@@ -10,7 +11,7 @@ st.set_page_config(page_title="Krishi Mitra", page_icon="🚜", layout="wide")
 API_URL = "http://127.0.0.1:8000/chat"
 
 # --------------------------------------------------
-# SESSION STATE INIT (MUST BE AT TOP)
+# SESSION STATE INIT
 # --------------------------------------------------
 
 if "user_details" not in st.session_state:
@@ -24,6 +25,13 @@ if "session_id" not in st.session_state:
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
+
+if "show_logout_confirm" not in st.session_state:
+    st.session_state.show_logout_confirm = False
+
+# ✅ NEW FLAG TO PREVENT DUPLICATION
+if "viewing_history" not in st.session_state:
+    st.session_state.viewing_history = False
 
 
 # --------------------------------------------------
@@ -39,6 +47,7 @@ district_list = sorted(list(district_data.keys()))
 # --------------------------------------------------
 # PAGE 1 → FARMER DETAILS
 # --------------------------------------------------
+
 if st.session_state.user_details is None:
 
     st.title("🚜 Krishi Mitra")
@@ -47,14 +56,7 @@ if st.session_state.user_details is None:
     with st.form("user_form"):
         user_id = st.text_input("User ID")
         name = st.text_input("Name")
-
-        # ✅ District Dropdown
-        district = st.selectbox(
-            "Select District",
-            district_list
-        )
-
-        # ✅ Village Text Input
+        district = st.selectbox("Select District", district_list)
         village = st.text_input("Village / Taluka")
 
         submitted = st.form_submit_button("Enter Chat")
@@ -78,26 +80,40 @@ if st.session_state.user_details is None:
                 }
             ]
 
+            st.session_state.viewing_history = False
             st.rerun()
 
     st.stop()
 
 
 # --------------------------------------------------
-# SIDEBAR → CHATGPT STYLE
+# SIDEBAR
 # --------------------------------------------------
+
 with st.sidebar:
 
     st.title("🚜 Krishi Mitra")
 
-    # NEW CHAT BUTTON
+    # ➕ NEW CHAT
     if st.button("➕ New Chat", use_container_width=True):
 
-        if st.session_state.messages:
+        current_chat = st.session_state.messages
+
+        # ✅ Save only if:
+        # 1. Not viewing history
+        # 2. Chat has real conversation
+        if (
+            not st.session_state.viewing_history and
+            len(current_chat) > 1
+        ):
             st.session_state.chat_history.append(
-                st.session_state.messages.copy()
+                copy.deepcopy(current_chat)
             )
 
+        # Reset flag
+        st.session_state.viewing_history = False
+
+        # Start fresh chat
         st.session_state.messages = [
             {
                 "role": "assistant",
@@ -110,6 +126,8 @@ with st.sidebar:
         st.rerun()
 
     st.divider()
+
+    # 💬 CHAT HISTORY
     st.subheader("💬 Your Chats")
 
     for i, chat in enumerate(reversed(st.session_state.chat_history)):
@@ -121,20 +139,61 @@ with st.sidebar:
                 break
 
         if st.button(title, key=f"history_{i}"):
-            st.session_state.messages = chat.copy()
+
+            st.session_state.messages = copy.deepcopy(chat)
+            st.session_state.session_id = None
+            st.session_state.viewing_history = True  # ✅ Important
             st.rerun()
 
     st.divider()
 
+    # 👨‍🌾 FARMER INFO
     st.subheader("👨‍🌾 Farmer Info")
     st.write(f"Name: {st.session_state.user_details['name']}")
     st.write(f"Village: {st.session_state.user_details['village']}")
     st.write(f"District: {st.session_state.user_details['district']}")
 
+    st.divider()
+
+    # 🔙 BACK BUTTON
+    if st.button("🔙 Back to Details", use_container_width=True):
+        st.session_state.user_details = None
+        st.session_state.messages = []
+        st.session_state.session_id = None
+        st.session_state.show_logout_confirm = False
+        st.session_state.viewing_history = False
+        st.rerun()
+
+    # --------------------------------------------------
+    # LOGOUT WITH CONFIRMATION
+    # --------------------------------------------------
+
+    if not st.session_state.show_logout_confirm:
+        if st.button("🚪 Logout", use_container_width=True):
+            st.session_state.show_logout_confirm = True
+            st.rerun()
+
+    if st.session_state.show_logout_confirm:
+
+        st.warning("⚠ Do you want to logout?")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("✅ Yes, Logout", use_container_width=True):
+                st.session_state.clear()
+                st.rerun()
+
+        with col2:
+            if st.button("❌ Cancel", use_container_width=True):
+                st.session_state.show_logout_confirm = False
+                st.rerun()
+
 
 # --------------------------------------------------
 # MAIN CHAT UI
 # --------------------------------------------------
+
 st.title("🚜 Krishi Mitra")
 st.caption("Your AI Farming Assistant")
 st.divider()
@@ -153,7 +212,10 @@ for msg in st.session_state.messages:
 # --------------------------------------------------
 # CHAT INPUT
 # --------------------------------------------------
+
 if prompt := st.chat_input("Ask about crops, markets, pests..."):
+
+    st.session_state.viewing_history = False  # ✅ Important
 
     USER_ID = st.session_state.user_details["user_id"]
 
@@ -197,5 +259,5 @@ if prompt := st.chat_input("Ask about crops, markets, pests..."):
                     "agent": agent
                 })
 
-            except Exception:   
+            except Exception:
                 st.error("Backend not running")
