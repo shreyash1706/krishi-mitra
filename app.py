@@ -65,6 +65,23 @@ if st.session_state.user_details is None:
         if not user_id or not name:
             st.error("User ID and Name required")
         else:
+            # 1️⃣ Hit the new FastAPI registration endpoint immediately
+            try:
+                response = requests.post(
+                    "http://127.0.0.1:8000/register", # Adjust port/URL if hosted elsewhere
+                    json={
+                        "user_id": user_id,
+                        "name": name,
+                        "village": village,
+                        "district": district
+                    }
+                )
+                response.raise_for_status() # Raise an error if the backend fails
+            except requests.exceptions.RequestException as e:
+                st.error(f"Failed to connect to backend: {e}")
+                st.stop()
+
+            # 2️⃣ Save to session state
             st.session_state.user_details = {
                 "user_id": user_id,
                 "name": name,
@@ -84,7 +101,6 @@ if st.session_state.user_details is None:
             st.rerun()
 
     st.stop()
-
 
 # --------------------------------------------------
 # SIDEBAR
@@ -225,15 +241,12 @@ if prompt := st.chat_input("Ask about crops, markets, pests..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
+        with st.spinner("Krishi-Mitra is analyzing your request"):
 
             try:
                 payload = {
                     "user_id": USER_ID,
                     "query": prompt,
-                    "name": st.session_state.user_details["name"],
-                    "village": st.session_state.user_details["village"],
-                    "district": st.session_state.user_details["district"]
                 }
 
                 if st.session_state.session_id:

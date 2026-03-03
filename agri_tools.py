@@ -3,6 +3,7 @@ import requests
 from datetime import datetime, timedelta
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
+import sqlite3
 
 #TODO: Create a Web Search func
 #TODO: Integrate the geocoding to auto fetch the user coords
@@ -204,13 +205,14 @@ def get_soil_details(lat, lon):
         # Available Water Capacity
         awc = props.get('Field_Capacity', 0) - props.get('Wilting_Point', 0)
         
-        return (
-            f"🌱 **Soil Analysis for {lat,lon}(Root Zone 0-30cm):**\n"
-            f"- **Type:** {texture} (Clay: {round(clay,1)}% | Sand: {round(sand,1)}%)\n"
-            f"- **Health:** pH {round(props.get('pH', 0), 1)} | Organic Carbon: {round(props.get('Organic_Carbon', 0), 1)} g/kg\n"
-            f"- **Nutrients:** Nitrogen: {round(props.get('Nitrogen', 0), 2)} g/kg | CEC: {round(props.get('CEC', 0), 1)}\n"
-            f"- **Water:** Holds approx {round(awc, 1)}% available water."
-        )
+        soil_report = f"""🌱 **Soil Analysis for {lat,lon}(Root Zone 0-30cm):**
+            - **Type:** {texture} (Clay: {round(clay,1)}% | Sand: {round(sand,1)}%)
+            - **Health:** pH {round(props.get('pH', 0), 1)} | Organic Carbon: {round(props.get('Organic_Carbon', 0), 1)} g/kg
+            - **Nutrients:** Nitrogen: {round(props.get('Nitrogen', 0), 2)} g/kg | CEC: {round(props.get('CEC', 0), 1)}
+            - **Water:** Holds approx {round(awc, 1)}% available water."""
+        
+        
+        return soil_report
 
     except Exception as e:
         return f"Error fetching soil data: {str(e)}"
