@@ -9,7 +9,11 @@ import json
 
 app = FastAPI(title="Krishi Mitra API")
 
-model_path = "models/Qwen3-8B-Q6_K.gguf"
+# --------------------------------------------------
+# LOAD MODEL
+# --------------------------------------------------
+
+model_path = "models/Qwen3-14B-Q4_K_M.gguf"
 
 print("Loading Owen..")
 SHARED_LLM = Llama(
