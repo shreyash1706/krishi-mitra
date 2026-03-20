@@ -70,7 +70,7 @@ class BaseAgent:
             return f"User Name: {row['name']}. Location: {row['district']} & Coordinates: {row['lat']}, {row['lon']}. Soil: {row['soil_details']}."
         return "No profile available for this user."
 
-    def run(self, user_query, session_id, user_id, should_think=True):
+    def run(self, user_query, session_id, user_id, should_think=True, compiled_knowledge=""):
         #TODO: get_faremr_profile not used to attach user details in the system prompt 
         # 1. Save the CLEAN message to the database for the user UI
         self.save_message(session_id, "user", user_query)
@@ -84,6 +84,9 @@ class BaseAgent:
             history[-1]["content"] += tag
 
         full_system_prompt = f"{self.system_prompt}\n{self._get_todays_date_prompt()}\n\n[USER PROFILE DETAILS]\n{user_profile_string}"
+        if compiled_knowledge == "":
+            full_system_prompt += f"\n\n[COMPILED KNOWLEDGE]\n{compiled_knowledge}"
+
         messages = [{"role": "system", "content": full_system_prompt}] + history
 
         print(f"🤖 [{self.agent_mode}] Thinking Mode: {should_think}...")
