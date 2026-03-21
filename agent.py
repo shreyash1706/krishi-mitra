@@ -84,7 +84,7 @@ class BaseAgent:
             history[-1]["content"] += tag
 
         full_system_prompt = f"{self.system_prompt}\n{self._get_todays_date_prompt()}\n\n[USER PROFILE DETAILS]\n{user_profile_string}"
-        if compiled_knowledge == "":
+        if compiled_knowledge != "":
             full_system_prompt += f"\n\n[COMPILED KNOWLEDGE]\n{compiled_knowledge}"
 
         messages = [{"role": "system", "content": full_system_prompt}] + history

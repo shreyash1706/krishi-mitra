@@ -37,7 +37,7 @@ def get_knowledge(query: str, domain: str, top_k: int = 5, threshold: float = 0.
     collection_map = {
         "crop": "crop_kb",
         "finance": "finance_kb",
-        "pest": "pest_kb"
+        "pest": "pests_kb"
     }
     
     collection_name = collection_map.get(domain.lower(), "crop_kb")
