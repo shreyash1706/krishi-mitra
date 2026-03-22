@@ -6,18 +6,19 @@ class IntentRouter:
         self.llm = llm_instance
 
     def classify(self, query: str, debug=True):
-        router_schema = {"type": "json_object",
-        "schema": {
-            "type": "object",
-            "properties": {
-                "agent": {
-                    "type": "string",
-                    "enum": ["crop", "pest", "market", "finance"]
+        router_schema = {
+            "type": "json_object",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "agent": {
+                        "type": "string",
+                        "enum": ["crop", "pest", "market", "finance"]
+                    }
                 },
                 "required": ["search_plans", "primary_domain", "think"]
             }
         }
-        
         # Notice we moved the exact structure into the prompt itself!
         system_prompt = """
         You are an advanced agricultural classification and search-planning engine. Output JSON only.
