@@ -246,8 +246,8 @@ for msg in st.session_state.messages:
             st.caption(f"🧭 Agent: {agent.upper()}")
 
         if msg.get("reasoning"):
-            with st.expander("Finished thinking"):
-                st.markdown(msg["reasoning"])
+            formatted_reasoning = msg['reasoning'].replace('\n', '\n> ')
+            st.markdown(f"> 🤔 **Thought Process:**\n> {formatted_reasoning}\n\n---\n")
 
         st.markdown(msg["content"])
 
@@ -336,7 +336,14 @@ if prompt := st.chat_input("Ask about crops, markets, pests..."):
                 else:
                     reasoning_placeholder.markdown("*(Completed in background)*")
             
-            content_placeholder.markdown(content_text)
+            # Post the thought process visibly in the output
+            final_display_text = ""
+            if reasoning_text:
+                formatted_reasoning = reasoning_text.replace('\n', '\n> ')
+                final_display_text += f"> 🤔 **Thought Process:**\n> {formatted_reasoning}\n\n---\n\n"
+            final_display_text += content_text
+            
+            content_placeholder.markdown(final_display_text)
 
             st.session_state.messages.append({
                 "role": "assistant",
