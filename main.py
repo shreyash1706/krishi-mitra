@@ -29,6 +29,9 @@ class LlamaServerClient:
         payload = {
             "messages": messages,
             "temperature": temperature,
+            "frequency_penalty": 1.1,
+            "presence_penalty": 0.8,
+            "top_p": 0.95
         }
         if tools: 
             payload["tools"] = tools
