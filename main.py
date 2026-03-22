@@ -212,6 +212,10 @@ async def chat_endpoint(req: ChatRequest):
     compiled_knowledge = ""
 
     # Execute the HyDE queries against their respective databases
+    for plan in search_plans:
+        knowledge = get_knowledge(plan["query"], plan["domain"])
+        if knowledge:
+            compiled_knowledge += knowledge + "\n"
     
     # 2. SESSION MANAGEMENT
     if not req.session_id:
@@ -227,7 +231,12 @@ async def chat_endpoint(req: ChatRequest):
     # 3. DISPATCH
     active_agent = AGENTS.get(target, AGENTS["crop"])
     
+    final_query = req.query
+    if compiled_knowledge.strip():
+        # Append retrieved knowledge explicitly
+        final_query += f"\n\n[RETRIEVED KNOWLEDGE BASE RESULTS]\n{compiled_knowledge.strip()}"
+        
     # Return the real-time generator
-    generator = active_agent.run(req.query, req.session_id, req.user_id, should_think)
+    generator = active_agent.run(final_query, req.session_id, req.user_id, should_think)
     
     return StreamingResponse(generator, media_type="application/x-ndjson")
