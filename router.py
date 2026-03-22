@@ -14,12 +14,47 @@ class IntentRouter:
                     "type": "string",
                     "enum": ["crop", "pest", "market", "finance"]
                 },
-                "think": {
-                    "type": "boolean"
+                "required": ["search_plans", "primary_domain", "think"]
+            }
+        }
+        
+        # Notice we moved the exact structure into the prompt itself!
+        system_prompt = """
+        You are an advanced agricultural classification and search-planning engine. Output JSON only.
+
+        Your job is to read the user's query and decide which knowledge databases ("crop", "pest", "finance") need to be searched to provide a complete answer.
+
+        For each database you select, you must write a highly optimized `search_query` that extracts the core concepts for vector retrieval.
+
+        You MUST output a valid JSON object with EXACTLY this structure:
+        {
+            "search_plans": [
+                {
+                    "domain": "pest",
+                    "search_query": "..."
                 }
-            },
-            "required": ["agent", "think"]
-        }}
+            ],
+            "primary_domain": "...",
+            "think": true
+        }
+
+        EXAMPLE INPUT: "My grapes have white powder on the leaves. What spray should I buy?"
+        EXAMPLE OUTPUT: 
+        {
+            "search_plans": [
+                {"domain": "pest", "search_query": "grapes white powdery mildew fungal infection fungicide"},
+                {"domain": "crop", "search_query": "grape vine canopy management for airflow"}
+            ],
+            "primary_domain": "pest",
+            "think": true
+        }
+
+        Decide `think: True` if the query involves multi-step reasoning, planning, or synthesizing data, if it can be answered with a simple answer or tool call then think: False. Default to 'crop' if entirely unsure.
+        DO NOT wrap the output in markdown. Start your response directly with { and end with }.
+        
+        
+        /no_think
+        """
 
         messages = [
             {
@@ -55,4 +90,8 @@ class IntentRouter:
 
         except Exception as e:
             if debug: print(f"[Router Error]: {e}")
-            return {"agent": "crop", "think": False}
+            return {
+                "search_plans": [{"domain": "crop", "search_query": query}], 
+                "primary_domain": "crop",
+                "think": False
+            }

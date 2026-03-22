@@ -9,6 +9,9 @@ import time
 import logging
 import json
 from agri_tools import get_coords
+from search import get_knowledge
+import json
+
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger("krishi")
@@ -138,8 +141,8 @@ class ChatRequest(BaseModel):
 class UserRequest(BaseModel):
     user_id: str
     name: str
-    district: Optional[str] = None
-    village: Optional[str]
+    district: str
+    village: Optional[str] = None
 # --------------------------------------------------
 # CHAT ENDPOINT
 # --------------------------------------------------
@@ -164,6 +167,9 @@ async def register_endpoint(req: UserRequest):
                 
         except Exception as e:
             print(f"Error loading district coords: {e}")
+            raise HTTPException(status_code=400, detail=f"Could not resolve coordinates: {e}")  # ✅ Don't silently continue
+
+    print(lat, lon)
     conn = sqlite3.connect("krishi.db")
     c = conn.cursor()
 
@@ -175,7 +181,7 @@ async def register_endpoint(req: UserRequest):
         c.execute("""
             INSERT INTO farmers (user_id, name, village, district,lat,lon)
             VALUES (?, ?, ?, ?, ?, ?)
-        """, (req.user_id, req.name, req.village, req.district,lat,lon))
+        """, (req.user_id, req.name, req.village, req.district, lat, lon))
     else:
         # Update farmer details if they changed
         c.execute("""
@@ -200,6 +206,12 @@ async def chat_endpoint(req: ChatRequest):
     
     target = decision.get("agent", "crop")
     should_think = decision.get("think", False)
+    search_plans = decision.get("search_plans", [])
+    primary_domain = decision.get("primary_domain", "crop")
+
+    compiled_knowledge = ""
+
+    # Execute the HyDE queries against their respective databases
     
     # 2. SESSION MANAGEMENT
     if not req.session_id:
@@ -207,7 +219,7 @@ async def chat_endpoint(req: ChatRequest):
         conn = sqlite3.connect("krishi.db")
         c = conn.cursor()
         c.execute("INSERT INTO sessions (user_id, agent_mode, title) VALUES (?, ?, ?)", 
-                  (req.user_id, target, req.query[:31]))
+                  (req.user_id, primary_domain, req.query[:31]))
         req.session_id = c.lastrowid
         conn.commit()
         conn.close()
