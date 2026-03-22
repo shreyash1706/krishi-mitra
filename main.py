@@ -209,7 +209,7 @@ async def chat_endpoint(req: ChatRequest):
     logger.info(f"⏱️ Router: {router_time:.2f}s")
     
     target = decision.get("agent", "crop")
-    should_think = decision.get("think", False)
+    should_think = True # Force deep-reasoning ON for all queries to ensure UI thought-block guarantees
     search_plans = decision.get("search_plans", [])
     primary_domain = decision.get("primary_domain", "crop")
 
