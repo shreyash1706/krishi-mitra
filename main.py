@@ -213,7 +213,8 @@ async def chat_endpoint(req: ChatRequest):
 
     # Execute the HyDE queries against their respective databases
     for plan in search_plans:
-        knowledge = get_knowledge(plan["query"], plan["domain"])
+        search_q = plan.get("search_query", plan.get("query", ""))
+        knowledge = get_knowledge(search_q, plan.get("domain", "crop"))
         if knowledge:
             compiled_knowledge += knowledge + "\n"
     
