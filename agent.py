@@ -1,6 +1,6 @@
 from datetime import datetime
 import json
-from llama_cpp import Llama
+import time
 import sqlite3
 from tool_schema import KRISHI_TOOLS
 from agri_tools import get_agri_forecast, get_historical_rainfall, get_soil_details
@@ -8,12 +8,13 @@ from web_tools import web_search
 from market_tools import get_market_price, get_trending_crops
 import re
 import traceback
-class BaseAgent:
-    def __init__(self, agent_mode,system_prompt):
-        self.agent_mode = agent_mode
-        self.system_prompt =system_prompt
 
-        #main.py holds model instance 
+class BaseAgent:
+    def __init__(self, agent_mode, system_prompt):
+        self.agent_mode = agent_mode
+        self.system_prompt = system_prompt
+
+        # main.py holds model instance
         self.llm = None
         self.tool_functions = {
             "get_agri_forecast": get_agri_forecast,
@@ -22,41 +23,35 @@ class BaseAgent:
             "get_market_price": get_market_price,
             "get_trending_crops": get_trending_crops,
             "web_search": web_search
-            #more to come
         }
+
     def set_llm(self, instance):
-        self.llm = instance 
-        
+        self.llm = instance
+
     def _get_todays_date_prompt(self):
         today = datetime.now()
         return f"\n[TIME CONTEXT] Current Date: {today.strftime('%d-%m-%Y')}.\n"
 
-    def get_history(self,session_id):
+    def get_history(self, session_id):
         conn = sqlite3.connect('krishi.db')
         conn.row_factory = sqlite3.Row
-        c= conn.cursor()
-
+        c = conn.cursor()
         c.execute("""
-        SELECT role,content FROM messages
+        SELECT role, content FROM messages
         WHERE session_id = ?
         ORDER BY timestamp ASC
         """, (session_id,))
-
-        rows =c.fetchall()
+        rows = c.fetchall()
         conn.close()
+        return [{"role": r["role"], "content": r["content"]} for r in rows]
 
-        return [{"role":r["role"], "content": r["content"]} for r in rows]
-
-
-    def save_message(self,session_id,role,content):
-        #save message to a tab 
-        conn = sqlite3.connect("krishi.db")  
+    def save_message(self, session_id, role, content):
+        conn = sqlite3.connect("krishi.db")
         c = conn.cursor()
-
-        c.execute("INSERT INTO messages (session_id, role, content) VALUES (?,?,?)",(session_id, role ,content))
+        c.execute("INSERT INTO messages (session_id, role, content) VALUES (?,?,?)", (session_id, role, content))
         conn.commit()
         conn.close()
-        
+
     def get_farmer_profile(self, user_id):
         """Fetches the farmer's profile to inject into the AI's brain."""
         conn = sqlite3.connect('krishi.db')
@@ -65,68 +60,142 @@ class BaseAgent:
         c.execute("SELECT name, district, soil_details, lat, lon FROM farmers WHERE user_id = ?", (user_id,))
         row = c.fetchone()
         conn.close()
-        
         if row:
             return f"User Name: {row['name']}. Location: {row['district']} & Coordinates: {row['lat']}, {row['lon']}. Soil: {row['soil_details']}."
         return "No profile available for this user."
 
     def run(self, user_query, session_id, user_id, should_think=True):
-        #TODO: get_faremr_profile not used to attach user details in the system prompt 
-        # 1. Save the CLEAN message to the database for the user UI
         self.save_message(session_id, "user", user_query)
         history = self.get_history(session_id)
-        
+
         user_profile_string = self.get_farmer_profile(user_id)
-        # --- THE FIX: INJECT THE THINKING TAG ---
-        # Modify the very last message in the history (which is the query we just saved)
+
+        # Only append /no_think if should_think is False
         if history and history[-1]["role"] == "user":
-            tag = " /think" if should_think else " /no think"
+            tag = " /think" if should_think else " /no_think"
             history[-1]["content"] += tag
 
-        full_system_prompt = f"{self.system_prompt}\n{self._get_todays_date_prompt()}\n\n[USER PROFILE DETAILS]\n{user_profile_string}"
+        # Build tool schema prompt since we no longer pass native tools array
+        available_tools = [t["function"] for t in KRISHI_TOOLS if t["function"]["name"] in self.tool_functions]
+        tools_str = json.dumps(available_tools, indent=2)
+        tool_prompt = f"""
+[AVAILABLE TOOLS]
+You have access to these tools:
+{tools_str}
+
+To use a tool, you MUST output exactly this XML format:
+<tool_call>
+{{"name": "tool_name", "arguments": {{"arg1": "value"}}}}
+</tool_call>
+"""
+        full_system_prompt = f"{self.system_prompt}\n{tool_prompt}\n{self._get_todays_date_prompt()}\n\n[USER PROFILE DETAILS]\n{user_profile_string}"
         messages = [{"role": "system", "content": full_system_prompt}] + history
 
-        print(f"🤖 [{self.agent_mode}] Thinking Mode: {should_think}...")
-        
-        print(messages)
-        
-        # 2. FIRST PASS (Allow LLM to call tools)
-        output = self.llm.create_chat_completion(
-            messages=messages,
-            tools=KRISHI_TOOLS,
-            tool_choice="auto", 
-            temperature=0.1
-        )
-        
-        response_message = output['choices'][0]['message']
-        print(response_message)
+        def generate_stream():
+            t0 = time.time()
 
-        content = response_message.get('content', '')
-        
-        tool_call_matches = re.findall(r"<tool_call>(.*?)</tool_call>", content, re.DOTALL)
-        # 3. CHECK FOR NATIVE TOOL CALLS
-        if tool_call_matches:
+            # -------------------------------------------------------
+            # PASS 1: STREAM tokens live + detect tool calls
+            # -------------------------------------------------------
+            output_stream = self.llm.create_chat_completion(
+                messages=messages,
+                temperature=0.1,
+                max_tokens=4096,  # Increased to allow full reasoning blocks without cut-offs
+                stream=True
+            )
 
-            messages.append(response_message)
-            json_str_match = re.search(r"<tool_call>(.*?)<tool_call>", content, re.DOTALL)
-            
-            for json_str in tool_call_matches:
-                json_str = json_str.strip()
-                
-                try:
-                    tool_call = json.loads(json_str)
-                    tool_name = tool_call.get("name")
+            raw_content = ""
+            reasoning_text = ""
+
+            def get_visible_text(text):
+                # Strip complete tool_call blocks
+                text = re.sub(r'<tool_call>.*?</tool_call>', '', text, flags=re.DOTALL)
+                # If there's an unclosed <tool_call>, truncate it
+                idx = text.rfind('<tool_call>')
+                if idx != -1:
+                    text = text[:idx]
+                # Check for partial tags at the end
+                tag = "<tool_call>"
+                for i in range(len(tag)-1, 0, -1):
+                    if text.endswith(tag[:i]):
+                        text = text[:-i]
+                        break
+                return text
+
+            yielded_content_len = 0
+
+            for chunk in output_stream:
+                delta = chunk.get('choices', [{}])[0].get('delta', {})
+
+                # Accumulate and stream reasoning_content live
+                if 'reasoning_content' in delta and delta['reasoning_content'] is not None:
+                    rc = delta['reasoning_content']
+                    reasoning_text += rc
+                    yield json.dumps({"reasoning": rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+
+                # Stream content tokens LIVE to user safely
+                if 'content' in delta and delta['content'] is not None:
+                    token = delta['content']
+                    raw_content += token
+
+                    visible_now = get_visible_text(raw_content)
                     
-                    # Fix: arguments is already a dictionary, do NOT json.loads it again!
-                    tool_args = tool_call.get("arguments", {})
+                    if len(visible_now) > yielded_content_len:
+                        new_chars = visible_now[yielded_content_len:]
+                        yielded_content_len = len(visible_now)
+                        if new_chars:
+                            yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
 
-                    print(f"🛠️ [TOOL CALLED] {tool_name} with {tool_args}")
+            # If content was empty, fall back to reasoning_content
+            if not raw_content.strip() and reasoning_text.strip():
+                raw_content = reasoning_text
+                # Strip think tags and display
+                visible = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL).strip()
+                display_text = re.sub(r'<tool_call>.*?</tool_call>', '', visible, flags=re.DOTALL).strip()
+                if display_text:
+                    yield json.dumps({"chunk": display_text, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+            
+            t1 = time.time()
+            print(f"[AGENT] Pass 1: {len(raw_content)} chars in {t1-t0:.1f}s")
 
-                    # 4. EXECUTE THE PYTHON FUNCTION
+            # -------------------------------------------------------
+            # Parse tool calls from raw content
+            # -------------------------------------------------------
+            all_tools = []
+            xml_tool_matches = re.findall(r'<tool_call>(.*?)</tool_call>', raw_content, flags=re.DOTALL)
+            for m in xml_tool_matches:
+                try:
+                    parsed = json.loads(m.strip())
+                    all_tools.append({"name": parsed["name"], "args_str": json.dumps(parsed.get("arguments", {}))})
+                except:
+                    pass
+
+            has_tools = len(all_tools) > 0
+
+            if has_tools:
+                messages.append({"role": "assistant", "content": raw_content})
+
+                for tool_info in all_tools:
+                    tool_name = tool_info["name"]
+                    args_str = tool_info["args_str"]
+
+                    yield json.dumps({
+                        "chunk": f"\n\n🛠️ Using structural tool: **{tool_name}**... ",
+                        "agent": self.agent_mode,
+                        "session_id": session_id
+                    }) + "\n"
+
+                    t_tool_start = time.time()
+
+
+                    try:
+                        tool_args = json.loads(args_str) if args_str else {}
+                    except json.JSONDecodeError:
+                        tool_args = {}
+
                     func = self.tool_functions.get(tool_name)
                     if func:
                         try:
-                            # We unpack the dictionary as arguments into the function
                             tool_result = str(func(**tool_args))
                             if func == get_soil_details:
                                 conn = sqlite3.connect("krishi.db")
@@ -135,52 +204,67 @@ class BaseAgent:
                                 conn.commit()
                                 conn.close()
                         except Exception as e:
-                            err_details = traceback.format_exc()
-                            print(f"Crash dump:\n{err_details}")
-                            tool_result = f"Error executing tool. Please try again"
-                        
+                            traceback.print_exc()
+                            tool_result = f"Error executing tool: {e}"
                     else:
-                        tool_result = f"Tool {tool_name} not found."
+                        tool_result = f"Tool '{tool_name}' not found."
 
-                    print(f"✅ [TOOL RESULT]: {tool_result}")
+                    t_tool_end = time.time()
+                    elapsed = t_tool_end - t_tool_start
+                    yield json.dumps({
+                        "chunk": f"*[Took {elapsed:.1f}s]*\n\n",
+                        "agent": self.agent_mode,
+                        "session_id": session_id
+                    }) + "\n"
 
-                    # 5. FEED RESULT BACK TO LLM
-                    
-                    # Since Qwen is using text-based XML tool calling, we feed the result back 
-                    # exactly how Qwen expects to read it
                     messages.append({
                         "role": "user",
                         "content": f"<tool_response>\n{tool_result}\n</tool_response>"
                     })
 
-                    
-                    
-                except json.JSONDecodeError as e:
-                    print(f"❌ JSON Parse Error: {e}")
-                    return "Error parsing tool request."
-            
-            print(f"🧠 [{self.agent_mode}] Reading tool data and formulating final answer...")
-                    
-                # 6. SECOND PASS (Final Answer based on data)
-            final_output = self.llm.create_chat_completion(
-                messages=messages,
-                temperature=0.7
-            )
-            final_reply = final_output['choices'][0]['message']['content']
-            print(f"💬 [FINAL REPLY]: {final_reply}")
-            
-            # Clean up <think> tags from the final reply
-            clean_reply = re.sub(r'<think>.*?</think>', '', final_reply, flags=re.DOTALL).strip()
-            
-            self.save_message(session_id, "assistant", clean_reply)
-            return clean_reply
+                messages.append({
+                    "role": "system",
+                    "content": "You have received the tool results. Provide the final answer to the user now. DO NOT output any <tool_call> tags. DO NOT ask for more information."
+                })
 
-        else:
-            # LLM didn't need a tool, just replied normally
-            reply = response_message.get('content', '')
-            
-            # Clean up <think> tags if they exist
-            clean_reply = re.sub(r'<think>.*?</think>', '', reply, flags=re.DOTALL).strip()
-            
-            self.save_message(session_id, "assistant", clean_reply)
-            return clean_reply
+                # -------------------------------------------------------
+                # PASS 2: Final answer with tool results (streamed live)
+                # -------------------------------------------------------
+                t2 = time.time()
+                pass2_stream = self.llm.create_chat_completion(
+                    messages=messages,
+                    temperature=0.7,
+                    max_tokens=4096,
+                    stream=True
+                )
+
+                final_text = ""
+                yielded_final_len = 0
+                for chunk in pass2_stream:
+                    delta = chunk.get('choices', [{}])[0].get('delta', {})
+                    if 'content' in delta and delta['content'] is not None:
+                        c = delta['content']
+                        final_text += c
+                        visible_now = get_visible_text(final_text)
+                        if len(visible_now) > yielded_final_len:
+                            new_chars = visible_now[yielded_final_len:]
+                            yielded_final_len = len(visible_now)
+                            if new_chars:
+                                yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                    if 'reasoning_content' in delta and delta['reasoning_content'] is not None:
+                        rc = delta['reasoning_content']
+                        final_text += rc
+                        yield json.dumps({"reasoning": rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+
+                t3 = time.time()
+                print(f"[AGENT] Pass 2: {len(final_text)} chars in {t3-t2:.1f}s | Total: {t3-t0:.1f}s")
+                clean_final = re.sub(r'<think>.*?</think>', '', final_text, flags=re.DOTALL).strip()
+                visible = re.sub(r'<tool_call>.*?</tool_call>', '', re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL), flags=re.DOTALL).strip()
+                self.save_message(session_id, "assistant", (visible + "\n\n" + clean_final).strip())
+            else:
+                # No tools — save directly
+                visible = re.sub(r'<tool_call>.*?</tool_call>', '', re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL), flags=re.DOTALL).strip()
+                self.save_message(session_id, "assistant", visible)
+                print(f"[AGENT] Done (no tools): {time.time()-t0:.1f}s total")
+
+        return generate_stream()

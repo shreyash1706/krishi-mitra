@@ -222,6 +222,10 @@ for msg in st.session_state.messages:
         if msg["role"] == "assistant" and agent and agent != "system":
             st.caption(f"🧭 Agent: {agent.upper()}")
 
+        if msg.get("reasoning"):
+            with st.expander("Finished thinking"):
+                st.markdown(msg["reasoning"])
+
         st.markdown(msg["content"])
 
 
@@ -241,36 +245,74 @@ if prompt := st.chat_input("Ask about crops, markets, pests..."):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        with st.spinner("Krishi-Mitra is analyzing your request"):
+        try:
+            payload = {
+                "user_id": USER_ID,
+                "query": prompt,
+            }
 
-            try:
-                payload = {
-                    "user_id": USER_ID,
-                    "query": prompt,
-                }
+            if st.session_state.session_id:
+                payload["session_id"] = st.session_state.session_id
 
-                if st.session_state.session_id:
-                    payload["session_id"] = st.session_state.session_id
+            st.session_state.current_agent = "Crop Planner"
+            agent_placeholder = st.empty()
+            
+            reasoning_text = ""
+            content_text = ""
+            
+            # Create placeholders using st.status for a ChatGPT-like "Thinking..."
+            status = st.status("🧠 Thinking...", expanded=False)
+            with status:
+                reasoning_placeholder = st.empty()
+            
+            content_placeholder = st.empty()
+            
+            # Fetch and process the stream manually to handle both reasoning and chunks
+            with requests.post(API_URL, json=payload, stream=True) as r:
+                r.raise_for_status()
+                for line in r.iter_lines():
+                    if line:
+                        try:
+                            data = json.loads(line.decode('utf-8'))
+                            if data.get("agent"):
+                                st.session_state.current_agent = data["agent"]
+                                agent_placeholder.caption(f"🧭 Agent: {data['agent'].upper()}")
+                            if not st.session_state.session_id and data.get("session_id"):
+                                st.session_state.session_id = data.get("session_id")
+                            
+                            if "reasoning" in data:
+                                reasoning_text += data["reasoning"]
+                                reasoning_placeholder.markdown(reasoning_text + "▌")
+                            
+                            if "chunk" in data:
+                                # When main content starts, thinking is mostly done
+                                if status is not None:
+                                    status.update(label="Finished thinking", state="complete", expanded=False)
+                                    reasoning_placeholder.markdown(reasoning_text) # remove cursor
+                                    status = None
+                                content_text += data["chunk"]
+                                content_placeholder.markdown(content_text + "▌")
+                        except json.JSONDecodeError:
+                            pass
+            
+            # Clean up when stream ends
+            if status is not None:
+                status.update(label="Finished thinking", state="complete", expanded=False)
+                if reasoning_text:
+                    reasoning_placeholder.markdown(reasoning_text)
+                else:
+                    reasoning_placeholder.markdown("*(Completed in background)*")
+            
+            content_placeholder.markdown(content_text)
 
-                response = requests.post(API_URL, json=payload)
-                data = response.json()
+            st.session_state.messages.append({
+                "role": "assistant",
+                "content": content_text,
+                "reasoning": reasoning_text,
+                "agent": st.session_state.current_agent
+            })
 
-                reply = data.get("reply", "No reply")
-                agent = data.get("agent")
-
-                if not st.session_state.session_id:
-                    st.session_state.session_id = data.get("session_id")
-
-                if agent:
-                    st.caption(f"🧭 Agent: {agent.upper()}")
-
-                st.markdown(reply)
-
-                st.session_state.messages.append({
-                    "role": "assistant",
-                    "content": reply,
-                    "agent": agent
-                })
-
-            except Exception:
-                st.error("Backend not running")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Backend HTTP Exception: {e}")
+        except Exception as e:
+            st.error(f"Backend disconnected or unreachable: {e}")

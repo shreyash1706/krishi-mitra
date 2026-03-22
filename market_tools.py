@@ -14,22 +14,31 @@ from io import StringIO
 
 def __fetch_table(selector, type):
     MSAMB_URL = "https://www.msamb.com/ApmcDetail/APMCPriceInformation" 
-    brave_path = '/opt/brave.com/brave/brave'
+    import platform
+    import shutil
+    import os
 
     # 1. OPTIMIZE BROWSER OPTIONS FOR SPEED
     options = webdriver.ChromeOptions()
-    options.binary_location = brave_path
+    
+    # Auto-detect browser: use Chrome by default (works cross-platform)
+    # Only set binary_location if Brave is found on Linux
+    if platform.system() == "Linux":
+        brave_path = shutil.which("brave-browser") or '/opt/brave.com/brave/brave'
+        if os.path.exists(brave_path):
+            options.binary_location = brave_path
+    # On Windows: just use system Chrome (no binary_location needed)
+    
     options.add_argument('--headless=new')           # Do not open a visible browser window
     options.add_argument('--disable-gpu')            # Disable GPU hardware acceleration
     options.add_argument('--no-sandbox')             # Bypass OS security model (required for headless on Linux)
     options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
     options.add_argument('--blink-settings=imagesEnabled=false') # Do not load images (Huge speed boost)
-    options.page_load_strategy = 'eager'   
-              # Don't wait for CSS/Images to fully load
+    options.page_load_strategy = 'eager'             # Don't wait for CSS/Images to fully load
 
     # Initialize WebDriver
     service = Service()
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(service=service, options=options)
     wait = WebDriverWait(driver, 10)
 
     try:

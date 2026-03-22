@@ -1,28 +1,82 @@
 from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from agent import BaseAgent
-from llama_cpp import Llama
 from router import IntentRouter
 from typing import Optional
 import sqlite3
+import time
+import logging
+import json
 from agri_tools import get_coords
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
+logger = logging.getLogger("krishi")
+
+import requests
 
 app = FastAPI(title="Krishi Mitra API")
 
-# --------------------------------------------------
-# LOAD MODEL
-# --------------------------------------------------
+class LlamaServerClient:
+    """Proxy class to talk to the standalone llama.cpp server API"""
+    def __call__(self, *args, **kwargs):
+        return self.create_chat_completion(*args, **kwargs)
+        
+    def create_chat_completion(self, messages, tools=None, tool_choice=None, temperature=0.7, max_tokens=None, response_format=None, stream=False):
+        payload = {
+            "messages": messages,
+            "temperature": temperature,
+        }
+        if tools: 
+            payload["tools"] = tools
+        if tool_choice: 
+            payload["tool_choice"] = tool_choice
+        if max_tokens: 
+            payload["max_tokens"] = max_tokens
+        if response_format: 
+            payload["response_format"] = response_format
+        if stream:
+            payload["stream"] = True
+            
+        try:
+            r = requests.post("http://127.0.0.1:8080/v1/chat/completions", json=payload, stream=stream)
+            r.raise_for_status()
+            
+            if stream:
+                def stream_gen():
+                    for line in r.iter_lines():
+                        if line:
+                            line = line.decode('utf-8')
+                            if line.startswith("data: "):
+                                data_str = line[6:]
+                                if data_str == "[DONE]":
+                                    break
+                                try:
+                                    yield json.loads(data_str)
+                                except json.JSONDecodeError:
+                                    pass
+                return stream_gen()
+            else:
+                resp_json = r.json()
+                # Qwen3/Reasoning models might separate the thought
+                choice = resp_json.get('choices', [{}])[0]
+                msg = choice.get('message', {})
+                if not msg.get('content') and msg.get('reasoning_content'):
+                    msg['content'] = f"<think>{msg['reasoning_content']}</think>"
+                elif msg.get('reasoning_content'):
+                    # Prepend if both exist
+                    msg['content'] = f"<think>{msg['reasoning_content']}</think>\n{msg['content']}"
+                return resp_json
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error calling local llama.cpp server: {e}")
+            if stream:
+                def error_gen():
+                    yield {"choices": [{"delta": {"content": "Error: Local LLM server unavailable."}}]}
+                return error_gen()
+            return {"choices": [{"message": {"content": "Error: Local LLM server unavailable."}}]}
 
-# model_path = r"C:\Users\anjal\Desktop\krishi-mitra\models\qwen2-0_5b-instruct-q4_k_m.gguf"
-model_path = "models/Qwen3-14B-Q4_K_M.gguf"
-
-SHARED_LLM = Llama(
-    model_path=model_path,
-    n_gpu_layers=0,
-    n_ctx=2048,
-    n_threads=6,
-    verbose=False
-)
+# model_path = "models/Qwen3-8B-Q4_K_M.gguf" (now loaded by server executable)
+SHARED_LLM = LlamaServerClient()
 
 router = IntentRouter(SHARED_LLM)
 
@@ -36,27 +90,35 @@ AGENTS = {
         system_prompt=(
             "You are Krishi Mitra, an expert Agronomist. "
             "ALWAYS use the 'get_soil_details' tool before recommending crops. "
-            "Use 'get_agri_forecast' before advising on irrigation."
+            "Use 'get_agri_forecast' before advising on irrigation. "
+            "CRITICAL: Provide direct, complete, and practical answers. "
+            "Do NOT ask follow-up questions. Do NOT ask the user for more information."
         ),
     ),
     "pest": BaseAgent(
         agent_mode="Pest & Disease",
         system_prompt=(
             "You are Krishi Mitra, a Plant Pathologist. "
-            "Use 'get_agri_forecast' before diagnosing fungal issues."
+            "Use 'get_agri_forecast' before diagnosing fungal issues. "
+            "CRITICAL: Provide direct, complete, and practical answers. "
+            "Do NOT ask follow-up questions. Do NOT ask the user for more information."
         ),
     ),
     "market": BaseAgent(
         agent_mode="Market Expert",
         system_prompt=(
             "You are Krishi Mitra, a Market Analyst. "
-            "ALWAYS use 'get_market_price' before answering."
+            "ALWAYS use 'get_market_price' before answering. "
+            "CRITICAL: Provide direct, complete, and practical answers. "
+            "Do NOT ask follow-up questions. Do NOT ask the user for more information."
         ),
     ),
     "finance": BaseAgent(
         agent_mode="Finance Advisor",
         system_prompt=(
-            "You are Krishi Mitra, a Banking Consultant for Farmers."
+            "You are Krishi Mitra, a Banking Consultant for Farmers. "
+            "CRITICAL: Provide direct, complete, and practical answers. "
+            "Do NOT ask follow-up questions. Do NOT ask the user for more information."
         ),
     )
 }
@@ -84,8 +146,11 @@ class UserRequest(BaseModel):
 @app.post("/register")
 async def register_endpoint(req: UserRequest):
     
+    lat, lon = 0.0, 0.0
+    
     if req.village=="":
-        lat, lon = get_coords(req.village, req.district)
+        coords = get_coords(req.village, req.district)
+        if coords: lat, lon = coords
     else:
         try:
             with open("maharashtra_districts_coords.json", "r") as f:
@@ -93,9 +158,9 @@ async def register_endpoint(req: UserRequest):
             
             # The JSON stores a list: [latitude, longitude]
             coords_list = district_coords.get(req.district)   
-            
-            lat = coords_list[0]
-            lon = coords_list[1]
+            if coords_list:
+                lat = coords_list[0]
+                lon = coords_list[1]
                 
         except Exception as e:
             print(f"Error loading district coords: {e}")
@@ -117,7 +182,7 @@ async def register_endpoint(req: UserRequest):
             UPDATE farmers
             SET name = ?, village = ?, district = ?, lat = ?, lon = ?
             WHERE user_id = ?
-        """, (req.name, req.village, req.district, req.user_id))
+        """, (req.name, req.village, req.district, lat, lon, req.user_id))
 
     conn.commit()
     conn.close()
@@ -125,13 +190,18 @@ async def register_endpoint(req: UserRequest):
 
 @app.post("/chat")
 async def chat_endpoint(req: ChatRequest):
+    total_start = time.time()
     
-    # 4. RUN ROUTER EVERY TIME (Fast & Cheap)
+    # 1. RUN ROUTER EVERY TIME (Fast & Cheap)
+    router_start = time.time()
     decision = router.classify(req.query, debug=True)
+    router_time = time.time() - router_start
+    logger.info(f"⏱️ Router: {router_time:.2f}s")
+    
     target = decision.get("agent", "crop")
     should_think = decision.get("think", False)
     
-    # 4. SESSION MANAGEMENT
+    # 2. SESSION MANAGEMENT
     if not req.session_id:
         # Brand new chat
         conn = sqlite3.connect("krishi.db")
@@ -142,19 +212,10 @@ async def chat_endpoint(req: ChatRequest):
         conn.commit()
         conn.close()
     
-    # Notice we don't need the 'else' block to fetch the old agent anymore!
-    # If the user switches topics mid-chat, 'target' smoothly shifts to the new agent 
-    # but keeps saving to the same session_id so the UI tab stays the same.
-
-    # 4. DISPATCH
+    # 3. DISPATCH
     active_agent = AGENTS.get(target, AGENTS["crop"])
     
-    # Pass 'should_think' down to the agent
-    reply = active_agent.run(req.query, req.session_id, req.user_id, should_think)
+    # Return the real-time generator
+    generator = active_agent.run(req.query, req.session_id, req.user_id, should_think)
     
-    return {
-        "reply": reply,
-        "session_id": req.session_id,
-        "agent": target
-    }  
-
+    return StreamingResponse(generator, media_type="application/x-ndjson")
