@@ -137,6 +137,7 @@ class ChatRequest(BaseModel):
     user_id: str
     query: str
     session_id: Optional[int] = None
+    output_language: Optional[str] = "English"
 
 class UserRequest(BaseModel):
     user_id: str
@@ -214,9 +215,13 @@ async def chat_endpoint(req: ChatRequest):
     # Execute the HyDE queries against their respective databases
     for plan in search_plans:
         search_q = plan.get("search_query", plan.get("query", ""))
+        print(f"\n[RAG DEBUG] Attempting to retrieve knowledge for domain '{plan.get('domain')}' using query: '{search_q}'...")
         knowledge = get_knowledge(search_q, plan.get("domain", "crop"))
         if knowledge:
+            print(f"[RAG DEBUG] Successfully retrieved {len(knowledge)} chars of verified data!")
             compiled_knowledge += knowledge + "\n"
+        else:
+            print(f"[RAG DEBUG] No confident semantic matches found.")
     
     # 2. SESSION MANAGEMENT
     if not req.session_id:
@@ -235,8 +240,13 @@ async def chat_endpoint(req: ChatRequest):
     final_query = req.query
     if compiled_knowledge.strip():
         # Append retrieved knowledge explicitly
+        print(f"[RAG DEBUG] Knowledge appended to model context successfully.")
         final_query += f"\n\n[RETRIEVED KNOWLEDGE BASE RESULTS]\n{compiled_knowledge.strip()}"
         
+    if req.output_language and req.output_language != "English":
+        print(f"[ROUTER DEBUG] Enforcing final model response translation natively to {req.output_language}")
+        final_query += f"\n\n[CRITICAL INSTRUCTION: You MUST translate your thought process and final response entirely into the {req.output_language} language. Keep the agricultural and technical terms accurate.]"
+
     # Return the real-time generator
     generator = active_agent.run(final_query, req.session_id, req.user_id, should_think)
     

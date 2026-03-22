@@ -62,5 +62,3 @@ def get_knowledge(query: str, domain: str, top_k: int = 5, threshold: float = 0.
     formatted_context = f"\n--- VERIFIED KNOWLEDGE: {domain.upper()} ---\n"
     formatted_context += "\n".join(hits)
     return formatted_context
-
-

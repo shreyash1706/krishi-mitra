@@ -143,6 +143,7 @@ To use a tool, you MUST output exactly this XML format:
                         new_chars = visible_now[yielded_content_len:]
                         yielded_content_len = len(visible_now)
                         if new_chars:
+                            print(f"\r[UI DEBUG] Extracted {yielded_content_len} visible tokens safely to chat window...   ", end="", flush=True)
                             yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
 
                     # Simultaneously extract reasoning dynamically to populate the expandable block
@@ -158,6 +159,7 @@ To use a tool, you MUST output exactly this XML format:
                         new_rc = current_think[yielded_reason_len:]
                         yielded_reason_len = len(current_think)
                         if new_rc:
+                            print(f"\r[UI DEBUG] Isolated {yielded_reason_len} reasoning tokens into expander...       ", end="", flush=True)
                             yield json.dumps({"reasoning": new_rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
 
             # If content was empty, fall back to reasoning_content
@@ -276,6 +278,7 @@ To use a tool, you MUST output exactly this XML format:
                             new_chars = visible_now[yielded_final_len:]
                             yielded_final_len = len(visible_now)
                             if new_chars:
+                                print(f"\r[UI DEBUG] Extracted {yielded_final_len} visible tokens safely to chat window... ", end="", flush=True)
                                 yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
                     if 'reasoning_content' in delta and delta['reasoning_content'] is not None:
                         rc = delta['reasoning_content']

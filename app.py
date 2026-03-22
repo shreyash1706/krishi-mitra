@@ -2,6 +2,21 @@ import streamlit as st
 import requests
 import json
 import copy
+import os
+from dotenv import load_dotenv
+from translator import KrishiMitraTranslator
+
+load_dotenv()
+
+# Initialize translator
+@st.cache_resource
+def get_translator():
+    api_key = os.getenv("SARVAM_API_KEY")
+    if api_key:
+        return KrishiMitraTranslator(api_key)
+    return None
+
+translator = get_translator()
 
 # --------------------------------------------------
 # CONFIG
@@ -19,6 +34,9 @@ if "user_details" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+
+if "language" not in st.session_state:
+    st.session_state.language = "English"
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = None
@@ -165,6 +183,11 @@ with st.sidebar:
 
     # 👨‍🌾 FARMER INFO
     st.subheader("👨‍🌾 Farmer Info")
+    st.session_state.language = st.selectbox(
+        "🌍 Select Language",
+        ["English", "Marathi"],
+        index=0 if st.session_state.language=="English" else 1
+    )
     st.write(f"Name: {st.session_state.user_details['name']}")
     st.write(f"Village: {st.session_state.user_details['village']}")
     st.write(f"District: {st.session_state.user_details['district']}")
@@ -246,9 +269,19 @@ if prompt := st.chat_input("Ask about crops, markets, pests..."):
 
     with st.chat_message("assistant"):
         try:
+            english_query = prompt
+            
+            # Translate Marathi user input to English for accurate RAG Retrieval
+            if st.session_state.language == "Marathi" and translator:
+                # Basic check if input is Marathi
+                if translator.detect_language(prompt) == 'mr':
+                    with st.spinner("🌍 Translating query..."):
+                        english_query = translator.translate(prompt, 'mr', 'en')
+
             payload = {
                 "user_id": USER_ID,
-                "query": prompt,
+                "query": english_query, # Send English for precise vector match
+                "output_language": st.session_state.language # Tell backend to streams Marathi
             }
 
             if st.session_state.session_id:
