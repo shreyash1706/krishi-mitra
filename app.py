@@ -1,329 +1,485 @@
 import streamlit as st
 import requests
-import sqlite3
+import json
+import copy
 import os
 from dotenv import load_dotenv
 from translator import KrishiMitraTranslator
 
-# --- LOAD ENVIRONMENT VARIABLES ---
-load_dotenv()  # Load variables from .env file
+# Load environment variables
+load_dotenv()
 
-# --- CONFIGURATION ---
+# --------------------------------------------------
+# CONFIG
+# --------------------------------------------------
+st.set_page_config(page_title="Krishi Mitra", page_icon="🚜", layout="wide")
+
 API_URL = "http://127.0.0.1:8000/chat"
-USER_ID = "farmer_demo_123"  # Hardcoded for testing
-# Get API key from environment variable
-SARVAM_API_KEY = os.getenv('SARVAM_API_KEY')
-DB_NAME = "krishi.db"  # Match your database name
 
-# Validate API key is present
-if not SARVAM_API_KEY:
-    st.error("⚠️ SARVAM_API_KEY not found in environment variables. Please check your .env file.")
-    st.stop()
-
-# --- DATABASE INITIALIZATION FUNCTION ---
-def init_database():
-    """Initialize the database with required tables if they don't exist"""
-    try:
-        conn = sqlite3.connect(DB_NAME)
-        c = conn.cursor()
-        
-        # Create farmers table
-        c.execute('''
-        CREATE TABLE IF NOT EXISTS farmers
-        (
-        user_id TEXT PRIMARY KEY,
-        name TEXT,
-        village TEXT,
-        district TEXT,
-        lat_long TEXT,
-        soil_details TEXT,
-        attributes_json TEXT
-        )'''
-        )
-        
-        # Create crop_cycles table
-        c.execute('''
-        CREATE TABLE IF NOT EXISTS crop_cycles (
-            cycle_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id TEXT, 
-            crop_name TEXT,
-            variety TEXT,
-            season TEXT,
-            year INTEGER,
-            sowing_date TEXT,
-            status INTEGER CHECK (status IN (0,1)),
-            yield TEXT,
-            issues_log_json TEXT,
-            FOREIGN KEY (user_id) REFERENCES farmers (user_id)
-        )''')
-        
-        # Create sessions table with TEXT session_id to match FastAPI expectations
-        c.execute('''
-        CREATE TABLE IF NOT EXISTS sessions (
-            session_id TEXT PRIMARY KEY,
-            user_id TEXT,
-            agent_mode TEXT,
-            title TEXT,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(user_id) REFERENCES farmers(user_id)
-        )''')
-        
-        # Create messages table
-        c.execute('''
-        CREATE TABLE IF NOT EXISTS messages (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            session_id TEXT,
-            role TEXT,
-            content TEXT,
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(session_id) REFERENCES sessions(session_id)
-        )''')
-        
-        conn.commit()
-        conn.close()
-        
-        # Create a default farmer if not exists
-        create_default_farmer()
-        
-        return True
-    except Exception as e:
-        st.error(f"Database initialization error: {e}")
-        return False
-
-def create_default_farmer():
-    """Create a default farmer for demo purposes"""
-    try:
-        conn = sqlite3.connect(DB_NAME)
-        c = conn.cursor()
-        
-        # Check if farmer exists
-        c.execute("SELECT user_id FROM farmers WHERE user_id = ?", (USER_ID,))
-        if not c.fetchone():
-            c.execute('''
-            INSERT INTO farmers (user_id, name, village, district, attributes_json)
-            VALUES (?, ?, ?, ?, ?)
-            ''', (USER_ID, "Demo Farmer", "Demo Village", "Demo District", "{}"))
-            conn.commit()
-            print(f"✅ Created default farmer: {USER_ID}")
-        
-        conn.close()
-    except Exception as e:
-        print(f"⚠️ Could not create default farmer: {e}")
-
-# Initialize translator (cached to avoid re-initializing on every rerun)
+# Initialize translator
 @st.cache_resource
-def init_translator():
-    return KrishiMitraTranslator(SARVAM_API_KEY)
+def get_translator():
+    api_key = os.getenv("SARVAM_API_KEY")
+    if api_key:
+        return KrishiMitraTranslator(api_key)
+    return None
 
-# Initialize database on app start
-@st.cache_resource
-def init_db_once():
-    return init_database()
+translator = get_translator()
 
-# Run database initialization
-db_initialized = init_db_once()
-if not db_initialized:
-    st.warning("⚠️ Database initialization issue. Some features may not work properly.")
+# --------------------------------------------------
+# LANGUAGE SUPPORT
+# --------------------------------------------------
+if "language" not in st.session_state:
+    st.session_state.language = "English"  # Default language
 
-translator = init_translator()
+if "last_language" not in st.session_state:
+    st.session_state.last_language = st.session_state.language
 
-st.set_page_config(page_title="Krishi Mitra", page_icon="🚜", layout="centered")
+# UI Translations
+translations = {
+    "English": {
+        "title": "🚜 Krishi Mitra",
+        "subtitle": "Your AI Farming Assistant",
+        "farmer_details": "Farmer Details",
+        "user_id": "User ID",
+        "name": "Name",
+        "select_district": "Select District",
+        "village": "Village / Taluka",
+        "enter_chat": "Enter Chat",
+        "new_chat": "➕ New Chat",
+        "your_chats": "💬 Your Chats",
+        "farmer_info": "👨‍🌾 Farmer Info",
+        "back_to_details": "🔙 Back to Details",
+        "logout": "🚪 Logout",
+        "logout_confirm": "⚠ Do you want to logout?",
+        "yes_logout": "✅ Yes, Logout",
+        "cancel": "❌ Cancel",
+        "ask_question": "Ask about crops, markets, pests...",
+        "analyzing": "Krishi-Mitra is analyzing your request",
+        "backend_error": "Backend not running",
+        "required_error": "User ID and Name required",
+        "register_error": "Failed to connect to backend",
+        "welcome": "Namaskar {}! How can I help you?",
+        "new_chat_welcome": "New chat started. How can I help?",
+        "agent_prefix": "🧭 Agent:",
+        "chat_title": "Chat",
+        "translation_status": "🌐 Translating..."
+    },
+    "Marathi": {
+        "title": "🚜 कृषी मित्र",
+        "subtitle": "तुमचा AI शेती सहाय्यक",
+        "farmer_details": "शेतकरी तपशील",
+        "user_id": "वापरकर्ता आयडी",
+        "name": "नाव",
+        "select_district": "जिल्हा निवडा",
+        "village": "गाव / तालुका",
+        "enter_chat": "चॅट सुरू करा",
+        "new_chat": "➕ नवीन चॅट",
+        "your_chats": "💬 तुमचे चॅट",
+        "farmer_info": "👨‍🌾 शेतकरी माहिती",
+        "back_to_details": "🔙 मागे",
+        "logout": "🚪 बाहेर पडा",
+        "logout_confirm": "⚠ तुम्हाला बाहेर पडायचे आहे का?",
+        "yes_logout": "✅ होय, बाहेर पडा",
+        "cancel": "❌ नको",
+        "ask_question": "पिके, बाजारभाव, कीड याबद्दल विचारा...",
+        "analyzing": "कृषी मित्र तुमची विचारणा विश्लेषित करत आहे",
+        "backend_error": "बॅकएंड सुरू नाही",
+        "required_error": "वापरकर्ता आयडी आणि नाव आवश्यक आहे",
+        "register_error": "बॅकएंडशी कनेक्ट झाले नाही",
+        "welcome": "नमस्कार {}! मी तुम्हाला कशी मदत करू शकते?",
+        "new_chat_welcome": "नवीन चॅट सुरू झाला. मी कशी मदत करू?",
+        "agent_prefix": "🧭 एजंट:",
+        "chat_title": "चॅट",
+        "translation_status": "🌐 भाषांतर करत आहे..."
+    }
+}
 
-# --- INITIALIZE SESSION STATE ---
+def t(key):
+    """Get translation for current language"""
+    # If user is logged in, use their stored language preference
+    if st.session_state.user_details and "language" in st.session_state.user_details:
+        lang = st.session_state.user_details["language"]
+    else:
+        lang = st.session_state.language
+    return translations[lang].get(key, key)
+
+def translate_to_english(text, source_lang):
+    """Translate text to English if needed"""
+    if not translator:
+        return text
+    
+    if source_lang == 'mr':
+        try:
+            with st.spinner(t("translation_status")):
+                translated = translator.translate(text, 'mr', 'en')
+                return translated
+        except Exception as e:
+            st.warning(f"Translation to English failed: {e}")
+            return text
+    return text
+
+def translate_to_marathi(text):
+    """Translate English response to Marathi if needed"""
+    if not translator:
+        return text
+    
+    if st.session_state.language == "Marathi":
+        try:
+            translated = translator.translate(text, 'en', 'mr')
+            return translated
+        except Exception as e:
+            st.warning(f"Translation to Marathi failed: {e}")
+            return text
+    return text
+
+def update_welcome_message_language():
+    """Update welcome message when language changes"""
+    if st.session_state.user_details and st.session_state.messages:
+        for msg in st.session_state.messages:
+            if msg["role"] == "assistant" and msg.get("agent") == "system":
+                name = st.session_state.user_details["name"]
+                current_lang = st.session_state.user_details.get("language", "English")
+                
+                if current_lang == "Marathi":
+                    # Check if message is in English and needs translation
+                    if "Namaskar" in msg["content"] or "How can I help" in msg["content"]:
+                        msg["content"] = "नमस्कार {}! मी तुम्हाला कशी मदत करू शकते?".format(name)
+                else:
+                    # Check if message is in Marathi and needs translation
+                    if "नमस्कार" in msg["content"]:
+                        msg["content"] = "Namaskar {}! How can I help you?".format(name)
+                break  # Only update the first system message
+
+# --------------------------------------------------
+# SESSION STATE INIT
+# --------------------------------------------------
+if "user_details" not in st.session_state:
+    st.session_state.user_details = None
+
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "Namaskar! I am Krishi Mitra. How can I help you with your farm today?", "agent": "system"}]
+    st.session_state.messages = []
+
 if "session_id" not in st.session_state:
     st.session_state.session_id = None
-if "last_input_lang" not in st.session_state:
-    st.session_state.last_input_lang = "en"
-if "auto_translate" not in st.session_state:
-    st.session_state.auto_translate = True
 
-# --- SIDEBAR (For Debugging) ---
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+if "show_logout_confirm" not in st.session_state:
+    st.session_state.show_logout_confirm = False
+
+if "viewing_history" not in st.session_state:
+    st.session_state.viewing_history = False
+
+# --------------------------------------------------
+# LOAD DISTRICT DATA
+# --------------------------------------------------
+try:
+    with open("maharashtra_district_coords.json", "r") as f:
+        district_data = json.load(f)
+    district_list = sorted(list(district_data.keys()))
+except FileNotFoundError:
+    district_list = ["Ahmednagar", "Pune", "Nashik", "Nagpur", "Kolhapur"]
+    st.warning("District coordinates file not found. Using default districts.")
+
+# --------------------------------------------------
+# PAGE 1 → FARMER DETAILS
+# --------------------------------------------------
+if st.session_state.user_details is None:
+
+    st.title(t("title"))
+    st.subheader(t("farmer_details"))
+
+    # Language selector at top
+    col1, col2 = st.columns([3, 1])
+    with col2:
+        language = st.selectbox(
+            "🌐 Language / भाषा",
+            ["English", "Marathi"],
+            index=0 if st.session_state.language == "English" else 1
+        )
+        if language != st.session_state.language:
+            st.session_state.language = language
+            st.rerun()
+
+    with st.form("user_form"):
+        user_id = st.text_input(t("user_id"))
+        name = st.text_input(t("name"))
+        district = st.selectbox(t("select_district"), district_list)
+        village = st.text_input(t("village"))
+
+        submitted = st.form_submit_button(t("enter_chat"))
+
+    if submitted:
+        if not user_id or not name:
+            st.error(t("required_error"))
+        else:
+            try:
+                response = requests.post(
+                    "http://127.0.0.1:8000/register",
+                    json={
+                        "user_id": user_id,
+                        "name": name,
+                        "village": village,
+                        "district": district
+                    },
+                    timeout=10
+                )
+                response.raise_for_status()
+            except requests.exceptions.RequestException as e:
+                st.error(f"{t('register_error')}: {e}")
+                st.stop()
+
+            # Capture the current language at registration time
+            current_lang = st.session_state.language
+            
+            st.session_state.user_details = {
+                "user_id": user_id,
+                "name": name,
+                "village": village,
+                "district": district,
+                "language": current_lang
+            }
+
+            # Generate welcome message in the correct language
+            if current_lang == "Marathi":
+                welcome_msg = "नमस्कार {}! मी तुम्हाला कशी मदत करू शकते?".format(name)
+            else:
+                welcome_msg = "Namaskar {}! How can I help you?".format(name)
+            
+            st.session_state.messages = [
+                {
+                    "role": "assistant",
+                    "content": welcome_msg,
+                    "agent": "system",
+                    "original_content": welcome_msg
+                }
+            ]
+
+            st.session_state.viewing_history = False
+            st.rerun()
+
+    st.stop()
+
+# --------------------------------------------------
+# SIDEBAR
+# --------------------------------------------------
 with st.sidebar:
-    st.header("⚙️ Developer Debug")
-    st.info(f"**Current Session ID:** {st.session_state.session_id}")
-    
-    # Database status indicator
-    db_status = "✅ Connected" if db_initialized else "❌ Issues"
-    st.caption(f"**Database:** {db_status}")
-    
-    # API Key status (don't show actual key for security)
-    api_status = "✅ Configured" if SARVAM_API_KEY else "❌ Missing"
-    st.caption(f"**Sarvam API:** {api_status}")
-    
-    # Show last detected language
-    last_lang = st.session_state.get("last_input_lang", "en")
-    lang_display = "🇮🇳 Marathi" if last_lang == "mr" else "🇬🇧 English"
-    st.caption(f"**Last input language:** {lang_display}")
-    
-    # Optional: Add translation toggle
-    st.session_state.auto_translate = st.checkbox("🔤 Auto-translate Marathi", 
-                                                  value=st.session_state.auto_translate,
-                                                  help="Automatically detect and translate Marathi queries")
-    
-    # Database debug button
-    if st.button("🔧 Check Database", use_container_width=True):
-        try:
-            conn = sqlite3.connect(DB_NAME)
-            c = conn.cursor()
-            c.execute("SELECT name FROM sqlite_master WHERE type='table';")
-            tables = c.fetchall()
-            st.success(f"Tables: {[t[0] for t in tables]}")
-            
-            # Check sessions
-            c.execute("SELECT COUNT(*) FROM sessions")
-            session_count = c.fetchone()[0]
-            st.info(f"Sessions: {session_count}")
-            
-            conn.close()
-        except Exception as e:
-            st.error(f"DB Error: {e}")
-    
-    st.caption("Watch the terminal running FastAPI to see the live tool calls and thinking process.")
-    
-    if st.button("🗑️ Clear Chat & Reset Session", use_container_width=True):
-        st.session_state.messages = [{"role": "assistant", "content": "Namaskar! I am Krishi Mitra. How can I help you with your farm today?", "agent": "system"}]
-        st.session_state.session_id = None
-        st.session_state.last_input_lang = "en"
+
+    st.title(t("title"))
+
+    # Language switcher in sidebar
+    language = st.selectbox(
+        "🌐 Language / भाषा",
+        ["English", "Marathi"],
+        index=0 if st.session_state.language == "English" else 1
+    )
+    if language != st.session_state.language:
+        st.session_state.language = language
+        # Update user_details language if logged in
+        if st.session_state.user_details:
+            st.session_state.user_details["language"] = language
+            # Update welcome message to new language
+            update_welcome_message_language()
         st.rerun()
 
-# --- MAIN UI ---
-st.title("🚜 Krishi Mitra")
-st.caption("Your AI Farming Assistant - Ask about crops, pests, markets, and schemes! | मराठीतही विचारा")
+    st.divider()
+
+    # ➕ NEW CHAT
+    if st.button(t("new_chat"), use_container_width=True):
+
+        current_chat = st.session_state.messages
+
+        if (
+            not st.session_state.viewing_history and
+            len(current_chat) > 1
+        ):
+            st.session_state.chat_history.append(
+                copy.deepcopy(current_chat)
+            )
+
+        st.session_state.viewing_history = False
+
+        # Get new chat welcome message in current language
+        if st.session_state.language == "Marathi":
+            new_chat_msg = "नवीन चॅट सुरू झाला. मी कशी मदत करू?"
+        else:
+            new_chat_msg = "New chat started. How can I help?"
+        
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "content": new_chat_msg,
+                "agent": "system",
+                "original_content": new_chat_msg
+            }
+        ]
+
+        st.session_state.session_id = None
+        st.rerun()
+
+    st.divider()
+
+    # 💬 CHAT HISTORY
+    st.subheader(t("your_chats"))
+
+    for i, chat in enumerate(reversed(st.session_state.chat_history)):
+
+        title = t("chat_title")
+        for msg in chat:
+            if msg["role"] == "user":
+                # Truncate to 25 chars
+                title = msg["content"][:25] if len(msg["content"]) > 25 else msg["content"]
+                break
+
+        if st.button(title, key=f"history_{i}"):
+            st.session_state.messages = copy.deepcopy(chat)
+            st.session_state.session_id = None
+            st.session_state.viewing_history = True
+            st.rerun()
+
+    st.divider()
+
+    # 👨‍🌾 FARMER INFO
+    st.subheader(t("farmer_info"))
+    st.write(f"{t('name')}: {st.session_state.user_details['name']}")
+    st.write(f"{t('village')}: {st.session_state.user_details['village'] or 'Not specified'}")
+    st.write(f"{t('select_district')}: {st.session_state.user_details['district']}")
+
+    st.divider()
+
+    # 🔙 BACK BUTTON
+    if st.button(t("back_to_details"), use_container_width=True):
+        st.session_state.user_details = None
+        st.session_state.messages = []
+        st.session_state.session_id = None
+        st.session_state.show_logout_confirm = False
+        st.session_state.viewing_history = False
+        st.rerun()
+
+    # --------------------------------------------------
+    # LOGOUT WITH CONFIRMATION
+    # --------------------------------------------------
+    if not st.session_state.show_logout_confirm:
+        if st.button(t("logout"), use_container_width=True):
+            st.session_state.show_logout_confirm = True
+            st.rerun()
+
+    if st.session_state.show_logout_confirm:
+        st.warning(t("logout_confirm"))
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button(t("yes_logout"), use_container_width=True):
+                st.session_state.clear()
+                st.rerun()
+
+        with col2:
+            if st.button(t("cancel"), use_container_width=True):
+                st.session_state.show_logout_confirm = False
+                st.rerun()
+
+# --------------------------------------------------
+# MAIN CHAT UI
+# --------------------------------------------------
+st.title(t("title"))
+st.caption(t("subtitle"))
 st.divider()
 
-# 1. Render existing chat history
+# Display chat messages with translation support
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
-        # Show language indicator if available
-        if msg.get("lang") == "mr":
-            st.caption("🇮🇳 **Marathi**")
-        elif msg.get("lang") == "en" and msg["role"] == "user":
-            st.caption("🇬🇧 **English**")
-            
-        # Show agent badge for assistant messages
-        if msg["role"] == "assistant" and msg.get("agent") != "system":
-            st.caption(f"🧭 Handled by: **{msg['agent'].upper()}** Agent")
+
+        agent = msg.get("agent")
+
+        if msg["role"] == "assistant" and agent and agent != "system":
+            st.caption(f"{t('agent_prefix')} {agent.upper()}")
+
+        # Display content (already in user's preferred language)
         st.markdown(msg["content"])
 
-# 2. Chat Input Trigger
-if prompt := st.chat_input("E.g., What's the price of onion in Pune? | कांद्याचे भाव काय आहेत?"):
-    
-    # STEP 1: Detect language of input
-    input_lang = translator.detect_language(prompt)
-    st.session_state.last_input_lang = input_lang
-    
-    # Show language indicator
-    lang_emoji = "🇮🇳" if input_lang == "mr" else "🇬🇧"
-    lang_name = "Marathi" if input_lang == "mr" else "English"
-    
-    # STEP 2: Translate to English if Marathi
-    if input_lang == "mr" and st.session_state.auto_translate:
-        with st.spinner("🔄 Translating to English..."):
-            try:
-                english_prompt = translator.translate(prompt, 'mr', 'en')
-                # Store original for display
-                display_prompt = prompt
-                api_query = english_prompt
-                st.session_state.messages.append({
-                    "role": "user", 
-                    "content": display_prompt,
-                    "lang": input_lang,
-                    "translated": english_prompt
-                })
-            except Exception as e:
-                st.error(f"Translation error: {e}")
-                # Fallback to original
-                display_prompt = prompt
-                api_query = prompt
-                st.session_state.messages.append({
-                    "role": "user", 
-                    "content": display_prompt,
-                    "lang": input_lang
-                })
-        with st.chat_message("user"):
-            st.caption(f"{lang_emoji} **{lang_name}**")
-            st.markdown(display_prompt)
-    else:
-        # English or translation disabled
-        display_prompt = prompt
-        api_query = prompt
-        st.session_state.messages.append({
-            "role": "user", 
-            "content": display_prompt,
-            "lang": input_lang
-        })
-        with st.chat_message("user"):
-            if input_lang == "mr":
-                st.caption(f"{lang_emoji} **{lang_name}**")
-            st.markdown(display_prompt)
+# --------------------------------------------------
+# CHAT INPUT WITH TRANSLATION
+# --------------------------------------------------
+if prompt := st.chat_input(t("ask_question")):
 
-    # 3. Call FastAPI Backend (always with English query)
+    st.session_state.viewing_history = False
+
+    USER_ID = st.session_state.user_details["user_id"]
+    
+    # Detect language of user input
+    if translator:
+        input_lang = translator.detect_language(prompt)
+    else:
+        input_lang = 'en'  # Default to English if translator not available
+    
+    # Add user message to chat (in original language)
+    st.session_state.messages.append({
+        "role": "user", 
+        "content": prompt,
+        "original_content": prompt,
+        "language": input_lang
+    })
+    
+    with st.chat_message("user"):
+        st.markdown(prompt)
+    
     with st.chat_message("assistant"):
-        with st.spinner("Krishi Mitra is analyzing your request..."):
+        with st.spinner(t("analyzing")):
+            
             try:
-                # Prepare payload - ALWAYS send English query to backend
+                # Translate query to English for LLM if needed
+                if input_lang == 'mr' and translator:
+                    english_query = translate_to_english(prompt, input_lang)
+                else:
+                    english_query = prompt
+                
+                # Send to backend
                 payload = {
                     "user_id": USER_ID,
-                    "query": api_query
+                    "query": english_query,
                 }
-                # Attach session_id if it's an ongoing chat
+                
                 if st.session_state.session_id:
                     payload["session_id"] = st.session_state.session_id
-
-                # Send Request with timeout
+                
                 response = requests.post(API_URL, json=payload, timeout=60)
-                response.raise_for_status() 
-                
+                response.raise_for_status()
                 data = response.json()
-                english_reply = data.get("reply", "Error: No reply generated.")
-                agent_used = data.get("agent", "unknown")
                 
-                # STEP 4: Translate back to Marathi if original was Marathi
-                if input_lang == "mr" and st.session_state.auto_translate:
-                    with st.spinner("🔄 Translating response to Marathi..."):
-                        try:
-                            final_reply = translator.translate(english_reply, 'en', 'mr')
-                        except Exception as e:
-                            st.warning(f"Translation error, showing English response: {e}")
-                            final_reply = english_reply
-                    st.caption(f"{lang_emoji} **Marathi Response**")
+                reply = data.get("reply", "No reply")
+                agent = data.get("agent")
+                
+                # Translate response to user's language if needed
+                if st.session_state.language == "Marathi" and translator:
+                    final_reply = translate_to_marathi(reply)
                 else:
-                    final_reply = english_reply
+                    final_reply = reply
                 
-                # Capture the new session ID if this was the first message
-                if not st.session_state.session_id and data.get("session_id"):
+                if not st.session_state.session_id:
                     st.session_state.session_id = data.get("session_id")
-
-                # Render Response
-                if agent_used != "unknown":
-                    st.caption(f"🧭 Handled by: **{agent_used.upper()}** Agent")
+                
+                if agent:
+                    st.caption(f"{t('agent_prefix')} {agent.upper()}")
+                
                 st.markdown(final_reply)
-
-                # Save to UI state
+                
+                # Store response in chat history
                 st.session_state.messages.append({
-                    "role": "assistant", 
+                    "role": "assistant",
                     "content": final_reply,
-                    "agent": agent_used,
-                    "lang": input_lang,
-                    "original_english": english_reply if input_lang == "mr" else None
+                    "original_content": reply,
+                    "agent": agent,
+                    "language": st.session_state.language
                 })
-
-            except requests.exceptions.ConnectionError:
-                st.error("❌ Cannot connect to backend. Is your FastAPI server running on port 8000?")
+                
             except requests.exceptions.Timeout:
-                st.error("❌ Request timed out. The backend is taking too long to respond.")
-            except requests.exceptions.HTTPError as e:
-                if response.status_code == 500:
-                    st.error("❌ Backend server error. Check the FastAPI terminal for details.")
-                    # Try to get more details
-                    try:
-                        error_detail = response.json().get("detail", "No details")
-                        st.caption(f"Error detail: {error_detail}")
-                    except:
-                        pass
-                else:
-                    st.error(f"❌ HTTP Error: {e}")
+                st.error("⏰ Request timed out. Please try again.")
+            except requests.exceptions.ConnectionError:
+                st.error("🔌 Cannot connect to backend. Make sure the server is running.")
+            except requests.exceptions.RequestException as e:
+                st.error(f"{t('backend_error')}: {str(e)}")
             except Exception as e:
-                st.error(f"❌ An error occurred: {e}")
+                st.error(f"Unexpected error: {str(e)}")

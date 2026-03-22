@@ -62,27 +62,31 @@ class BaseAgent:
         conn = sqlite3.connect('krishi.db')
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
-        c.execute("SELECT name, district, soil_details FROM farmers WHERE user_id = ?", (user_id,))
+        c.execute("SELECT name, district, soil_details, lat, lon FROM farmers WHERE user_id = ?", (user_id,))
         row = c.fetchone()
         conn.close()
         
         if row:
-            return f"User Name: {row['name']}. Location: {row['district']}. Soil: {row['soil_details']}."
+            return f"User Name: {row['name']}. Location: {row['district']} & Coordinates: {row['lat']}, {row['lon']}. Soil: {row['soil_details']}."
         return "No profile available for this user."
 
-    def run(self, user_query, session_id, user_id, should_think=True):
+    def run(self, user_query, session_id, user_id, should_think=True, compiled_knowledge=""):
         #TODO: get_faremr_profile not used to attach user details in the system prompt 
         # 1. Save the CLEAN message to the database for the user UI
         self.save_message(session_id, "user", user_query)
         history = self.get_history(session_id)
         
+        user_profile_string = self.get_farmer_profile(user_id)
         # --- THE FIX: INJECT THE THINKING TAG ---
         # Modify the very last message in the history (which is the query we just saved)
         if history and history[-1]["role"] == "user":
             tag = " /think" if should_think else " /no think"
             history[-1]["content"] += tag
 
-        full_system_prompt = self.system_prompt + self._get_todays_date_prompt()
+        full_system_prompt = f"{self.system_prompt}\n{self._get_todays_date_prompt()}\n\n[USER PROFILE DETAILS]\n{user_profile_string}"
+        if compiled_knowledge != "":
+            full_system_prompt += f"\n\n[COMPILED KNOWLEDGE]\n{compiled_knowledge}"
+
         messages = [{"role": "system", "content": full_system_prompt}] + history
 
         print(f"🤖 [{self.agent_mode}] Thinking Mode: {should_think}...")
@@ -127,10 +131,17 @@ class BaseAgent:
                         try:
                             # We unpack the dictionary as arguments into the function
                             tool_result = str(func(**tool_args))
+                            if func == get_soil_details:
+                                conn = sqlite3.connect("krishi.db")
+                                c = conn.cursor()
+                                c.execute("UPDATE farmers SET soil_details = ? WHERE user_id = ?", (tool_result, user_id))
+                                conn.commit()
+                                conn.close()
                         except Exception as e:
                             err_details = traceback.format_exc()
                             print(f"Crash dump:\n{err_details}")
                             tool_result = f"Error executing tool. Please try again"
+                        
                     else:
                         tool_result = f"Tool {tool_name} not found."
 
