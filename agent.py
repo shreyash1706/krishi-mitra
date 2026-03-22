@@ -107,44 +107,58 @@ To use a tool, you MUST output exactly this XML format:
             raw_content = ""
             reasoning_text = ""
 
-            def get_visible_text(text):
-                # Strip complete tool_call blocks
-                text = re.sub(r'<tool_call>.*?</tool_call>', '', text, flags=re.DOTALL)
-                # If there's an unclosed <tool_call>, truncate it
-                idx = text.rfind('<tool_call>')
-                if idx != -1:
-                    text = text[:idx]
-                # Check for partial tags at the end
-                tag = "<tool_call>"
-                for i in range(len(tag)-1, 0, -1):
-                    if text.endswith(tag[:i]):
-                        text = text[:-i]
-                        break
-                return text
-
             yielded_content_len = 0
+            yielded_reason_len = 0
 
             for chunk in output_stream:
                 delta = chunk.get('choices', [{}])[0].get('delta', {})
 
-                # Accumulate and stream reasoning_content live
+                # Accumulate and stream reasoning_content live (if natively supported by backend)
                 if 'reasoning_content' in delta and delta['reasoning_content'] is not None:
                     rc = delta['reasoning_content']
                     reasoning_text += rc
                     yield json.dumps({"reasoning": rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
 
-                # Stream content tokens LIVE to user safely
+                # Stream content tokens LIVE to user safely (handles <think> mapped inside text stream)
                 if 'content' in delta and delta['content'] is not None:
                     token = delta['content']
                     raw_content += token
 
-                    visible_now = get_visible_text(raw_content)
+                    # Extract visible text by obliterating all tags
+                    visible_now = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL)
+                    visible_now = re.sub(r'<tool_call>.*?</tool_call>', '', visible_now, flags=re.DOTALL)
                     
+                    idx = visible_now.rfind('<think>')
+                    if idx != -1: visible_now = visible_now[:idx]
+                    idx = visible_now.rfind('<tool_call>')
+                    if idx != -1: visible_now = visible_now[:idx]
+                    
+                    for tag in ["<tool_call>", "<think>"]:
+                        for i in range(len(tag)-1, 0, -1):
+                            if visible_now.endswith(tag[:i]):
+                                visible_now = visible_now[:-i]
+                                break
+                                
                     if len(visible_now) > yielded_content_len:
                         new_chars = visible_now[yielded_content_len:]
                         yielded_content_len = len(visible_now)
                         if new_chars:
                             yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+
+                    # Simultaneously extract reasoning dynamically to populate the expandable block
+                    think_blocks = re.findall(r'<think>(.*?)</think>', raw_content, flags=re.DOTALL)
+                    current_think = "".join(think_blocks)
+                    
+                    unclosed_idx = raw_content.rfind('<think>')
+                    closed_idx = raw_content.rfind('</think>')
+                    if unclosed_idx != -1 and unclosed_idx > closed_idx:
+                        current_think += raw_content[unclosed_idx + 7:]
+                        
+                    if len(current_think) > yielded_reason_len:
+                        new_rc = current_think[yielded_reason_len:]
+                        yielded_reason_len = len(current_think)
+                        if new_rc:
+                            yield json.dumps({"reasoning": new_rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
 
             # If content was empty, fall back to reasoning_content
             if not raw_content.strip() and reasoning_text.strip():
@@ -245,7 +259,19 @@ To use a tool, you MUST output exactly this XML format:
                     if 'content' in delta and delta['content'] is not None:
                         c = delta['content']
                         final_text += c
-                        visible_now = get_visible_text(final_text)
+                        
+                        visible_now = re.sub(r'<think>.*?</think>', '', final_text, flags=re.DOTALL)
+                        visible_now = re.sub(r'<tool_call>.*?</tool_call>', '', visible_now, flags=re.DOTALL)
+                        idx = visible_now.rfind('<think>')
+                        if idx != -1: visible_now = visible_now[:idx]
+                        idx = visible_now.rfind('<tool_call>')
+                        if idx != -1: visible_now = visible_now[:idx]
+                        for tag in ["<tool_call>", "<think>"]:
+                            for i in range(len(tag)-1, 0, -1):
+                                if visible_now.endswith(tag[:i]):
+                                    visible_now = visible_now[:-i]
+                                    break
+                                    
                         if len(visible_now) > yielded_final_len:
                             new_chars = visible_now[yielded_final_len:]
                             yielded_final_len = len(visible_now)
