@@ -17,8 +17,24 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger("krishi")
 
 import requests
+import os
+from translator import KrishiMitraTranslator
+
+api_key = os.getenv("SARVAM_API_KEY")
+translator = None
+if api_key:
+    translator = KrishiMitraTranslator(api_key)
 
 app = FastAPI(title="Krishi Mitra API")
+
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class LlamaServerClient:
     """Proxy class to talk to the standalone llama.cpp server API"""
@@ -202,6 +218,11 @@ async def register_endpoint(req: UserRequest):
 async def chat_endpoint(req: ChatRequest):
     total_start = time.time()
     
+    if req.output_language == "Marathi" and translator:
+        if translator.detect_language(req.query) == 'mr':
+            print(f"[TRANSLATION DEBUG] Translating Marathi query: {req.query}")
+            req.query = translator.translate(req.query, 'mr', 'en')
+    
     # 1. RUN ROUTER EVERY TIME (Fast & Cheap)
     router_start = time.time()
     decision = router.classify(req.query, debug=True)
@@ -254,3 +275,33 @@ async def chat_endpoint(req: ChatRequest):
     generator = active_agent.run(final_query, req.session_id, req.user_id, should_think)
     
     return StreamingResponse(generator, media_type="application/x-ndjson")
+
+@app.get("/sessions/{user_id}")
+async def get_sessions(user_id: str):
+    conn = sqlite3.connect("krishi.db")
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute("SELECT session_id, agent_mode, title, created_at FROM sessions WHERE user_id = ? ORDER BY created_at DESC", (user_id,))
+    sessions = [dict(row) for row in c.fetchall()]
+    conn.close()
+    return {"sessions": sessions}
+
+@app.delete("/sessions/{session_id}")
+async def delete_session(session_id: int):
+    conn = sqlite3.connect("krishi.db")
+    c = conn.cursor()
+    c.execute("DELETE FROM messages WHERE session_id = ?", (session_id,))
+    c.execute("DELETE FROM sessions WHERE session_id = ?", (session_id,))
+    conn.commit()
+    conn.close()
+    return {"status": "success", "message": "Chat deleted"}
+
+@app.get("/history/{session_id}")
+async def get_history(session_id: int):
+    conn = sqlite3.connect("krishi.db")
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    c.execute("SELECT role, content, timestamp FROM messages WHERE session_id = ? ORDER BY timestamp ASC", (session_id,))
+    messages = [dict(row) for row in c.fetchall()]
+    conn.close()
+    return {"messages": messages}

@@ -13,8 +13,6 @@ class BaseAgent:
     def __init__(self, agent_mode, system_prompt):
         self.agent_mode = agent_mode
         self.system_prompt = system_prompt
-
-        # main.py holds model instance
         self.llm = None
         self.tool_functions = {
             "get_agri_forecast": get_agri_forecast,
@@ -46,14 +44,14 @@ class BaseAgent:
         return [{"role": r["role"], "content": r["content"]} for r in rows]
 
     def save_message(self, session_id, role, content):
+        if not content or not content.strip(): return
         conn = sqlite3.connect("krishi.db")
         c = conn.cursor()
-        c.execute("INSERT INTO messages (session_id, role, content) VALUES (?,?,?)", (session_id, role, content))
+        c.execute("INSERT INTO messages (session_id, role, content) VALUES (?,?,?)", (session_id, role, content.strip()))
         conn.commit()
         conn.close()
 
     def get_farmer_profile(self, user_id):
-        """Fetches the farmer's profile to inject into the AI's brain."""
         conn = sqlite3.connect('krishi.db')
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
@@ -64,18 +62,51 @@ class BaseAgent:
             return f"User Name: {row['name']}. Location: {row['district']} & Coordinates: {row['lat']}, {row['lon']}. Soil: {row['soil_details']}."
         return "No profile available for this user."
 
+    def extract_visible_text(self, text):
+        """Robustly extracts visible text by removing <think> and <tool_call> tags safely."""
+        # 1. Remove all fully closed tags
+        clean = re.sub(r'<think>.*?</think>', '', text, flags=re.DOTALL)
+        clean = re.sub(r'<tool_call>.*?</tool_call>', '', clean, flags=re.DOTALL)
+        
+        # 2. Hide everything from the absolute first start tag to the end of string
+        # This handles cases where tags are currently opening but not yet closed
+        first_tag_pos = float('inf')
+        for tag in ["<think>", "<tool_call>"]:
+            pos = clean.find(tag)
+            if pos != -1:
+                first_tag_pos = min(first_tag_pos, pos)
+        
+        if first_tag_pos != float('inf'):
+            clean = clean[:first_tag_pos]
+            
+        # 3. Handle partial tag starts (e.g. "<thi") reaching the stream
+        for tag in ["<think>", "<tool_call>"]:
+            for i in range(len(tag) - 1, 0, -1):
+                if clean.endswith(tag[:i]):
+                    clean = clean[:-i]
+                    break
+        return clean
+
+    def extract_reasoning_text(self, text):
+        """Extracts text contained within <think> tags or trailing open <think> tags."""
+        think_blocks = re.findall(r'<think>(.*?)</think>', text, flags=re.DOTALL)
+        extracted = "".join(think_blocks)
+        
+        unclosed_idx = text.rfind('<think>')
+        closed_idx = text.rfind('</think>')
+        if unclosed_idx != -1 and unclosed_idx > closed_idx:
+            extracted += text[unclosed_idx + 7:]
+        return extracted
+
     def run(self, user_query, session_id, user_id, should_think=True):
         self.save_message(session_id, "user", user_query)
         history = self.get_history(session_id)
-
         user_profile_string = self.get_farmer_profile(user_id)
 
-        # Only append /no_think if should_think is False
         if history and history[-1]["role"] == "user":
             tag = " /think" if should_think else " /no_think"
             history[-1]["content"] += tag
 
-        # Build tool schema prompt since we no longer pass native tools array
         available_tools = [t["function"] for t in KRISHI_TOOLS if t["function"]["name"] in self.tool_functions]
         tools_str = json.dumps(available_tools, indent=2)
         tool_prompt = f"""
@@ -93,207 +124,117 @@ To use a tool, you MUST output exactly this XML format:
 
         def generate_stream():
             t0 = time.time()
+            
+            # --- SHARED STATE ---
+            buffers = {
+                "raw": "",        # Pass 1 full raw
+                "reasoning": "",  # Extracted reasoning from Pass 1
+                "visible": "",    # Extracted visible from Pass 1
+                "final_raw": "",  # Pass 2 full raw
+                "final_visible": "" # Extracted visible from Pass 2
+            }
+            yielded = {"content": 0, "reasoning": 0}
 
             # -------------------------------------------------------
-            # PASS 1: STREAM tokens live + detect tool calls
+            # PASS 1: STREAM detection
             # -------------------------------------------------------
             output_stream = self.llm.create_chat_completion(
-                messages=messages,
-                temperature=0.1,
-                max_tokens=4096,  # Increased to allow full reasoning blocks without cut-offs
-                stream=True
+                messages=messages, temperature=0.1, max_tokens=4096, stream=True
             )
-
-            raw_content = ""
-            reasoning_text = ""
-
-            yielded_content_len = 0
-            yielded_reason_len = 0
 
             for chunk in output_stream:
                 delta = chunk.get('choices', [{}])[0].get('delta', {})
-
-                # Accumulate and stream reasoning_content live (if natively supported by backend)
-                if 'reasoning_content' in delta and delta['reasoning_content'] is not None:
+                
+                # A. Handle native reasoning_content
+                if delta.get('reasoning_content'):
                     rc = delta['reasoning_content']
-                    reasoning_text += rc
+                    buffers["reasoning"] += rc
                     yield json.dumps({"reasoning": rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
-
-                # Stream content tokens LIVE to user safely (handles <think> mapped inside text stream)
-                if 'content' in delta and delta['content'] is not None:
+                
+                # B. Handle text content (where <think> might be hidden)
+                if delta.get('content'):
                     token = delta['content']
-                    raw_content += token
-
-                    # Extract visible text by obliterating all tags
-                    visible_now = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL)
-                    visible_now = re.sub(r'<tool_call>.*?</tool_call>', '', visible_now, flags=re.DOTALL)
+                    buffers["raw"] += token
                     
-                    idx = visible_now.rfind('<think>')
-                    if idx != -1: visible_now = visible_now[:idx]
-                    idx = visible_now.rfind('<tool_call>')
-                    if idx != -1: visible_now = visible_now[:idx]
+                    # 1. Update Reasoning Slot
+                    current_r = self.extract_reasoning_text(buffers["raw"])
+                    if len(current_r) > yielded["reasoning"]:
+                        yield json.dumps({"reasoning": current_r[yielded["reasoning"]:], "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                        yielded["reasoning"] = len(current_r)
                     
-                    for tag in ["<tool_call>", "<think>"]:
-                        for i in range(len(tag)-1, 0, -1):
-                            if visible_now.endswith(tag[:i]):
-                                visible_now = visible_now[:-i]
-                                break
-                                
-                    if len(visible_now) > yielded_content_len:
-                        new_chars = visible_now[yielded_content_len:]
-                        yielded_content_len = len(visible_now)
-                        if new_chars:
-                            print(f"\r[UI DEBUG] Extracted {yielded_content_len} visible tokens safely to chat window...   ", end="", flush=True)
-                            yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
-
-                    # Simultaneously extract reasoning dynamically to populate the expandable block
-                    think_blocks = re.findall(r'<think>(.*?)</think>', raw_content, flags=re.DOTALL)
-                    current_think = "".join(think_blocks)
-                    
-                    unclosed_idx = raw_content.rfind('<think>')
-                    closed_idx = raw_content.rfind('</think>')
-                    if unclosed_idx != -1 and unclosed_idx > closed_idx:
-                        current_think += raw_content[unclosed_idx + 7:]
-                        
-                    if len(current_think) > yielded_reason_len:
-                        new_rc = current_think[yielded_reason_len:]
-                        yielded_reason_len = len(current_think)
-                        if new_rc:
-                            print(f"\r[UI DEBUG] Isolated {yielded_reason_len} reasoning tokens into expander...       ", end="", flush=True)
-                            yield json.dumps({"reasoning": new_rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
-
-            # If content was empty, fall back to reasoning_content
-            if not raw_content.strip() and reasoning_text.strip():
-                raw_content = reasoning_text
-                # Strip think tags and display
-                visible = re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL).strip()
-                display_text = re.sub(r'<tool_call>.*?</tool_call>', '', visible, flags=re.DOTALL).strip()
-                if display_text:
-                    yield json.dumps({"chunk": display_text, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                    # 2. Update Visible Slot
+                    current_v = self.extract_visible_text(buffers["raw"])
+                    if len(current_v) > yielded["content"]:
+                        yield json.dumps({"chunk": current_v[yielded["content"]:], "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                        yielded["content"] = len(current_v)
             
-            t1 = time.time()
-            print(f"[AGENT] Pass 1: {len(raw_content)} chars in {t1-t0:.1f}s")
+            buffers["visible"] = self.extract_visible_text(buffers["raw"])
+
+            # Force final yield for any remaining visible text
+            final_v = self.extract_visible_text(buffers["raw"])
+            if len(final_v) > yielded["content"]:
+                yield json.dumps({"chunk": final_v[yielded["content"]:], "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                yielded["content"] = len(final_v)
 
             # -------------------------------------------------------
-            # Parse tool calls from raw content
+            # Parse tool calls
             # -------------------------------------------------------
             all_tools = []
-            xml_tool_matches = re.findall(r'<tool_call>(.*?)</tool_call>', raw_content, flags=re.DOTALL)
+            combined_text = buffers["raw"] + "\n" + buffers["reasoning"]
+            print("[AGENT DEBUG] Combined text size:", len(combined_text))
+            xml_tool_matches = re.findall(r'<tool_call>(.*?)</tool_call>', combined_text, flags=re.DOTALL)
+            print("[AGENT DEBUG] Tool matches count:", len(xml_tool_matches))
             for m in xml_tool_matches:
+                print("[AGENT DEBUG] Raw match:", repr(m))
                 try:
                     parsed = json.loads(m.strip())
                     all_tools.append({"name": parsed["name"], "args_str": json.dumps(parsed.get("arguments", {}))})
-                except:
-                    pass
+                    print("[AGENT DEBUG] Successfully parsed tool call.")
+                except Exception as e:
+                    print(f"[AGENT DEBUG] Failed to parse tool call: {e}")
 
-            has_tools = len(all_tools) > 0
-
-            if has_tools:
-                messages.append({"role": "assistant", "content": raw_content})
-
-                for tool_info in all_tools:
-                    tool_name = tool_info["name"]
-                    args_str = tool_info["args_str"]
-
-                    yield json.dumps({
-                        "chunk": f"\n\n🛠️ Using structural tool: **{tool_name}**... ",
-                        "agent": self.agent_mode,
-                        "session_id": session_id
-                    }) + "\n"
-
-                    t_tool_start = time.time()
-
-
-                    try:
-                        tool_args = json.loads(args_str) if args_str else {}
-                    except json.JSONDecodeError:
-                        tool_args = {}
-
+            if all_tools:
+                messages.append({"role": "assistant", "content": buffers["raw"]})
+                for tool in all_tools:
+                    tool_name, args_str = tool["name"], tool["args_str"]
+                    yield json.dumps({"reasoning": f"\n*(Taking action: {tool_name}...)*\n", "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                    
                     func = self.tool_functions.get(tool_name)
-                    if func:
-                        try:
-                            tool_result = str(func(**tool_args))
-                            if func == get_soil_details:
-                                conn = sqlite3.connect("krishi.db")
-                                c = conn.cursor()
-                                c.execute("UPDATE farmers SET soil_details = ? WHERE user_id = ?", (tool_result, user_id))
-                                conn.commit()
-                                conn.close()
-                        except Exception as e:
-                            traceback.print_exc()
-                            tool_result = f"Error executing tool: {e}"
-                    else:
-                        tool_result = f"Tool '{tool_name}' not found."
-
-                    t_tool_end = time.time()
-                    elapsed = t_tool_end - t_tool_start
-                    yield json.dumps({
-                        "chunk": f"*[Took {elapsed:.1f}s]*\n\n",
-                        "agent": self.agent_mode,
-                        "session_id": session_id
-                    }) + "\n"
-
-                    messages.append({
-                        "role": "user",
-                        "content": f"<tool_response>\n{tool_result}\n</tool_response>"
-                    })
-
-                messages.append({
-                    "role": "system",
-                    "content": "You have received the tool results. Provide the final answer to the user now. DO NOT output any <tool_call> tags. DO NOT ask for more information."
-                })
-
-                # -------------------------------------------------------
-                # PASS 2: Final answer with tool results (streamed live)
-                # -------------------------------------------------------
-                t2 = time.time()
+                    try:
+                        args = json.loads(args_str) if args_str else {}
+                        result = str(func(**args))
+                    except Exception as e:
+                        result = f"Error: {str(e)}"
+                    
+                    messages.append({"role": "user", "content": f"<tool_response>{result}</tool_response>"})
+                
+                messages.append({"role": "system", "content": "Provide final answer. NO thinking. NO tool calls."})
+                
+                # --- PASS 2 ---
+                yielded["content_pass2"] = 0
                 pass2_stream = self.llm.create_chat_completion(
-                    messages=messages,
-                    temperature=0.7,
-                    max_tokens=4096,
-                    stream=True
+                    messages=messages, temperature=0.7, max_tokens=2048, stream=True
                 )
-
-                final_text = ""
-                yielded_final_len = 0
-                for chunk in pass2_stream:
-                    delta = chunk.get('choices', [{}])[0].get('delta', {})
-                    if 'content' in delta and delta['content'] is not None:
-                        c = delta['content']
-                        final_text += c
-                        
-                        visible_now = re.sub(r'<think>.*?</think>', '', final_text, flags=re.DOTALL)
-                        visible_now = re.sub(r'<tool_call>.*?</tool_call>', '', visible_now, flags=re.DOTALL)
-                        idx = visible_now.rfind('<think>')
-                        if idx != -1: visible_now = visible_now[:idx]
-                        idx = visible_now.rfind('<tool_call>')
-                        if idx != -1: visible_now = visible_now[:idx]
-                        for tag in ["<tool_call>", "<think>"]:
-                            for i in range(len(tag)-1, 0, -1):
-                                if visible_now.endswith(tag[:i]):
-                                    visible_now = visible_now[:-i]
-                                    break
-                                    
-                        if len(visible_now) > yielded_final_len:
-                            new_chars = visible_now[yielded_final_len:]
-                            yielded_final_len = len(visible_now)
-                            if new_chars:
-                                print(f"\r[UI DEBUG] Extracted {yielded_final_len} visible tokens safely to chat window... ", end="", flush=True)
-                                yield json.dumps({"chunk": new_chars, "agent": self.agent_mode, "session_id": session_id}) + "\n"
-                    if 'reasoning_content' in delta and delta['reasoning_content'] is not None:
-                        rc = delta['reasoning_content']
-                        final_text += rc
-                        yield json.dumps({"reasoning": rc, "agent": self.agent_mode, "session_id": session_id}) + "\n"
-
-                t3 = time.time()
-                print(f"[AGENT] Pass 2: {len(final_text)} chars in {t3-t2:.1f}s | Total: {t3-t0:.1f}s")
-                clean_final = re.sub(r'<think>.*?</think>', '', final_text, flags=re.DOTALL).strip()
-                visible = re.sub(r'<tool_call>.*?</tool_call>', '', re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL), flags=re.DOTALL).strip()
-                self.save_message(session_id, "assistant", (visible + "\n\n" + clean_final).strip())
+                
+                for chunk_obj in pass2_stream:
+                    delta = chunk_obj.get('choices', [{}])[0].get('delta', {})
+                    token = delta.get('content', '') or delta.get('reasoning_content', '')
+                    if token:
+                        buffers["final_raw"] += token
+                        yield json.dumps({"chunk": token, "agent": self.agent_mode, "session_id": session_id}) + "\n"
+                
+                # In Pass 2 we told it NO THINKING, so whatever it generated IS the final visible text.
+                # Do NOT strip <think> because if it maliciously used <think> it would become empty.
+                buffers["final_visible"] = buffers["final_raw"]
+                
+                # Fallback if pass 2 was somehow empty but pass 1 had something
+                if not buffers["final_visible"].strip():
+                    buffers["final_visible"] = self.extract_visible_text(buffers["raw"])
+                
+                self.save_message(session_id, "assistant", buffers["final_visible"])
             else:
-                # No tools — save directly
-                visible = re.sub(r'<tool_call>.*?</tool_call>', '', re.sub(r'<think>.*?</think>', '', raw_content, flags=re.DOTALL), flags=re.DOTALL).strip()
-                self.save_message(session_id, "assistant", visible)
-                print(f"[AGENT] Done (no tools): {time.time()-t0:.1f}s total")
+                self.save_message(session_id, "assistant", final_v)
+                
+            print(f"[AGENT] Done. Session: {session_id}")
 
         return generate_stream()

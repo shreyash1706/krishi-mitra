@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  --color-brand-100: #f1f8e9;
+  --color-brand-500: #4caf50;
+  --color-brand-600: #2e7d32;
+  --color-brand-900: #1b5e20;
+  
+  --color-app-bg: #f8fafc;
+  --color-app-card: #ffffff;
+  --color-app-border: #e2e8f0;
+  --color-accent: #16a34a;
+}
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --accent: 142 71% 45%; 
+    --accent-foreground: 144 100% 11%;
+  }
+
+  body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-2xl;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-md border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+  
+  .farmer-gradient {
+    @apply bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600;
+  }
+  
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-500;
+  }
+
+  .premium-shadow {
+    box-shadow: 0 10px 40px -10px rgba(22, 163, 74, 0.3);
+  }
+}
+
+/* Custom Scrollbar for better UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.thinking-animation {
+  @apply relative;
+}
+.thinking-animation::before {
+  content: '';
+  @apply absolute -inset-2 rounded-full border-2 border-emerald-500/40;
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+.floating-icon {
+  animation: float 4s ease-in-out infinite;
+}
+

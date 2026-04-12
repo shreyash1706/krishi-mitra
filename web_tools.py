@@ -1,4 +1,4 @@
-from ddgs import DDGS
+from duckduckgo_search import DDGS
 
 def web_search(query: str, max_results: int = 3) -> str:
     print(f"🌐 [WEB SEARCH] Searching NEWS for: '{query}'")

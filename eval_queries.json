@@ -1,0 +1,545 @@
+[
+    {
+        "id": 1,
+        "query": "What is the recommended soil pH for cotton cultivation?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 2,
+        "query": "When is the ideal sowing time for rain-fed cotton?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 3,
+        "query": "What is the seed rate for G. hirsutum cotton?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 4,
+        "query": "How to manage weeds in cotton-red gram intercropping?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md",
+            "cu4.md",
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 5,
+        "query": "What is Sanjeevak and how is it used in organic cotton?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 6,
+        "query": "How much water does cotton need during its growth period?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 7,
+        "query": "What is the economics and profit of growing organic cotton?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 8,
+        "query": "What are the common diseases of cotton and how to control them?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "organic-cotton.md"
+        ]
+    },
+    {
+        "id": 9,
+        "query": "What is the seed rate for transplanted rice nursery?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 10,
+        "query": "Explain the System of Rice Intensification (SRI) method.",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 11,
+        "query": "What is the fertilizer dose for hybrids and HYVs of rice?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 12,
+        "query": "What are the main rice varieties grown in Konkan region?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md",
+            "nrri_research.md",
+            "rabi-agro-advisor.md",
+            "pop-maharashtra.md",
+            "icar_annual.md"
+        ]
+    },
+    {
+        "id": 13,
+        "query": "How to treat rice seeds before sowing in nursery?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 14,
+        "query": "What is the critical stage for irrigation in rice?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 15,
+        "query": "What are the spacing guidelines for SRI rice method?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 16,
+        "query": "What are the recommended green manures for rice fields?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 17,
+        "query": "Give details on the modified mat nursery method for rice.",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 18,
+        "query": "What is the weed management practice for transplanted rice?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 19,
+        "query": "What should be the optimum plant population for rice hybrids?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 20,
+        "query": "Which are the prominent early maturing varieties of rice?",
+        "collection": "crop_kb",
+        "expected_sources": [
+            "agriculture_maha.md"
+        ]
+    },
+    {
+        "id": 21,
+        "query": "What are the host plants for White grub?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 22,
+        "query": "Describe the life cycle and nature of damage caused by termites.",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 23,
+        "query": "How to identify and control locusts effectively?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 24,
+        "query": "What is the symptom of damage for pink stem borer?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 25,
+        "query": "How to manage yellow stem borer in paddy fields?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md",
+            "331-LECTURES-2011.md",
+            "agri_botany.md"
+        ]
+    },
+    {
+        "id": 26,
+        "query": "What does the damage of Brown Plant Hopper look like?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 27,
+        "query": "How to identify the White-backed plant hopper?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 28,
+        "query": "Describe the damage symptoms of Green leaf hopper.",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 29,
+        "query": "What is the economic threshold limit for Rice Hispa?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md",
+            "331-LECTURES-2011.md",
+            "StudyMaterialforMasterTrainers.md"
+        ]
+    },
+    {
+        "id": 30,
+        "query": "How to control rice leaf folder infestations?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md",
+            "331-LECTURES-2011.md",
+            "StudyMaterialforMasterTrainers.md"
+        ]
+    },
+    {
+        "id": 31,
+        "query": "What are the control measures for gundhi bug in rice?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md",
+            "agri_botany.md",
+            "331-LECTURES-2011.md"
+        ]
+    },
+    {
+        "id": 32,
+        "query": "How to recognize the symptoms of gall midge attack?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 33,
+        "query": "What are the host plants of grasshoppers in agriculture?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 34,
+        "query": "What is the management practice for hairy caterpillars?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 35,
+        "query": "How do you control white grub infestation in fields?",
+        "collection": "pests_kb",
+        "expected_sources": [
+            "insect-pests.md"
+        ]
+    },
+    {
+        "id": 36,
+        "query": "What is Crop Insurance?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 37,
+        "query": "Which crop insurance schemes are available in the country?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 38,
+        "query": "What is the main objective of Pradhan Mantri Fasal Bima Yojana?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 39,
+        "query": "What risks are covered under the PMFBY scheme?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 40,
+        "query": "Which crops can be covered under PMFBY?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 41,
+        "query": "Who is eligible to be covered under PMFBY insurance?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md",
+            "operational-guidelines-pmfby.md",
+            "pmfby-guidelines.md"
+        ]
+    },
+    {
+        "id": 42,
+        "query": "What are the cutoff dates for PMFBY enrollment?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 43,
+        "query": "How is the sum insured calculated for an individual farmer?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md",
+            "operational-guidelines-pmfby.md",
+            "aws-gui.md",
+            "pmfby-guidelines.md"
+        ]
+    },
+    {
+        "id": 44,
+        "query": "What is the process to collect PMFBY premium from non-loanee farmers?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 45,
+        "query": "What are the maximum premium rates payable by farmers under PMFBY?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 46,
+        "query": "How is the assessment of claim done in PMFBY?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md",
+            "operational-guidelines-pmfby.md",
+            "pmfby-guidelines.md"
+        ]
+    },
+    {
+        "id": 47,
+        "query": "How is the prevented sowing claim applicable to farmers?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 48,
+        "query": "What coverage is provided during the standing crop stage?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 49,
+        "query": "Are post-harvest losses covered under PMFBY?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md",
+            "pmfby-guidelines.md",
+            "operational-guidelines-pmfby.md"
+        ]
+    },
+    {
+        "id": 50,
+        "query": "Are localized calamities like hailstorm covered and how to claim them?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "FAQs.md"
+        ]
+    },
+    {
+        "id": 51,
+        "query": "What is the primary objective of the Maharashtra Provision of Facilities for Agricultural Credit by Banks Act, 1974?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "maharashtra-provision-of-facilities-for-agricultural.md"
+        ]
+    },
+    {
+        "id": 52,
+        "query": "What types of institutions are included within the definition of bank under this Act?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "maharashtra-provision-of-facilities-for-agricultural.md"
+        ]
+    },
+    {
+        "id": 53,
+        "query": "Can an agriculturist create a charge on land already mortgaged to a co-operative society in favour of a bank? If so, under what condition?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "maharashtra-provision-of-facilities-for-agricultural.md"
+        ]
+    },
+    {
+        "id": 54,
+        "query": "How is priority determined between charges created in favour of a bank, Government, or co-operative society?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "maharashtra-provision-of-facilities-for-agricultural.md"
+        ]
+    },
+    {
+        "id": 55,
+        "query": "Is registration of a charge or mortgage in favour of a bank mandatory under this Act?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "maharashtra-provision-of-facilities-for-agricultural.md"
+        ]
+    },
+    {
+        "id": 56,
+        "query": "What is the main objective of the Agri-Market Infrastructure scheme related to GrAMs and APMC markets?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "scheme-guidelines-for-agri.md"
+        ]
+    },
+    {
+        "id": 57,
+        "query": "What is the size of the initial corpus fund set up by NABARD for the Agri-Market Infrastructure Fund (AMIF)?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "scheme-guidelines-for-agri.md"
+        ]
+    },
+    {
+        "id": 58,
+        "query": "What is the operational period of this scheme including the moratorium period?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "scheme-guidelines-for-agri.md"
+        ]
+    },
+    {
+        "id": 59,
+        "query": "Who are the direct beneficiaries of the fund under this scheme, and how are funds transferred further?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "scheme-guidelines-for-agri.md"
+        ]
+    },
+    {
+        "id": 60,
+        "query": "What is the investment ceiling per GrAM and per APMC market under this scheme?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "scheme-guidelines-for-agri.md"
+        ]
+    },
+    {
+        "id": 61,
+        "query": "What is the main objective of the Maharashtra Agribusiness Network (MAGNET) project?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "agro-food-processing.md"
+        ]
+    },
+    {
+        "id": 62,
+        "query": "What financial facility does the Agriculture Infrastructure Fund (AIF) provide to support agricultural infrastructure projects?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "agro-food-processing.md"
+        ]
+    },
+    {
+        "id": 63,
+        "query": "What level of grant-in-aid is available under Operation Greens for projects in general and difficult areas?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "agro-food-processing.md"
+        ]
+    },
+    {
+        "id": 64,
+        "query": "What is the objective of the Integrated Cold Chain and Value Addition scheme under PMKSY?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "agro-food-processing.md"
+        ]
+    },
+    {
+        "id": 65,
+        "query": "What financial support is provided under the PMFME scheme for individual micro food processing units?",
+        "collection": "finance_kb",
+        "expected_sources": [
+            "agro-food-processing.md"
+        ]
+    }
+]

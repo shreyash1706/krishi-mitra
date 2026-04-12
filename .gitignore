@@ -35,3 +35,11 @@ krishi.db
 # --- Temporary/Lock Files ---
 .~lock.*
 *.swp
+
+# --- Llama Executables and Binaries ---
+llama-cpp/
+scratch/
+*.pdf
+*.pptx
+*.tex
+System Arch
