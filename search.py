@@ -16,7 +16,7 @@ CROP_COLLECTION_NAME = "crop_kb"
 FINANCE_COLLECTION_NAME = "finance_kb"
 PEST_COLLECTION_NAME = "pest_kb"
 MODEL_NAME = "all-MiniLM-L6-v2"
-QDRANT_PATH = "qdrant_storage"
+QDRANT_PATH = "../qdrant_storage"
 TOP_K = 5
 SIM_THRESHOLD = 0.5  # minimum cosine similarity to include a result
 

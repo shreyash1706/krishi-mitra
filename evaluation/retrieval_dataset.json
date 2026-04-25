@@ -1,0 +1,595 @@
+[
+  {
+    "question": "I want to grow soybeans after a grass cover crop. If I terminate rye late and plant inoculated soybean seeds, what nitrogen problems will I face and which dominates in cold soils?",
+    "expected_context": [
+      "high C:N ratio causes nitrogen immobilization",
+      "microbes consume soil nitrogen during decomposition",
+      "Rhizobium activity reduced in cold soils",
+      "low nitrogen availability early soybean growth"
+    ]
+  },
+  {
+    "question": "If a cotton farmer applies heavy nitrogen-rich manure, will legumes still fix full nitrogen in intercropping?",
+    "expected_context": [
+      "legumes reduce nitrogen fixation in high soil nitrogen",
+      "prefer available soil nitrogen over atmospheric fixation",
+      "nitrogen fixation decreases when soil nitrogen is abundant"
+    ]
+  },
+  {
+    "question": "What risk arises when using trap crops for whitefly compared to DBM trap crop strategy?",
+    "expected_context": [
+      "whitefly transmits yellow mosaic virus",
+      "trap crops may increase virus spread",
+      "whitefly has broad host range",
+      "requires destruction of trap crop before infection spreads"
+    ]
+  },
+  {
+    "question": "Can the same Trichoderma formulation be used for seed treatment and compost application?",
+    "expected_context": [
+      "different formulations required for seed and soil",
+      "seed treatment requires precise dosage",
+      "compost application is bulk soil treatment",
+      "formulations are not interchangeable"
+    ]
+  },
+  {
+    "question": "Can Azotobacter reduce fertilizer by 50% in hybrid maize varieties?",
+    "expected_context": [
+      "Azotobacter fixes nitrogen and solubilizes phosphorus",
+      "hybrid maize has higher nutrient demand",
+      "reduced fertilizer may limit hybrid yield",
+      "yield potential depends on adequate nutrient supply"
+    ]
+  },
+  {
+    "question": "What happens when high nitrogen fertilizer and pyrethroid sprays are used together in soybean?",
+    "expected_context": [
+      "high nitrogen promotes pest growth",
+      "pyrethroids kill natural enemies",
+      "pest resurgence occurs",
+      "increased virus transmission risk"
+    ]
+  },
+  {
+    "question": "Can a farmer immediately label produce as natural farming under NMNF after adopting practices?",
+    "expected_context": [
+      "NMNF requires certification process",
+      "organic certification needs conversion period",
+      "cannot immediately label produce",
+      "certification involves compliance and documentation"
+    ]
+  },
+  {
+    "question": "What happens if brassica cover crop is not properly incorporated for biofumigation?",
+    "expected_context": [
+      "biofumigation requires cell rupture",
+      "glucosinolates not activated without incorporation",
+      "no effective pest suppression",
+      "soil contact required for fumigation effect"
+    ]
+  },
+  {
+    "question": "Will Rhizobium from soybean benefit chickpea crops in rotation?",
+    "expected_context": [
+      "different Rhizobium strains required",
+      "no cross inoculation between crops",
+      "chickpea requires specific Rhizobium strain",
+      "re-inoculation necessary"
+    ]
+  },
+  {
+    "question": "What happens if rye cover crop is terminated late before planting crops?",
+    "expected_context": [
+      "high C:N ratio residue",
+      "nitrogen immobilization occurs",
+      "reduced nitrogen availability",
+      "possible weed and residue issues"
+    ]
+  },
+  {
+    "question": "If brassica cover crops are not incorporated and pesticide is later used, what two losses occur?",
+    "expected_context": [
+      "biofumigation effect fails",
+      "glucosinolates not converted to fumigants",
+      "pesticides kill natural enemies",
+      "pest resurgence risk increases"
+    ]
+  },
+  {
+    "question": "If alfalfa is not grazed in early summer, what pest risk develops and why?",
+    "expected_context": [
+      "dense growth promotes aphid outbreaks",
+      "aphids reproduce rapidly in warm conditions",
+      "lush nitrogen-rich tissue attracts pests",
+      "natural enemy access reduced in dense canopy"
+    ]
+  },
+  {
+    "question": "How does buckwheat as a border crop affect Trichogramma biological control?",
+    "expected_context": [
+      "provides nectar for beneficial insects",
+      "supports parasitoid survival",
+      "enhances effectiveness of biological control",
+      "does not replace need for Trichogramma release"
+    ]
+  },
+  {
+    "question": "Will Rhizobium from soybean crop support chickpea crop in next season?",
+    "expected_context": [
+      "soybean and chickpea use different Rhizobium strains",
+      "no cross compatibility",
+      "chickpea requires specific inoculation",
+      "re-inoculation is necessary"
+    ]
+  },
+  {
+    "question": "Should I plant rye, hairy vetch, or both after corn harvest with low nitrogen soil?",
+    "expected_context": [
+      "rye provides erosion control and quick establishment",
+      "hairy vetch fixes nitrogen",
+      "mixed planting balances C:N ratio",
+      "legume improves nitrogen availability"
+    ]
+  },
+  {
+    "question": "What risks occur when soybean is planted late in kharif season?",
+    "expected_context": [
+      "reduced growing season",
+      "moisture stress during pod filling",
+      "lower yield potential",
+      "delayed harvest risks"
+    ]
+  },
+  {
+    "question": "How is blast disease managed in organic rice?",
+    "expected_context": [
+      "pseudomonas fluorescens spray",
+      "apply during tillering stage",
+      "avoid excess nitrogen",
+      "humid conditions favor disease"
+    ]
+  },
+  {
+    "question": "What causes pollu beetle infestation in pepper gardens?",
+    "expected_context": [
+      "dense shade conditions",
+      "lack of pruning",
+      "poor aeration",
+      "monsoon humidity increases pests"
+    ]
+  },
+  {
+    "question": "What happens if weeding is delayed in cotton crop?",
+    "expected_context": [
+      "weed competition reduces yield",
+      "critical early growth stage affected",
+      "nutrient competition increases",
+      "yield loss up to 50 percent"
+    ]
+  },
+  {
+    "question": "Why should crop varieties match agro-climatic zones?",
+    "expected_context": [
+      "varieties adapted to local climate",
+      "soil and temperature suitability",
+      "improves yield performance",
+      "reduces pest and disease risk"
+    ]
+  },
+  {
+    "question": "What happens if cereal rye is terminated late before planting?",
+    "expected_context": [
+      "high C:N ratio causes nitrogen immobilization",
+      "seed formation creates weed problem",
+      "delayed decomposition",
+      "reduced nitrogen availability"
+    ]
+  },
+  {
+    "question": "Why is continuous soybean cropping harmful?",
+    "expected_context": [
+      "disease buildup in soil",
+      "dry root rot increases",
+      "monocropping reduces yield",
+      "crop rotation required"
+    ]
+  },
+  {
+    "question": "Why are pollinizer trees required in apple orchards?",
+    "expected_context": [
+      "cross pollination required",
+      "self incompatibility in apple",
+      "improves fruit set",
+      "increases yield"
+    ]
+  },
+  {
+    "question": "What is pest resurgence in crops?",
+    "expected_context": [
+      "insecticide kills natural enemies",
+      "pests reproduce rapidly",
+      "population rebounds higher",
+      "imbalanced ecosystem"
+    ]
+  },
+  {
+    "question": "What are eligibility conditions in NMNF scheme?",
+    "expected_context": [
+      "cluster enrollment required",
+      "natural farming practices needed",
+      "training other farmers required",
+      "limited financial support per acre"
+    ]
+  },
+  {
+    "question": "Can mortgaged land be leased without bank permission?",
+    "expected_context": [
+      "bank permission required",
+      "leasing without approval is illegal",
+      "mortgage restrictions apply",
+      "legal consequences possible"
+    ]
+  },
+  {
+    "question": "How should cucumbers be harvested for long-distance markets?",
+    "expected_context": [
+      "harvest at mature green stage",
+      "avoid overripe yellow fruits",
+      "maintain shelf life",
+      "early harvest improves quality"
+    ]
+  },
+  {
+    "question": "Why is downtime required in poultry farming?",
+    "expected_context": [
+      "prevents disease carryover",
+      "pathogen survival risk",
+      "cleaning and disinfection needed",
+      "recommended 3 to 4 week gap"
+    ]
+  },
+  {
+    "question": "What risks occur when planting cover crops late?",
+    "expected_context": [
+      "reduced biomass growth",
+      "failure to meet coverage targets",
+      "poor establishment",
+      "short growing window"
+    ]
+  },
+  {
+    "question": "What are symptoms of pesticide exposure in children?",
+    "expected_context": [
+      "toxicity from chemicals",
+      "gastrointestinal symptoms",
+      "neurological effects",
+      "medical attention required"
+    ]
+  },
+  {
+    "question": "What is the role of Krishi Sakhi in NMNF?",
+    "expected_context": [
+      "community awareness",
+      "training farmers",
+      "promoting natural farming",
+      "cluster support activities"
+    ]
+  },
+  {
+    "question": "Why should cover crop recommendations not be applied globally?",
+    "expected_context": [
+      "region specific climate differences",
+      "seasonal variations",
+      "soil and pest differences",
+      "local adaptation required"
+    ]
+  },
+  {
+    "question": "What happens when nitrogen fertilizer is applied during heavy rainfall?",
+    "expected_context": [
+      "nutrient leaching occurs",
+      "reduced fertilizer efficiency",
+      "waterlogging impact",
+      "timing of application matters"
+    ]
+  },
+  {
+    "question": "Why is soil pH important for soybean growth?",
+    "expected_context": [
+      "optimal pH improves nutrient availability",
+      "affects Rhizobium activity",
+      "acidic soil reduces yield",
+      "liming may be required"
+    ]
+  },
+  {
+    "question": "Why should pesticide spraying be avoided before rain?",
+    "expected_context": [
+      "rain washes chemicals away",
+      "reduces effectiveness",
+      "wastes input cost",
+      "timing depends on weather"
+    ]
+  },
+  {
+    "question": "Why are drought resistant crops preferred in dry regions?",
+    "expected_context": [
+      "better survival under water stress",
+      "stable yield",
+      "less irrigation required",
+      "climate suitability"
+    ]
+  },
+  {
+    "question": "What happens when soil has poor drainage?",
+    "expected_context": [
+      "waterlogging occurs",
+      "root oxygen deficiency",
+      "nutrient loss",
+      "reduced crop growth"
+    ]
+  },
+  {
+    "question": "Why is irrigation critical during reproductive stages?",
+    "expected_context": [
+      "affects grain formation",
+      "moisture stress reduces yield",
+      "critical growth stage",
+      "water demand increases"
+    ]
+  },
+  {
+    "question": "Why does high temperature affect wheat yield?",
+    "expected_context": [
+      "heat stress affects grain filling",
+      "reduces yield",
+      "affects pollination",
+      "accelerates crop maturity"
+    ]
+  },
+  {
+    "question": "Which pulse crop is better after paddy cultivation in wet soil conditions?",
+    "expected_context": [
+      "lentils tolerate residual moisture",
+      "post paddy soils are wet and compact",
+      "chickpea requires well drained soil",
+      "lentils suitable for rice fallow systems"
+    ]
+  },
+  {
+    "question": "How should a farmer choose between safflower and marigold in irrigated land?",
+    "expected_context": [
+      "safflower requires less water",
+      "marigold is high value crop",
+      "market access affects profitability",
+      "labor requirement differs"
+    ]
+  },
+  {
+    "question": "Why should farmers avoid using crop varieties from different agro-climatic zones?",
+    "expected_context": [
+      "zone specific adaptation required",
+      "temperature and rainfall differences",
+      "risk of poor yield",
+      "susceptibility to pests"
+    ]
+  },
+  {
+    "question": "Why should new crop varieties be tested before full adoption?",
+    "expected_context": [
+      "local performance may differ",
+      "trial plots reduce risk",
+      "validated varieties are safer",
+      "environment affects yield"
+    ]
+  },
+  {
+    "question": "What is the role of pheromone traps in pest management?",
+    "expected_context": [
+      "monitor adult pest population",
+      "detect pest activity timing",
+      "support decision making",
+      "used in integrated pest management"
+    ]
+  },
+  {
+    "question": "Why should groundnut be preferred over cucumber under water scarcity?",
+    "expected_context": [
+      "groundnut requires less water",
+      "cucumber has high irrigation demand",
+      "water availability limits crop choice",
+      "water stress reduces yield"
+    ]
+  },
+  {
+    "question": "What happens if biofertilizer root dip is skipped in organic rice?",
+    "expected_context": [
+      "reduced nutrient availability",
+      "poor phosphorus mobilization",
+      "lower nitrogen fixation",
+      "weak crop establishment"
+    ]
+  },
+  {
+    "question": "What is the difference between organic certification and natural farming certification?",
+    "expected_context": [
+      "organic requires conversion period",
+      "natural farming follows different principles",
+      "certification processes differ",
+      "documentation required"
+    ]
+  },
+  {
+    "question": "Why are different application methods needed for biocontrol agents?",
+    "expected_context": [
+      "different delivery systems required",
+      "liquid vs compost application",
+      "crop specific methods",
+      "application timing differs"
+    ]
+  },
+  {
+    "question": "How does slope affect row orientation in orchards?",
+    "expected_context": [
+      "contour planting prevents erosion",
+      "slope affects water runoff",
+      "light distribution varies",
+      "soil conservation important"
+    ]
+  },
+  {
+    "question": "Why should lime application be stopped at high soil pH?",
+    "expected_context": [
+      "high pH reduces nutrient availability",
+      "micronutrient deficiency risk",
+      "over correction harms soil",
+      "optimal pH range needed"
+    ]
+  },
+  {
+    "question": "Why is downtime important in poultry farming even with disinfectants?",
+    "expected_context": [
+      "pathogens survive in moist conditions",
+      "drying reduces infection risk",
+      "cleaning required before disinfection",
+      "time needed for pathogen reduction"
+    ]
+  },
+  {
+    "question": "Which agricultural technology should be prioritized for maximum return?",
+    "expected_context": [
+      "high yield improvement preferred",
+      "return on investment matters",
+      "crop value affects decision",
+      "resource optimization needed"
+    ]
+  },
+  {
+    "question": "How do biofertilizers and site specific nutrient management work together?",
+    "expected_context": [
+      "soil testing guides fertilizer use",
+      "biofertilizers reduce chemical input",
+      "nutrient efficiency improves",
+      "integrated nutrient management"
+    ]
+  },
+  {
+    "question": "Why is rejuvenation preferred over replanting in old orchards?",
+    "expected_context": [
+      "faster yield recovery",
+      "lower cost than replanting",
+      "uses existing root system",
+      "improves productivity"
+    ]
+  },
+  {
+    "question": "What causes pest resurgence after pesticide application?",
+    "expected_context": [
+      "natural enemies are killed",
+      "pests reproduce faster",
+      "ecosystem imbalance",
+      "overuse of chemicals"
+    ]
+  },
+  {
+    "question": "Why must jeevamrut application follow crop growth stages?",
+    "expected_context": [
+      "timing affects effectiveness",
+      "linked to plant growth stages",
+      "supports root development",
+      "misalignment reduces benefit"
+    ]
+  },
+  {
+    "question": "Why is Trichogramma effective only for certain pests?",
+    "expected_context": [
+      "parasitoid targets exposed eggs",
+      "egg location matters",
+      "accessibility affects success",
+      "pest biology important"
+    ]
+  },
+  {
+    "question": "What are requirements for organic certification for export?",
+    "expected_context": [
+      "conversion period required",
+      "documentation needed",
+      "certification body approval",
+      "inspection process"
+    ]
+  },
+  {
+    "question": "Why should chemical fertilizers be avoided in organic farming during drought?",
+    "expected_context": [
+      "affects certification status",
+      "does not solve water stress",
+      "can harm soil health",
+      "organic practices preferred"
+    ]
+  },
+  {
+    "question": "How do high yielding varieties and nitrogen affect pest pressure?",
+    "expected_context": [
+      "succulent growth attracts pests",
+      "high nitrogen increases susceptibility",
+      "combined effect worsens infestation",
+      "requires stronger pest management"
+    ]
+  },
+  {
+    "question": "Why are ETL thresholds less useful for epidemic pests?",
+    "expected_context": [
+      "rapid population increase",
+      "threshold crossed quickly",
+      "requires predictive approach",
+      "monitoring alone insufficient"
+    ]
+  },
+  {
+    "question": "Why should banned pesticides not be used even if available?",
+    "expected_context": [
+      "legal restrictions apply",
+      "high toxicity risk",
+      "environmental damage",
+      "approved alternatives exist"
+    ]
+  },
+  {
+    "question": "Why are trap crops effective in pest management?",
+    "expected_context": [
+      "attract pests away from main crop",
+      "reduce crop damage",
+      "improve monitoring",
+      "targeted control possible"
+    ]
+  },
+  {
+    "question": "Why does bank mortgage have priority over other loans?",
+    "expected_context": [
+      "legal priority defined",
+      "earlier charge takes precedence",
+      "bank rights protected",
+      "subsequent claims secondary"
+    ]
+  },
+  {
+    "question": "Why is written permission required for land transactions under mortgage?",
+    "expected_context": [
+      "legal compliance required",
+      "verbal approval invalid",
+      "protects ownership rights",
+      "avoids disputes"
+    ]
+  },
+  {
+    "question": "What protection does a farmer have against moneylenders if land is mortgaged?",
+    "expected_context": [
+      "bank has priority claim",
+      "moneylender claim secondary",
+      "legal process required",
+      "farmer rights protected"
+    ]
+  }
+]

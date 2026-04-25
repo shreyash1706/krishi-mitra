@@ -1,0 +1,82 @@
+[
+  {
+    "question": "Which fertilizer improves nitrogen content in soil for wheat crops?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "How can I control aphid infestation in cotton plants effectively?",
+    "expected_domain": "pest"
+  },
+  {
+    "question": "What government subsidies are available for drip irrigation systems in India?",
+    "expected_domain": "finance"
+  },
+  {
+    "question": "What are the best crop rotation practices to improve soil fertility?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "Which pesticide is recommended for controlling whiteflies in soybean?",
+    "expected_domain": "pest"
+  },
+  {
+    "question": "What financial schemes support farmers for purchasing seeds and fertilizers?",
+    "expected_domain": "finance"
+  },
+  {
+    "question": "How does green manuring help improve soil organic matter?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "What are the symptoms of fungal infections in crops and how can they be treated?",
+    "expected_domain": "pest"
+  },
+  {
+    "question": "What is the cost benefit of installing solar-powered irrigation systems?",
+    "expected_domain": "finance"
+  },
+  {
+    "question": "Which irrigation method is most efficient for water conservation in agriculture?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "How do nematodes affect crop yield and what control measures can be used?",
+    "expected_domain": "pest"
+  },
+  {
+    "question": "Are there any loan schemes available for small-scale farmers in Maharashtra?",
+    "expected_domain": "finance"
+  },
+  {
+    "question": "How does soil pH affect crop productivity and nutrient absorption?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "What integrated pest management techniques can reduce pesticide usage?",
+    "expected_domain": "pest"
+  },
+  {
+    "question": "What subsidies are provided under PM-KISAN scheme?",
+    "expected_domain": "finance"
+  },
+  {
+    "question": "Which crops are suitable for dryland farming conditions?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "How can farmers identify early signs of pest infestation in crops?",
+    "expected_domain": "pest"
+  },
+  {
+    "question": "What financial assistance is available for crop insurance under PMFBY?",
+    "expected_domain": "finance"
+  },
+  {
+    "question": "What are the benefits of cover crops in preventing soil erosion?",
+    "expected_domain": "crop"
+  },
+  {
+    "question": "Which biological methods can be used to control pests in organic farming?",
+    "expected_domain": "pest"
+  }
+]
